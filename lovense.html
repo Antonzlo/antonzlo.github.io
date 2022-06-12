@@ -6,9 +6,12 @@
 <button id="click" style='display:none;'>Try</button>
 
 </body>
-<script>function send() {
+<script>
+	let ip = '192-168-1-4';
+	if (/mobile/i.test(navigator.userAgent)) ip = '127-0-0-1';
+	function send() {
 let vib = document.querySelector('#str').value;
-fetch('https://127-0-0-1.lovense.club:30010/command',{
+fetch('https://'+ip+'.lovense.club:30010/command',{
 	method: 'post',
 	body: JSON.stringify({ command:"Function", action:'vibrate:'+vib, timeSec:0, apiVer:1 })
 
@@ -16,7 +19,7 @@ fetch('https://127-0-0-1.lovense.club:30010/command',{
 .then(console.log);
 }
 document.addEventListener("DOMContentLoaded", function(event) { 
-fetch('https://127-0-0-1.lovense.club:30010/command', {method:'post', body: '{  "command": "GetToys"}'}).then(e=>e.json()).then(e => {
+fetch('https://'+ip+'.lovense.club:30010/command', {method:'post', body: '{  "command": "GetToys"}'}).then(e=>e.json()).then(e => {
 	let toys = JSON.parse(e.data.toys);
 document.querySelector('out').innerText = JSON.stringify(Object.keys(toys).map(x=>toys[x].name + ' - ' + toys[x].battery));
 })
