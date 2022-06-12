@@ -7,7 +7,7 @@
 </body>
 <script>function send() {
 let vib = document.querySelector('#str').value;
-fetch('https://192-168-1-4.lovense.club:30010/command',{
+fetch('https://127-0-0-1.lovense.club:30010/command',{
 	method: 'post',
 	body: JSON.stringify({ command:"Function", action:'vibrate:'+vib, timeSec:5, apiVer:1 })
 
