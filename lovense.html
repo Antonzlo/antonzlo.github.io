@@ -8,8 +8,9 @@
 
 </body>
 <script>
+	let myStorage = window.localStorage;
 	let /*ip = '192-168-1-4';
-	if (/mobile/i.test(navigator.userAgent)) */ ip;
+	if (/mobile/i.test(navigator.userAgent)) */ ip = myStorage.getItem('lovense-demo-ip');
 	function send() {
 let vib = document.querySelector('#str').value;
 fetch('https://'+ip+'.lovense.club:30010/command',{
@@ -22,8 +23,11 @@ fetch('https://'+ip+'.lovense.club:30010/command',{
 	function ipChange(e) {
 		ip = e.target.value;
 		if(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i.test(ip)) {
+			
 			ip=ip.replace(/\./g,'-');
 			document.querySelector('#click').disabled=false;
+			myStorage.setItem('lovense-demo-ip',ip);
+			
 		} else document.querySelector('#click').disabled=true;
 		
 	}
@@ -34,7 +38,7 @@ document.querySelector('#out').innerText = Object.keys(toys).map(x=>`${toys[x].n
 }).catch(e=>alert(e));	
 	}
 document.addEventListener("DOMContentLoaded", function(event) { 
-
+if(ip) connect();
   document.querySelector('#click').addEventListener('click',connect);
 	document.querySelector('#ip').addEventListener('change',ipChange);
 	document.querySelector('#ip').addEventListener('keydown',(e)=>{
