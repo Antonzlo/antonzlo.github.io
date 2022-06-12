@@ -21,7 +21,7 @@ fetch('https://'+ip+'.lovense.club:30010/command',{
 document.addEventListener("DOMContentLoaded", function(event) { 
 fetch('https://'+ip+'.lovense.club:30010/command', {method:'post', body: '{  "command": "GetToys"}'}).then(e=>e.json()).then(e => {
 	let toys = JSON.parse(e.data.toys);
-document.querySelector('out').innerText = JSON.stringify(Object.keys(toys).map(x=>toys[x].name + ' - ' + toys[x].battery));
+document.querySelector('#out').innerText = JSON.stringify(Object.keys(toys).map(x=>toys[x].name + ' - ' + toys[x].battery));
 })
   document.querySelector('#click').addEventListener('click',send);
 	 document.querySelector('#str').addEventListener('input',send);
