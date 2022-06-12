@@ -9,11 +9,10 @@
 </body>
 <script>
 	let myStorage = window.localStorage;
-	let /*ip = '192-168-1-4';
-	if (/mobile/i.test(navigator.userAgent)) */ ip = myStorage.getItem('lovense-demo-ip');
+	let ip = myStorage.getItem('lovense-demo-ip') || '127-0-0-1', port = myStorage.getItem('lovense-demo-port')||30010;
 	function send() {
 let vib = document.querySelector('#str').value;
-fetch('https://'+ip+'.lovense.club:30010/command',{
+fetch('https://'+ip+'.lovense.club:'+port+'/command',{
 	method: 'post',
 	body: JSON.stringify({ command:"Function", action:'vibrate:'+vib, timeSec:0, apiVer:1 })
 
@@ -33,7 +32,7 @@ fetch('https://'+ip+'.lovense.club:30010/command',{
 	}
 	function connect() {
 	document.querySelector('#out').innerText = '';	
-	fetch('https://'+ip+'.lovense.club:30010/command', {method:'post', body: '{  "command": "GetToys"}'}).then(e=>e.json()).then(e => {
+	fetch('https://'+ip+'.lovense.club:'+port+'/command', {method:'post', body: '{  "command": "GetToys"}'}).then(e=>e.json()).then(e => {
 	let toys = JSON.parse(e.data.toys);
 document.querySelector('#out').innerText = Object.keys(toys).map(x=>`${toys[x].name}${toys[x].nickname ? ` (${toys[x].nickname})` : ''} - ${toys[x].battery}`).join('<br>');
 }).catch(e=>document.querySelector('#out').innerText = ''&&alert(e));	
