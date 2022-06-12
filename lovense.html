@@ -32,8 +32,9 @@ fetch('https://'+ip+'.lovense.club:'+port+'/command',{
 	}
 	function connect() {
 	document.querySelector('#out').innerText = '';	
-	fetch('https://'+ip+'.lovense.club:'+port+'/command', {method:'post', body: '{  "command": "GetToys"}'}).then(e=>e.json()).then(e => {
-	let toys = JSON.parse(e.data.toys);
+	fetch('https://'+ip+'.lovense.club:'+port+'/command', {method:'post', body: '{  "command": "GetToys"}'}).then(async e => {
+		e = await e.json();
+	global.toys = JSON.parse(e.data.toys);
 document.querySelector('#out').innerText = Object.keys(toys).map(x=>`${toys[x].name}${toys[x].nickname ? ` (${toys[x].nickname})` : ''} - ${toys[x].battery}`).join('<br>');
 }).catch(e=>document.querySelector('#out').innerText = ''&&alert(e));	
 	}
