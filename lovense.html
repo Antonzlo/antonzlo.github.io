@@ -38,7 +38,7 @@ document.querySelector('#out').innerText = Object.keys(toys).map(x=>`${toys[x].n
 }).catch(e=>alert(e));	
 	}
 document.addEventListener("DOMContentLoaded", function(event) { 
-if(ip) connect();
+if(ip) connect(document.querySelector('#ip').value = ip.replace(/-/g,'.'));
   document.querySelector('#click').addEventListener('click',connect);
 	document.querySelector('#ip').addEventListener('change',ipChange);
 	document.querySelector('#ip').addEventListener('keydown',(e)=>{
