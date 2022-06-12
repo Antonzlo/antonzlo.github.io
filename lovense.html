@@ -1,7 +1,8 @@
-<html><head><title>Lovense controller</title></head>
+<html><head><title>Lovense controller</title><meta name="viewport" content="width=device-width, initial-scale=1"></head>
 <body>
 
-<input id="str" type="number" max="20" min="0">
+<input id="str" type="range" placeholder='strength' max="20" min="0" style='writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical;'>
 <button id="click">Try</button>
 
 </body>
@@ -16,6 +17,7 @@ fetch('https://127-0-0-1.lovense.club:30010/command',{
 }
 document.addEventListener("DOMContentLoaded", function(event) { 
   document.querySelector('#click').addEventListener('click',send);
+	 document.querySelector('#str').addEventListener('change',send);
 });
 
 </script></html>
