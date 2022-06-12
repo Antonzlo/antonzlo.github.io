@@ -32,7 +32,7 @@ fetch('https://'+ip+'.lovense.club:'+port+'/command',{
 	}
 	function connect() {
 	document.querySelector('#out').innerText = 'Loading...';
-	await (async ()=>{
+	(async ()=>{
 	fetch('https://'+ip+'.lovense.club:'+port+'/command', {method:'post', body: '{  "command": "GetToys"}'}).then(async e => {
 		e = await e.json();
 	global.toys = JSON.parse(e.data.toys);
