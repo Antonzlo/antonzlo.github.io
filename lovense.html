@@ -3,6 +3,8 @@
 
 <input id="str" type="number" max="20" min="0">
 <button id="click">Try</button>
+
+</body>
 <script>function send() {
 let vib = document.querySelector('#str').value;
 fetch('https://192-168-1-4.lovense.club:30010/command',{
@@ -13,5 +15,4 @@ fetch('https://192-168-1-4.lovense.club:30010/command',{
 .then(console.log);
 }
 document.querySelector('#click').addEventListener('onclick',send);
-</script>
-</body></html>
+</script></html>
