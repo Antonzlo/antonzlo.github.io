@@ -17,7 +17,7 @@ fetch('https://'+ip+'.lovense.club:'+port+'/command',{
 	body: JSON.stringify({ command:"Function", action:'vibrate:'+vib, timeSec:0, apiVer:1 })
 
 }).then(e=>e.json())
-.then(console.log);
+.then(console.log).catch(e=>{document.querySelector('#str').disabled=true;document.querySelector('#out').innerText='Error ' + e});
 }
 	function ipChange(e) {
 		ip = e.target.value;
@@ -27,7 +27,7 @@ fetch('https://'+ip+'.lovense.club:'+port+'/command',{
 			document.querySelector('#click').disabled=false;
 			myStorage.setItem('lovense-demo-ip',ip);
 			
-		} else document.querySelector('#click').disabled=true;
+		} else document.querySelector('#str').disabled=document.querySelector('#click').disabled=true;
 		
 	}
 	function connect() {
@@ -36,9 +36,10 @@ fetch('https://'+ip+'.lovense.club:'+port+'/command',{
 	fetch('https://'+ip+'.lovense.club:'+port+'/command', {method:'post', body: '{  "command": "GetToys"}'}).then(async e => {
 		e = await e.json();
 	global.toys = JSON.parse(e.data.toys);
+	document.querySelector('#str').disabled=false;
 document.querySelector('#out').innerText = Object.keys(toys).map(x=>`${toys[x].name}${toys[x].nickname ? ` (${toys[x].nickname})` : ''} - ${toys[x].battery}`).join('<br>');
-}).catch(e=>document.querySelector('#out').innerText = 'Error1 - ' +(e.toString()));	
-	})().catch(e=>document.querySelector('#out').innerText = 'Error - '+(e).toString());
+}).catch(e=>document.querySelector('#str').disabled=true&&document.querySelector('#out').innerText = 'Error1 - ' +(e.toString()));	
+	})().catch(e=>document.querySelector('#str').disabled=true&&document.querySelector('#out').innerText = 'Error - '+(e).toString());
 	}
 document.addEventListener("DOMContentLoaded", function(event) { 
 if(ip) connect(document.querySelector('#ip').value = ip.replace(/-/g,'.'));
