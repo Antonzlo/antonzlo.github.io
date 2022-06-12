@@ -10,14 +10,14 @@
 let vib = document.querySelector('#str').value;
 fetch('https://127-0-0-1.lovense.club:30010/command',{
 	method: 'post',
-	body: JSON.stringify({ command:"Function", action:'vibrate:'+vib, timeSec:5, apiVer:1 })
+	body: JSON.stringify({ command:"Function", action:'vibrate:'+vib, timeSec:0, apiVer:1 })
 
 }).then(e=>e.json())
 .then(console.log);
 }
 document.addEventListener("DOMContentLoaded", function(event) { 
   document.querySelector('#click').addEventListener('click',send);
-	 document.querySelector('#str').addEventListener('change',send);
+	 document.querySelector('#str').addEventListener('input',send);
 });
 
 </script></html>
