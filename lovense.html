@@ -6,8 +6,7 @@ fetch('https://192-168-1-4.lovense.club:30010/command',{
 	method: 'post',
 	body: JSON.stringify({ command:"Function",action:'vibrate:'+vib,timeSec:5, apiVer:1})
 	//body:`{ "lat1": "61.156985","long1": "28.738960","lat2": "61.157883","long2": "28.740822" }`
-}).then(async e=>e.status + await e.json()).then(document.write
-                                                ));
+}).then(async e=>e.status + await e.json()).then(document.write);
 }
 </script>
 <input id="str" type="number" max="20" min="0"><input type="submit" value="try" onclick="send">
