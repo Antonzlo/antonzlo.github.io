@@ -38,8 +38,8 @@ fetch('https://'+ip+'.lovense.club:'+port+'/command',{
 	global.toys = JSON.parse(e.data.toys);
 	document.querySelector('#str').disabled=false;
 document.querySelector('#out').innerText = Object.keys(toys).map(x=>`${toys[x].name}${toys[x].nickname ? ` (${toys[x].nickname})` : ''} - ${toys[x].battery}`).join('<br>');
-}).catch(e=>document.querySelector('#str').disabled=true&&document.querySelector('#out').innerText = 'Error1 - ' +(e.toString()));	
-	})().catch(e=>document.querySelector('#str').disabled=true&&document.querySelector('#out').innerText = 'Error - '+(e).toString());
+}).catch(e=>(document.querySelector('#str').disabled=true) && ( document.querySelector('#out').innerText = 'Error1 - ' +e.toString() )  );	
+	})().catch(e=>(document.querySelector('#str').disabled=true)&&(document.querySelector('#out').innerText = 'Error - '+e.toString() ) );
 	}
 document.addEventListener("DOMContentLoaded", function(event) { 
 if(ip) connect(document.querySelector('#ip').value = ip.replace(/-/g,'.'));
