@@ -14,5 +14,8 @@ fetch('https://192-168-1-4.lovense.club:30010/command',{
 }).then(e=>e.json())
 .then(console.log);
 }
-document.querySelector('#click').addEventListener('onclick',send);
+document.addEventListener("DOMContentLoaded", function(event) { 
+  document.querySelector('#click').addEventListener('onclick',send);
+});
+
 </script></html>
