@@ -1,6 +1,6 @@
 <html><head><title>Lovense controller</title><meta name="viewport" content="width=device-width, initial-scale=1"></head>
 <body style='margin:0px;padding:0px;'>
-	<p id='out' style='position:absolute;right: 10px; top:10px;'></p>
+	<p id='out' style='position:absolute;right: 10px; top:30px;'></p>
 <input id="str" type="range" placeholder='strength' max="20" min="0" value="0" style='writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical;height: 99%'>
 	<input type='text' id='ip' style='position:absolute;right:10px;top:20px;' placeholder='ip' value='127.0.0.1'>
@@ -30,7 +30,7 @@ fetch('https://'+ip+'.lovense.club:30010/command',{
 	function connect() {
 	fetch('https://'+ip+'.lovense.club:30010/command', {method:'post', body: '{  "command": "GetToys"}'}).then(e=>e.json()).then(e => {
 	let toys = JSON.parse(e.data.toys);
-document.querySelector('#out').innerText = JSON.stringify(Object.keys(toys).map(x=>`${toys[x].name}${toys[x].nickname ? ` (${toys[x].nickname})` : ''} - ${toys[x].battery}`));
+document.querySelector('#out').innerText = Object.keys(toys).map(x=>`${toys[x].name}${toys[x].nickname ? ` (${toys[x].nickname})` : ''} - ${toys[x].battery}`).join('<br>');
 }).catch(e=>alert(e));	
 	}
 document.addEventListener("DOMContentLoaded", function(event) { 
