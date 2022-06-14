@@ -173,12 +173,14 @@ function setupHterm() {
         const io = this.io.push();
         io.onVTKeystroke = (string) => {
             console.log(string, string=='\r');
-            temp+=(string); if(string=='\r')    nusSendString(temp);
+            temp+=(string); if(string=='\r')    {
+                nusSendString(temp);temp='';
+            }
         };
         io.sendString = nusSendString;
         initContent(io);
         this.setCursorVisible(true);
-        this.keyboard.characterEncoding = 'raw';
+        this.keyboard.characterEncoding = 'utf8';
     };
     term.decorate(document.querySelector('#terminal'));
     term.installKeyboard();
