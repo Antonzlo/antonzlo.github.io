@@ -171,9 +171,9 @@ function setupHterm() {
 
     term.onTerminalReady = function() {
         const io = this.io.push();
-        io.onVTKeystroke = (string) => {
+        /*io.onVTKeystroke = (string) => {
             nusSendString(string);
-        };
+        };*/
         io.sendString = nusSendString;
         initContent(io);
         this.setCursorVisible(true);
