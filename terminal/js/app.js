@@ -65,7 +65,7 @@ function connect() {
     .then(characteristic => {
         rxCharacteristic = characteristic.find(x=>x?.properties.write);
         console.log('Found RX characteristic');
-        retuen characteristic;
+        return characteristic;
     })
     .then(characteristic => {
         txCharacteristic = characteristic.find(x=>x?.properties.notify);
