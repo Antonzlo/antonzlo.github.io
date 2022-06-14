@@ -173,7 +173,7 @@ function setupHterm() {
         const io = this.io.push();
         io.onVTKeystroke = (string) => {
             console.log(string, string=='\r');
-            temp+=(string); if(string=='\r')    nusSendString(string);
+            temp+=(string); if(string=='\r')    nusSendString(temp);
         };
         io.sendString = nusSendString;
         initContent(io);
