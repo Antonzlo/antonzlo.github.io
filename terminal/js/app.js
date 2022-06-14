@@ -9,7 +9,7 @@ var bleServer;
 var nusService;
 var rxCharacteristic;
 var txCharacteristic;
-
+let temp = '';
 var connected = false;
 
 function connectionToggle() {
@@ -171,9 +171,9 @@ function setupHterm() {
 
     term.onTerminalReady = function() {
         const io = this.io.push();
-        /*io.onVTKeystroke = (string) => {
-            nusSendString(string);
-        };*/
+        io.onVTKeystroke = (string) => {
+            temp.push(string); if(string=='\r')    nusSendString(string);
+        };
         io.sendString = nusSendString;
         initContent(io);
         this.setCursorVisible(true);
