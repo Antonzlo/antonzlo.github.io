@@ -172,6 +172,7 @@ function setupHterm() {
     term.onTerminalReady = function() {
         const io = this.io.push();
         io.onVTKeystroke = (string) => {
+            console.log(string, string=='\r');
             temp+=(string); if(string=='\r')    nusSendString(string);
         };
         io.sendString = nusSendString;
