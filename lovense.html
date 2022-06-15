@@ -32,7 +32,7 @@ var bleServer;
 var nusService;
 var rxCharacteristic;
 var txCharacteristic;
-let temp = '';
+let temp = '',queue = [];
 var connected = false;
 
 function connectionToggle() {
@@ -156,7 +156,7 @@ function handleNotifications(event) {
 	if(/\w:\d{1,2}:\w{12};/i.test(str)) document.querySelector('#out').innerText = str;
 	if(/\d{1,2};/i.test(str)) document.querySelector('#out').innerText += str;
 }
-
+let isnext = false;
 async function snd(s) {
     if(bleDevice && bleDevice.gatt.connected) {
         console.log("send: " + s);
@@ -166,7 +166,9 @@ async function snd(s) {
             let val = s[i].charCodeAt(0);
             val_arr[i] = val;
         }
-        await sendNextChunk(val_arr);
+	    queue.push(s);
+	    if(!isnext) next();
+        //await sendNextChunk(val_arr);
     } else {
         console.log('Not connected to a device yet.');
     }
@@ -183,8 +185,12 @@ async function sendNextChunk(a) {
 }
 
 
-
-
+async function next () {
+	isnext = true;
+	if(bleDevice && bleDevice.gatt.connected && queue.length > 0) {
+ 		await rxCharacteristic.writeValue(queue.splice(0,1)).then(next);	
+	} else isnext = false;
+}
 
 	async function send() {
 let vib = document.querySelector('#str').value;
