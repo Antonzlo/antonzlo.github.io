@@ -106,7 +106,7 @@ function connect() {
         connected = true;
         //window.term_.io.println('\r\n' + bleDevice.name + ' Connected.');
         //nusSendString('\r');
-	    snd('DeviceType;Battery;')//,then(()=>snd('Battery;'));
+	    snd('DeviceType;').then(()=>snd('Battery;'));
         setConnButtonState(true);
     })
     .catch(error => {
