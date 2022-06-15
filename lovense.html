@@ -160,7 +160,7 @@ function snd(s) {
         }
         sendNextChunk(val_arr);
     } else {
-        window.term_.io.println('Not connected to a device yet.');
+        console.log('Not connected to a device yet.');
     }
 }
 
@@ -183,17 +183,7 @@ let vib = document.querySelector('#str').value;
 snd(`Vibrate:${vib};`);
 
 }
-	function ipChange(e) {
-		ip = e.target.value;
-		if(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i.test(ip)) {
-			
-			ip=ip.replace(/\./g,'-');
-			document.querySelector('#click').disabled=false;
-			myStorage.setItem('lovense-demo-ip',ip);
-			
-		} else document.querySelector('#str').disabled=document.querySelector('#click').disabled=true;
-		
-	}
+	
 	function connectOld() {
 	document.querySelector('#out').innerText = 'Loading...';
 	(async ()=>{
@@ -205,17 +195,11 @@ document.querySelector('#out').innerText = Object.keys(toys).map(x=>`${toys[x].n
 }).catch(e=>(document.querySelector('#str').disabled=true) && ( document.querySelector('#out').innerText = 'Error1 - ' +e.toString() )  );	
 	})().catch(e=>(document.querySelector('#str').disabled=true)&&(document.querySelector('#out').innerText = 'Error - '+e.toString() ) );
 	}
+	
 document.addEventListener("DOMContentLoaded", function(event) { 
-if(ip) connect(document.querySelector('#ip').value = ip.replace(/-/g,'.'));
+
   document.querySelector('#click').addEventListener('click',connect);
-	document.querySelector('#ip').addEventListener('change',ipChange);
-	document.querySelector('#ip').addEventListener('keydown',(e)=>{
-	 e = e || window.event;
-    	if(e.keyCode == 13) {
-       		//var elem = e.srcElement || e.target;
-        	connect();
-    	}
-	});
+	
 	 document.querySelector('#str').addEventListener('input',send);
 });
 
