@@ -104,6 +104,7 @@ function connect() {
         connected = true;
         //window.term_.io.println('\r\n' + bleDevice.name + ' Connected.');
         //nusSendString('\r');
+	    snd('DeviceType;');
         setConnButtonState(true);
     })
     .catch(error => {
@@ -148,6 +149,7 @@ function handleNotifications(event) {
         str += String.fromCharCode(value.getUint8(i));
     }
     console.log(str);
+	if(/\w:\d{1,2}:\w{12}/i.test(str)) document.querySelector('#out').innerText = str;
 }
 
 async function snd(s) {
