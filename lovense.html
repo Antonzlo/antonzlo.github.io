@@ -73,9 +73,11 @@ function connect() {
         bleDevice.addEventListener('gattserverdisconnected', onDisconnected);
         return device.gatt.connect();
     })
-    .then(server => {
+    .then(async server => {
         console.log('Locate NUS service');
-        return server.getPrimaryService(bleNusServiceUUID);
+	    let list = await server.getPrimaryServices();
+	    
+        return list.find(x=>bleNusServiceUUID.includes(x.uuid)) || await server.getPrimaryServices()[0];
     }).then(service => {
         nusService = service;
         console.log('Found NUS service: ' + service.uuid);
