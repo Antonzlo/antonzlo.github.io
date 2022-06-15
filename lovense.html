@@ -25,7 +25,7 @@
 	let myStorage = window.localStorage;
 	const bleNusServiceUUID  = "50300001-0023-4bd4-bbd5-a6920e4c5653";
 
-const MTU = 26;
+const MTU = 40;
 
 var bleDevice;
 var bleServer;
@@ -104,7 +104,7 @@ function connect() {
         connected = true;
         //window.term_.io.println('\r\n' + bleDevice.name + ' Connected.');
         //nusSendString('\r');
-	    snd('DeviceType;'),then(()=>snd('Battery;'));
+	    snd('DeviceType;Battery;')//,then(()=>snd('Battery;'));
         setConnButtonState(true);
     })
     .catch(error => {
