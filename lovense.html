@@ -166,7 +166,7 @@ async function snd(s) {
             let val = s[i].charCodeAt(0);
             val_arr[i] = val;
         }
-	    queue.push(s);
+	    queue.push(val_arr);
 	    if(!isnext) next();
         //await sendNextChunk(val_arr);
     } else {
