@@ -144,7 +144,7 @@ function onDisconnected() {
 function handleNotifications(event) {
     console.log('notification: ');
     let value = event.target.value;
-	document.querySelector('#out').innerText += `<br><-${value}`;
+	
     // Convert raw data bytes to character values and use these to 
     // construct a string.
     let str = "";
@@ -152,6 +152,7 @@ function handleNotifications(event) {
         str += String.fromCharCode(value.getUint8(i));
     }
     console.log(str);
+	document.querySelector('#out').innerHTML += `<br><-${str}`;
 	if(/\w:\d{1,2}:\w{12};/i.test(str)) document.querySelector('#out').innerText = str;
 	if(/\d{1,2};/i.test(str)) document.querySelector('#out').innerText += str;
 }
@@ -159,7 +160,7 @@ function handleNotifications(event) {
 async function snd(s) {
     if(bleDevice && bleDevice.gatt.connected) {
         console.log("send: " + s);
-	    document.querySelector('#out').innerText += `<br>->${s}`;
+	    document.querySelector('#out').innerHTML += `<br>->${s}`;
         let val_arr = new Uint8Array(s.length)
         for (let i = 0; i < s.length; i++) {
             let val = s[i].charCodeAt(0);
