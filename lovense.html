@@ -188,7 +188,7 @@ async function sendNextChunk(a) {
 async function next () {
 	isnext = true;
 	if(bleDevice && bleDevice.gatt.connected && queue.length > 0) {
- 		await rxCharacteristic.writeValue(queue.splice(0,1)).then(next);	
+ 		await rxCharacteristic.writeValue(queue.splice(0,1)[0]).then(next);	
 	} else isnext = false;
 }
 
