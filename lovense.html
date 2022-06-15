@@ -21,16 +21,167 @@
 
 </body>
 <script>
+	
 	let myStorage = window.localStorage;
-	let ip = myStorage.getItem('lovense-demo-ip') || '127-0-0-1', port = myStorage.getItem('lovense-demo-port')||30010;
+	const bleNusServiceUUID  = "50300001-0023-4bd4-bbd5-a6920e4c5653";
+
+const MTU = 20;
+
+var bleDevice;
+var bleServer;
+var nusService;
+var rxCharacteristic;
+var txCharacteristic;
+let temp = '';
+var connected = false;
+
+function connectionToggle() {
+    if (connected) {
+        disconnect();
+    } else {
+        connect();
+    }
+    document.getElementById('terminal').focus();
+}
+
+// Sets button to either Connect or Disconnect
+function setConnButtonState(enabled) {
+    if (enabled) {
+        document.getElementById("click").innerHTML = "Disconnect";
+    } else {
+        document.getElementById("click").innerHTML = "Connect";
+    }
+}
+
+function connect() {
+    if (!navigator.bluetooth) {
+        console.log('WebBluetooth API is not available.\r\n' +
+                    'Please make sure the Web Bluetooth flag is enabled.');
+       
+        return;
+    }
+    console.log('Requesting Bluetooth Device...');
+    navigator.bluetooth.requestDevice({
+        //filters: [{services: []}]
+        optionalServices: [bleNusServiceUUID],
+        acceptAllDevices: true
+    })
+    .then(device => {
+        bleDevice = device; 
+        console.log('Found ' + device.name);
+        console.log('Connecting to GATT Server...');
+        bleDevice.addEventListener('gattserverdisconnected', onDisconnected);
+        return device.gatt.connect();
+    })
+    .then(server => {
+        console.log('Locate NUS service');
+        return server.getPrimaryService(bleNusServiceUUID);
+    }).then(service => {
+        nusService = service;
+        console.log('Found NUS service: ' + service.uuid);
+    })
+    .then(async () => {
+        console.log('Locate RX characteristic');
+        return await nusService.getCharacteristics();
+    })
+    .then(characteristic => {
+        rxCharacteristic = characteristic.find(x=>x?.properties.write);
+        console.log('Found RX characteristic');
+        return characteristic;
+    })
+    .then(characteristic => {
+        txCharacteristic = characteristic.find(x=>x?.properties.notify);
+        console.log('Found TX characteristic');
+    })
+    .then(() => {
+        console.log('Enable notifications');
+        return txCharacteristic.startNotifications();
+    })
+    .then(() => {
+        console.log('Notifications started');
+        txCharacteristic.addEventListener('characteristicvaluechanged',
+                                          handleNotifications);
+        connected = true;
+        //window.term_.io.println('\r\n' + bleDevice.name + ' Connected.');
+        //nusSendString('\r');
+        setConnButtonState(true);
+    })
+    .catch(error => {
+        console.log('' + error);
+        //window.term_.io.println('' + error);
+        if(bleDevice && bleDevice.gatt.connected)
+        {
+            bleDevice.gatt.disconnect();
+        }
+    });
+}
+
+function disconnect() {
+    if (!bleDevice) {
+        console.log('No Bluetooth Device connected...');
+        return;
+    }
+    console.log('Disconnecting from Bluetooth Device...');
+    if (bleDevice.gatt.connected) {
+        bleDevice.gatt.disconnect();
+        connected = false;
+        setConnButtonState(false);
+        console.log('Bluetooth Device connected: ' + bleDevice.gatt.connected);
+    } else {
+        console.log('> Bluetooth Device is already disconnected');
+    }
+}
+
+function onDisconnected() {
+    connected = false;
+    console.log('disconnect');
+    setConnButtonState(false);
+}
+
+function handleNotifications(event) {
+    console.log('notification: ');
+    let value = event.target.value;
+    // Convert raw data bytes to character values and use these to 
+    // construct a string.
+    let str = "";
+    for (let i = 0; i < value.byteLength; i++) {
+        str += String.fromCharCode(value.getUint8(i));
+    }
+    console.log(str);
+}
+
+function snd(s) {
+    if(bleDevice && bleDevice.gatt.connected) {
+        console.log("send: " + s);
+        let val_arr = new Uint8Array(s.length)
+        for (let i = 0; i < s.length; i++) {
+            let val = s[i].charCodeAt(0);
+            val_arr[i] = val;
+        }
+        sendNextChunk(val_arr);
+    } else {
+        window.term_.io.println('Not connected to a device yet.');
+    }
+}
+
+function sendNextChunk(a) {
+    let chunk = a.slice(0, MTU);
+    rxCharacteristic.writeValue(chunk)
+      .then(function() {
+          if (a.length > MTU) {
+              sendNextChunk(a.slice(MTU));
+          }
+      });
+}
+
+
+
+
+
 	function send() {
 let vib = document.querySelector('#str').value;
-fetch('https://'+ip+'.lovense.club:'+port+'/command',{
-	method: 'post',
-	body: JSON.stringify({ command:"Function", action:'vibrate:'+vib, timeSec:0, apiVer:1 })
+snd(`Vibrate:${vib};`);
 
-}).then(e=>e.json())
-.then(console.log).catch(e=>{document.querySelector('#str').disabled=true;document.querySelector('#out').innerText='Error ' + e});
 }
 	function ipChange(e) {
 		ip = e.target.value;
@@ -43,7 +194,7 @@ fetch('https://'+ip+'.lovense.club:'+port+'/command',{
 		} else document.querySelector('#str').disabled=document.querySelector('#click').disabled=true;
 		
 	}
-	function connect() {
+	function connectOld() {
 	document.querySelector('#out').innerText = 'Loading...';
 	(async ()=>{
 	fetch('https://'+ip+'.lovense.club:'+port+'/command', {method:'post', body: '{  "command": "GetToys"}'}).then(async e => {
