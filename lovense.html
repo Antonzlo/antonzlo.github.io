@@ -22,50 +22,48 @@
 </body>
 <script>
 	let myStorage = window.localStorage;
-	let ip = myStorage.getItem('lovense-demo-ip') || '127-0-0-1', port = myStorage.getItem('lovense-demo-port')||30010;
-	function send() {
-let vib = document.querySelector('#str').value;
-fetch('https://'+ip+'.lovense.club:'+port+'/command',{
-	method: 'post',
-	body: JSON.stringify({ command:"Function", action:'vibrate:'+vib, timeSec:0, apiVer:1 })
+	let ip = myStorage.getItem('lovense-demo-ip') || '127-0-0-1', port = myStorage.getItem('lovense-demo-port') || 30010;
 
-}).then(e=>e.json())
-.then(console.log).catch(e=>{document.querySelector('#str').disabled=true;document.querySelector('#out').innerText='Error ' + e});
-}
+	function send() {
+		let vib = document.querySelector('#str').value;
+		run(ip, port, { command:"Function", action:'vibrate:'+vib, timeSec:0, apiVer:1 })
+		.then(console.log)
+		.catch(e=>{
+			document.querySelector('#str').disabled = true;
+			document.querySelector('#out').innerText = 'Error ' + e;
+		});
+	}
+
 	function ipChange(e) {
 		ip = e.target.value;
 		if(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i.test(ip)) {
-			
 			ip=ip.replace(/\./g,'-');
 			document.querySelector('#click').disabled=false;
 			myStorage.setItem('lovense-demo-ip',ip);
-			
 		} else document.querySelector('#str').disabled=document.querySelector('#click').disabled=true;
-		
 	}
+
 	function connect() {
-	document.querySelector('#out').innerText = 'Loading...';
-	(async ()=>{
-	fetch('https://'+ip+'.lovense.club:'+port+'/command', {method:'post', body: '{  "command": "GetToys"}'}).then(async e => {
-		e = await e.json();
-	window.toys = JSON.parse(e.data.toys);
-	document.querySelector('#str').disabled=false;
-document.querySelector('#out').innerText = Object.keys(toys).map(x=>`${toys[x].name}${toys[x].nickname ? ` (${toys[x].nickname})` : ''} - ${toys[x].battery}%`).join('<br>');
-}).catch(e=>(document.querySelector('#str').disabled=true) && ( document.querySelector('#out').innerText = 'Error1 - ' +e.toString() )  );	
-	})().catch(e=>(document.querySelector('#str').disabled=true)&&(document.querySelector('#out').innerText = 'Error - '+e.toString() ) );
+		document.querySelector('#out').innerText = 'Loading...';
+		(async ()=>{
+			await getToys(ip,port).then(e=> {
+				document.querySelector('#str').disabled=false;
+				document.querySelector('#out').innerText = parseToys(e);
+			}).catch(e=>(document.querySelector('#str').disabled=true) && ( document.querySelector('#out').innerText = 'Error1 - ' +e.toString() )  );	
+		})().catch(e=>(document.querySelector('#str').disabled=true)&&(document.querySelector('#out').innerText = 'Error - '+e.toString() ) );
 	}
-document.addEventListener("DOMContentLoaded", function(event) { 
-if(ip) connect(document.querySelector('#ip').value = ip.replace(/-/g,'.'));
-  document.querySelector('#click').addEventListener('click',connect);
-	document.querySelector('#ip').addEventListener('change',ipChange);
-	document.querySelector('#ip').addEventListener('keydown',(e)=>{
-	 e = e || window.event;
-    	if(e.keyCode == 13) {
-       		//var elem = e.srcElement || e.target;
-        	connect();
-    	}
+
+	document.addEventListener("DOMContentLoaded", function(event) { 
+		if(ip) connect(document.querySelector('#ip').value = ip.replace(/-/g, '.'));
+		document.querySelector('#click').addEventListener('click', connect);
+		document.querySelector('#ip').addEventListener('change', ipChange);
+		document.querySelector('#ip').addEventListener('keydown', (e)=>{
+		e = e || window.event;
+		if(e.keyCode == 13) {
+			connect();
+		}
 	});
-	 document.querySelector('#str').addEventListener('input',send);
+	document.querySelector('#str').addEventListener('input',send);
 });
 
 </script></html>
