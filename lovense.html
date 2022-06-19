@@ -11,7 +11,9 @@
 }
 	input[type=range]:focus::-webkit-slider-runnable-track {
   background: #ff67e5; 
-}</style><title>Lovense controller</title><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+}</style><title>Lovense controller</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/lovense.js"></script>
+</head>
 <body style='margin:0px;padding:0px;'>
 	<p id='out' style='position:absolute;right: 10px; top:30px;'></p>
 <input id="str" type="range" placeholder='strength' max="20" min="0" value="0" style='writing-mode: bt-lr; /* IE */
@@ -46,11 +48,11 @@
 	function connect() {
 		document.querySelector('#out').innerText = 'Loading...';
 		(async ()=>{
-			await getToys(ip,port).then(e=> {
-				document.querySelector('#str').disabled=false;
-				document.querySelector('#out').innerText = parseToys(e);
-			}).catch(e=>(document.querySelector('#str').disabled=true) && ( document.querySelector('#out').innerText = 'Error1 - ' +e.toString() )  );	
-		})().catch(e=>(document.querySelector('#str').disabled=true)&&(document.querySelector('#out').innerText = 'Error - '+e.toString() ) );
+			await findPort(ip).then(e=> {
+				document.querySelector('#str').disabled = false;
+				document.querySelector('#out').innerHTML = `Port is: ${e}<br>` + e?parseToys(e):'';
+			}).catch(e=>(document.querySelector('#str').disabled = true) && ( document.querySelector('#out').innerText = 'Error1 - ' + e.toString() )  );	
+		})().catch(e=>(document.querySelector('#str').disabled = true)&&(document.querySelector('#out').innerText = 'Error - ' + e.toString() ) );
 	}
 
 	document.addEventListener("DOMContentLoaded", function(event) { 
