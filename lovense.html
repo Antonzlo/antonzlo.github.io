@@ -1,0 +1,71 @@
+<html><head><style>input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid #000000;
+  height: 56px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+}
+	input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ff67e5; 
+}</style><title>Lovense controller</title><meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="/lovense.js"></script>
+</head>
+<body style='margin:0px;padding:0px;'>
+	<p id='out' style='position:absolute;right: 10px; top:30px;'></p>
+<input id="str" type="range" placeholder='strength' max="20" min="0" value="0" style='writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical;height: 99%'>
+	<input type='text' id='ip' style='position:absolute;right:10px;top:20px;' placeholder='ip' value='127.0.0.1'>
+<button id="click" style='position:absolute;right:10px;top:20px;'>Try connect</button>
+
+</body>
+<script>
+	let myStorage = window.localStorage;
+	let ip = myStorage.getItem('lovense-demo-ip') || '127-0-0-1', port = myStorage.getItem('lovense-demo-port') || 30010;
+
+	function send() {
+		let vib = document.querySelector('#str').value;
+		run(ip, port, { command:"Function", action:'vibrate:'+vib, timeSec:0, apiVer:1 })
+		.then(console.log)
+		.catch(e=>{
+			document.querySelector('#str').disabled = true;
+			document.querySelector('#out').innerText = 'Error ' + e;
+		});
+	}
+
+	function ipChange(e) {
+		ip = e.target.value;
+		if(/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i.test(ip)) {
+			ip=ip.replace(/\./g,'-');
+			document.querySelector('#click').disabled=false;
+			myStorage.setItem('lovense-demo-ip',ip);
+		} else document.querySelector('#str').disabled=document.querySelector('#click').disabled=true;
+	}
+
+	function connect() {
+		document.querySelector('#out').innerText = 'Loading...';
+		(async ()=>{
+			await findPort(ip).then(e=> {
+				document.querySelector('#str').disabled = false;
+				document.querySelector('#out').innerHTML = `Port is: ${e}<br>` + e?parseToys(e):'';
+			}).catch(e=>(document.querySelector('#str').disabled = true) && ( document.querySelector('#out').innerText = 'Error1 - ' + e.toString() )  );	
+		})().catch(e=>(document.querySelector('#str').disabled = true)&&(document.querySelector('#out').innerText = 'Error - ' + e.toString() ) );
+	}
+
+	document.addEventListener("DOMContentLoaded", function(event) { 
+		if(ip) connect(document.querySelector('#ip').value = ip.replace(/-/g, '.'));
+		document.querySelector('#click').addEventListener('click', connect);
+		document.querySelector('#ip').addEventListener('change', ipChange);
+		document.querySelector('#ip').addEventListener('keydown', (e)=>{
+		e = e || window.event;
+		if(e.keyCode == 13) {
+			connect();
+		}
+	});
+	document.querySelector('#str').addEventListener('input',send);
+});
+
+</script></html>
