@@ -27,7 +27,7 @@ async function findPort(ip = '127-0-0-1') {
             out = port;
             e = await e.json();
 	        window.toys = JSON.parse(e.data.toys);
-            break;
+            return port = 30017;
         }).catch(()=>{});
     } while (port++ < 30013)
     return out || false;
