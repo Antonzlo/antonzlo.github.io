@@ -51,7 +51,7 @@
 			await findPort(ip).then(e=> {
 				document.querySelector('#str').disabled = false;
 				if(e) port = e;
-				document.querySelector('#out').innerHTML = `Port is: ${e}<br>` + (e ? parseToys(window.toys)||'' : '');
+				document.querySelector('#out').innerHTML = `Port is: ${e}<br>` + (e ? parseToys(window.toys)||'No toys' : 'No Lovense Connect found');
 			}).catch(e=>(document.querySelector('#str').disabled = true) && ( document.querySelector('#out').innerText = 'Error1 - ' + e.toString() )  );	
 		})().catch(e=>(document.querySelector('#str').disabled = true)&&(document.querySelector('#out').innerText = 'Error - ' + e.toString() ) );
 	}
