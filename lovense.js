@@ -22,13 +22,15 @@ async function run(ip = '127-0-0-1', port = 30010, cmd = { command:"Function", a
 async function findPort(ip = '127-0-0-1') {
     let port = 30010, out = 0;
     do {
-        await fetch('https://'+ip+'.lovense.club:'+port+'/GetToys', { timeout:3000 })
-        .then(async e => {
-            out = port;
-            e = await e.json();
-	        window.toys = JSON.parse(e.data.toys);
-            return port = 30017;
-        }).catch(()=>{});
-    } while (port++ < 30013)
+       out = await checkPort(ip, port) ? port : false;
+    } while (port++ < 30013 && !out);
     return out || false;
+}
+async function checkPort(ip = '127-0-0-1', port = 30010) {
+    return fetch('https://'+ip+'.lovense.club:'+port+'/GetToys', { timeout:3000 })
+    .then(async e => {
+        e = await e.json();
+        window.toys = JSON.parse(e.data.toys);
+        return true;
+    }).catch(()=>false).finally((e)=>e);
 }
