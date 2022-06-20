@@ -27,7 +27,7 @@ async function findPort(ip = '127-0-0-1') {
     return out || false;
 }
 async function checkPort(ip = '127-0-0-1', port = 30010) {
-    return fetch('https://'+ip+'.lovense.club:'+port+'/GetToys', { timeout:3000 })
+    return fetch('https://'+ip+'.lovense.club:'+port+'/GetToys', { timeout:1000 })
     .then(async e => {
         e = await e.json();
         window.toys = JSON.parse(e.data?.toys||'{}');
