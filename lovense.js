@@ -27,7 +27,7 @@ function parseToys(toys) {
 }
 
 async function run(ip = '127-0-0-1', port = 30010, cmd = { command:"Function", action:'Vibrate:0', timeSec:0, apiVer:1 }) {
-    return fetch('https://'+ip+'.lovense.club:'+port+'/command',{
+    return fetch('https://'+ip+'.lovense.club:'+port+'/Command',{
 	    method: 'post',
 	    body: JSON.stringify(cmd)
     }).then(e=>e.json());
