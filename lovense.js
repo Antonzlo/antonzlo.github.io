@@ -1,3 +1,17 @@
+async function fetchWithTimeout(resource, options = {}) {
+    const { timeout = 1500 } = options;
+    
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    const response = await fetch(resource, {
+      ...options,
+      signal: controller.signal  
+    });
+    clearTimeout(id);
+    return response;
+  }
+
+
 async function getToys(ip = '127-0-0-1', port = 30010) {
     return fetch('https://'+ip+'.lovense.club:'+port+'/GetToys').then(async e => {
 		e = await e.json();
@@ -27,7 +41,7 @@ async function findPort(ip = '127-0-0-1') {
     return out || false;
 }
 async function checkPort(ip = '127-0-0-1', port = 30010) {
-    return fetch('https://'+ip+'.lovense.club:'+port+'/GetToys', { timeout:1000 })
+    return fetchWithTimeout('https://'+ip+'.lovense.club:'+port+'/GetToys')
     .then(async e => {
         e = await e.json();
         window.toys = JSON.parse(e.data?.toys||'{}');
