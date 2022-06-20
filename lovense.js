@@ -22,7 +22,7 @@ async function getToys(ip = '127-0-0-1', port = 30010) {
 
 function parseToys(toys) {
     return Object.keys(toys).map(x=>
-        `${toys[x].name}${toys[x].nickName ? ` (${toys[x].nickName})` : ''} - ${toys[x].battery}%`
+        x.status == 0 ? `<gr style='color:gray'>${toys[x].name}${toys[x].nickName ? ` (${toys[x].nickName})` : ''} - ${toys[x].battery}%</gr>` : `${toys[x].name}${toys[x].nickName ? ` (${toys[x].nickName})` : ''} - ${toys[x].battery}%`
     ).join('<br>');
 }
 
