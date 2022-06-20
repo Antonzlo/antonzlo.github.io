@@ -37,7 +37,7 @@ async function findPort(ip = '127-0-0-1') {
     let port = 30010, out = 0;
     do {
        out = await checkPort(ip, port) ? port : false;
-    } while (port++ < 30014 && !out);
+    } while (port++ < 30015 && !out);
     return out || false;
 }
 async function checkPort(ip = '127-0-0-1', port = 30010) {
