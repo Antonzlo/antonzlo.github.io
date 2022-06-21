@@ -28,7 +28,7 @@
 
 	function send() {
 		let vib = document.querySelector('#str').value;
-		run(ip, port, { command:"Function", action:'Vibrate:'+vib, timeSec:0, apiVer:1 })
+		vibrate(ip, port, vib)
 		.then(console.log)
 		.catch(e=>{
 			document.querySelector('#str').disabled = true;
