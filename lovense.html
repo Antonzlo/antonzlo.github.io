@@ -15,12 +15,12 @@
 <script src="/lovense.js"></script>
 </head>
 <body style='margin:0px;padding:0px;'>
-	<p id='out' style='position:absolute;right: 10px; top:30px;'></p>
+	<p id='out' style='position:absolute;right: 10px; top:40px;'></p>
 <input id="str" type="range" placeholder='strength' max="20" min="0" value="0" style='writing-mode: bt-lr; /* IE */
     -webkit-appearance: slider-vertical;height: 99%'>
 	<input type='text' id='ip' style='position:absolute;right:10px;top:20px;' placeholder='ip' value='127.0.0.1'>
 <button id="click" style='position:absolute;right:10px;top:20px;'>Try connect</button>
-
+<button id="clic1" style='position:absolute;right:10px;top:30px;'>1 sec</button>
 </body>
 <script>
 	let myStorage = window.localStorage;
@@ -59,6 +59,9 @@
 	document.addEventListener("DOMContentLoaded", function(event) { 
 		if(ip) connect(document.querySelector('#ip').value = ip.replace(/-/g, '.'));
 		document.querySelector('#click').addEventListener('click', connect);
+		document.querySelector('#clic1').addEventListener('click', ()=>{
+			if(window.toys) avibrate(ip,port,20,'',1);
+		});
 		document.querySelector('#ip').addEventListener('change', ipChange);
 		document.querySelector('#ip').addEventListener('keydown', (e)=>{
 		e = e || window.event;
