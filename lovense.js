@@ -27,7 +27,10 @@ function parseToys(toys) {
 }
 
 async function vibrate(ip = '127-0-0-1', port = 30010, strength = 0, toy = '') {
-    return fetch('https://'+ip+'.lovense.club:'+port+'/Vibrate?v='+strength+'&t='+toy).then(e=>e.json());
+    return fetch(`https://${ip}.lovense.club:${port}/Vibrate?v=${strength}&toy=${toy}`).then(e=>e.json());
+}
+async function avibrate(ip = '127-0-0-1', port = 30010, strength = 0, toy = '', sec=  0) {
+    return fetch(`https://${ip}.lovense.club:${port}/Vibrate?v=${strength}&toy=${toy}&sec=${sec}`).then(e=>e.json());
 }
 
 async function findPort(ip = '127-0-0-1') {
