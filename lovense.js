@@ -15,7 +15,7 @@ async function fetchWithTimeout(resource, options = {}) {
 async function getToys(ip = '127-0-0-1', port = 30010) {
     return fetch('https://'+ip+'.lovense.club:'+port+'/GetToys').then(async e => {
 		e = await e.json();
-	    window.toys = JSON.parse(e.data.toys);
+	    window.toys = (e.data);
         return window.toys;
     });
 }
