@@ -1,0 +1,9 @@
+{
+    "explorer.fileNesting.enabled": true,
+    "window.autoDetectColorScheme": true,
+    "window.experimental.commandCenter": false,
+    "scm.alwaysShowActions": true,
+    "scm.alwaysShowRepositories": false,
+    "explorer.excludeGitIgnore": true,
+    "explorer.incrementalNaming": "smart"
+}
