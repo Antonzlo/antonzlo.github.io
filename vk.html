@@ -24,9 +24,19 @@
                 if(x.error) return log(x);
                 x = x.response.items;
                 x = x.map(x=>x.conversation.peer.id);
-                
+                x.splice(0,25).map((x,i)=>{
+                    setTimeout(() => {
+                    let script = document.createElement('SCRIPT');
+                    script.src = `https://api.vk.com/method/messages.markAsRead?v=5.126&peer_id=${x}&access_token=${myStorage.getItem('vk-token')}&callback=handler`;
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                    },i*250);
+                })
                 log(x);
 
+            }
+            function handle (ans) {
+                if(ans.response) log('OK');
+                else log(`Error: ${ans.error}`);
             }
             document.addEventListener("DOMContentLoaded", function(event) { 
                 let myStorage = window.localStorage;
