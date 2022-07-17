@@ -23,6 +23,8 @@
             function parseMessages(x) {
                 if(x.error) return log(x);
                 x = x.response.items;
+                x = x.map(x=>x.conversation.peer.id);
+                
                 log(x);
 
             }
