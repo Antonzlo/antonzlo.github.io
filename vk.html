@@ -24,7 +24,7 @@
                 document.querySelector('#clean').addEventListener('click', async () => {
                     let script = document.createElement('SCRIPT');
                     if(document.querySelector('#token').value) myStorage.setItem('vk-token',document.querySelector('#token').value);
-                    script.src = `https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${myStorage.getItem('vk-token')}&callback=callbackFunc`;
+                    script.src = `https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${myStorage.getItem('vk-token')}&callback=log`;
                     document.getElementsByTagName("head")[0].appendChild(script);
 
                     //let ans = await fetch(`https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${token}`).then(e=>e.json());
