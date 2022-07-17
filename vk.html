@@ -16,7 +16,7 @@
             <pre>Out:\n</pre>
         </div>
         <script lang="javascript">
-            document.onload = async function () {
+            document.addEventListener("DOMContentLoaded", function(event) { 
                 document.querySelector('#clean').addEventListener('click', async () => {
                     let token = document.querySelector('#token').value;
                     let ans = await fetch(`https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${token}`).then(e=>e.json());
