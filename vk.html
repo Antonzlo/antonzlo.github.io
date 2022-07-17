@@ -22,7 +22,7 @@
                     let ans = await fetch(`https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${token}`).then(e=>e.json());
                     document.querySelector('pre').innerText += JSON.stringify(ans,null,2);
                 });
-            }
+            });
         </script>
     </body>
 </html>
