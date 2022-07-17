@@ -20,7 +20,7 @@
                 document.querySelector('#clean').addEventListener('click', async () => {
                     let script = document.createElement('SCRIPT');
                     let token = document.querySelector('#token').value;
-                    script.src = `https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${token}`;
+                    script.src = `https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${token}&callback=callbackFunc`;
                     document.getElementsByTagName("head")[0].appendChild(script);
                     function callbackFunc(result) {
                         document.querySelector('pre').innerText += JSON.stringify(result,null,2);
