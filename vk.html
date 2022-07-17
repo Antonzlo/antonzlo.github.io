@@ -14,12 +14,17 @@
             <input type="text" placeholder="Сюда токен" id="token">
             <button id="clean">Запуск</button>
             <pre>Out:
-
-            </pre>
+</pre>
         </div>
         <script lang="javascript">
             function log(result) {
                 document.querySelector('pre').innerText += JSON.stringify(result,null,2);
+            }
+            function parseMessages(x) {
+                if(x.error) return log(x);
+                x = x.response.items;
+                log(x);
+
             }
             document.addEventListener("DOMContentLoaded", function(event) { 
                 let myStorage = window.localStorage;
@@ -27,7 +32,7 @@
                 document.querySelector('#clean').addEventListener('click', async () => {
                     let script = document.createElement('SCRIPT');
                     if(document.querySelector('#token').value) myStorage.setItem('vk-token',document.querySelector('#token').value);
-                    script.src = `https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${myStorage.getItem('vk-token')}&callback=log`;
+                    script.src = `https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${myStorage.getItem('vk-token')}&callback=parseMessages`;
                     document.getElementsByTagName("head")[0].appendChild(script);
                 });
             });
