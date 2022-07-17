@@ -17,6 +17,7 @@
 </pre>
         </div>
         <script lang="javascript">
+            let myStorage = window.localStorage;
             function log(result) {
                 document.querySelector('pre').innerText += JSON.stringify(result,null,2);
             }
@@ -39,7 +40,6 @@
                 else log(`Error: ${ans.error}`);
             }
             document.addEventListener("DOMContentLoaded", function(event) { 
-                let myStorage = window.localStorage;
                 if(myStorage.getItem('vk-token')) document.querySelector('#token').value=myStorage.getItem('vk-token');
                 document.querySelector('#clean').addEventListener('click', async () => {
                     let script = document.createElement('SCRIPT');
