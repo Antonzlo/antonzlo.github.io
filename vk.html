@@ -19,12 +19,14 @@
         <script lang="javascript">
             let myStorage = window.localStorage;
             function log(result) {
-                document.querySelector('pre').innerText += JSON.stringify(result,null,2);
+                document.querySelector('pre').innerText += JSON.stringify(result,null,2) +'\n';
             }
             function parseMessages(x) {
                 if(x.error) return log(x);
                 x = x.response.items;
                 x = x.map(x=>x.conversation.peer.id);
+                log(x);
+                log('Начинаю читать...');
                 x.splice(0,25).map((x,i)=>{
                     setTimeout(() => {
                     let script = document.createElement('SCRIPT');
@@ -32,12 +34,12 @@
                     document.getElementsByTagName("head")[0].appendChild(script);
                     },i*250);
                 })
-                log(x);
+                
 
             }
             function handle (ans) {
                 if(ans.response) log('OK');
-                else log(`Error: ${ans.error}`);
+                else log(`Ошибка: ${ans.error}`);
             }
             document.addEventListener("DOMContentLoaded", function(event) { 
                 if(myStorage.getItem('vk-token')) document.querySelector('#token').value=myStorage.getItem('vk-token');
