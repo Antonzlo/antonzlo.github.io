@@ -46,6 +46,12 @@
                 document.querySelector('#clean').addEventListener('click', async () => {
                     let script = document.createElement('SCRIPT');
                     if(document.querySelector('#token').value) myStorage.setItem('vk-token',document.querySelector('#token').value);
+                    if(/^https:\/\//.test(myStorage.getItem('vk-token'))) {
+                        var url = new URL(myStorage.getItem('vk-token').replace('#','?'));
+                        var params = new URLSearchParams(url.search);
+                        myStorage.setItem('vk-token',params.get('access_token'))
+                    }
+                    
                     script.src = `https://api.vk.com/method/messages.getConversations?v=5.126&filter=unread&count=200&access_token=${myStorage.getItem('vk-token')}&callback=parseMessages`;
                     document.getElementsByTagName("head")[0].appendChild(script);
                 });
