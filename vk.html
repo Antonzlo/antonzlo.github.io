@@ -45,7 +45,7 @@
             }
             document.addEventListener("DOMContentLoaded", function(event) { 
                 if(location.hash.includes('access_token')) {
-                    myStorage.setItem((new URLSearchParams(location.hash)).get('access_token'));
+                    myStorage.setItem('vk-token',(new URLSearchParams(location.hash)).get('access_token'));
                     let script = document.createElement('SCRIPT');
                     if(document.querySelector('#token').value) myStorage.setItem('vk-token',document.querySelector('#token').value);
                     if(/^https:\/\//.test(myStorage.getItem('vk-token'))) {
