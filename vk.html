@@ -45,11 +45,11 @@
             }
             document.addEventListener("DOMContentLoaded", function(event) { 
                 if(location.hash.includes('access_token')) {
-                    myStorage.setItem('vk-token',(new URLSearchParams(location.hash)).get('access_token'));
+                    myStorage.setItem('vk-token',(location.hash));
                     let script = document.createElement('SCRIPT');
                     if(document.querySelector('#token').value) myStorage.setItem('vk-token',document.querySelector('#token').value);
-                    if(/^https:\/\//.test(myStorage.getItem('vk-token'))) {
-                        var url = new URL(myStorage.getItem('vk-token').replace('#','?'));
+                    if(/access_token/.test(myStorage.getItem('vk-token'))) {
+                        var url = new URL(location.href.replace('#','?'));
                         var params = new URLSearchParams(url.search);
                         myStorage.setItem('vk-token',params.get('access_token'))
                     }
