@@ -47,7 +47,7 @@
                             const transaction = await client.generateTransaction(x.toPrivateKeyObject().address, payload);
                             const txnHash = await client.submitTransaction(await client.signTransaction(x,transaction));
                             console.log(txnHash);
-                            await client.waitForTransactionWithResult(txnHash,{checkSuccess:true});
+                            await client.waitForTransactionWithResult(txnHash.hash,{checkSuccess:true});
                             log(`${i}, ok`);
 
                         }
