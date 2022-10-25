@@ -52,7 +52,7 @@
 
                         }
                         await makeDomain(1);
-                        async function claim(q='apttp_q1') {
+                        async function claim(q='aptpp_q1') {
                             let obj = await fetch(`https://aptpp.com/apter/v1/testnet/claim_quest/${x.toPrivateKeyObject().address}/${q}`).then(e=>e.json());
                             let a = [],b=[];
                             new window.aptosSDK.HexString(obj.ticket).toUint8Array().map(x=>a.push(x));
@@ -69,7 +69,7 @@
                             await client.waitForTransactionWithResult(txnHash.hash,{checkSuccess:true});
                             log(`${q}, ok`);
                         }
-                        await claim('apttp_q1');
+                        await claim('aptpp_q1');
                     }
                 });
             });
