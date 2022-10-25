@@ -16,6 +16,7 @@
             let out = document.querySelector('#out');
             //let web3 = new Web3();
             document.addEventListener('DOMContentLoaded',(event) => {
+               window.martian.connect();
                 document.querySelector('#ok').addEventListener('click',()=>{
                     let accounts = Array(Number(document.querySelector('input').value)).fill('').map(x=>ethers.Wallet.createRandom());
                     console.log(accounts.map(x=>x.mnemonic.phrase));
