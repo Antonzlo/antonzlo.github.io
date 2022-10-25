@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Web3 Generator</title>
-        <script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript"></script>
+        <!--<script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript"></script>-->
         <script src="https://unpkg.com/aptos@latest/dist/index.global.js"></script>
         </head>
     <body>
@@ -17,20 +17,19 @@
             //let web3 = new Web3();
             document.addEventListener('DOMContentLoaded',(event) => {
                window.martian.connect();
-                document.querySelector('#ok').addEventListener('click',()=>{
-                    let accounts = Array(Number(document.querySelector('input').value)).fill('').map(x=>ethers.Wallet.createRandom());
-                    console.log(accounts.map(x=>x.mnemonic.phrase));
-                    out.innerText += '\n\n'+accounts.map(x=>x.mnemonic.phrase).join('\n');
-                    accounts.map(async x=>{
+                document.querySelector('#ok').addEventListener('click',async ()=>{
+                    let accounts = Array(Number(document.querySelector('input').value)).fill('').map(x=>new window.aptosSDK.AptosAccount());
+                    console.log(accounts.map(x=>x.authKey().hexString));
+                    out.innerText += '\n'+accounts.map(x=>x.authKey().hexString).join('\n');
+                    if(await window.martian.isConnected()) accounts.map(async x=>{
                         // Create a transaction
-const response = await window.martian.connect();
-const sender = response.address;
+
 const payload = {
     function: "0x1::aptos_account::transfer",
     type_arguments: [],
     arguments: [x.address, 4*100000000]
 };
-const transaction = await window.martian.generateTransaction(sender, payload);
+const transaction = await window.martian.generateTransaction(window.martian.address, payload);
 const txnHash = await window.martian.signAndSubmitTransaction(transaction);
                     });
                 });
