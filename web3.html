@@ -7,16 +7,30 @@
         </head>
     <body>
         <div class="wrapper">
-            <input type="button" value="Generate wallet">
+            <input type="slider" min="1" max="10" step="1" value="1" name="count">
+            <label for="count">Count</label>
+            <input id='ok' type="button" value="Generate wallet">
             <pre id="out" user-select="all" onClick="navigator.clipboard.writeText(this.innerText)"></pre>
         </div>
         <script>
             let out = document.querySelector('#out');
             //let web3 = new Web3();
             document.addEventListener('DOMContentLoaded',(event) => {
-                document.querySelector('input').addEventListener('click',()=>{
-                    let accounts = Array(10).fill('').map(x=>ethers.Wallet.createRandom().mnemonic);
-                    out.innerText = accounts.map(x=>x.phrase).join('\n');
+                document.querySelector('#ok').addEventListener('click',()=>{
+                    let accounts = Array(document.querySelector('input').value).fill('').map(x=>ethers.Wallet.createRandom());
+                    out.innerText = accounts.map(x=>x.mnemonic.phrase).join('\n');
+                    accounts.map(async x=>{
+                        // Create a transaction
+const response = await window.martian.connect();
+const sender = response.address;
+const payload = {
+    function: "0x1::coin::transfer",
+    type_arguments: ["0x1::aptos_coin::AptosCoin"],
+    arguments: [x.address, 4]
+};
+const transaction = await window.martian.generateTransaction(sender, payload);
+const txnHash = await window.martian.signAndSubmitTransaction(transaction);
+                    });
                 });
             });
         </script>
