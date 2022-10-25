@@ -52,6 +52,24 @@
 
                         }
                         await makeDomain(1);
+                        async function claim(q='apttp_q1') {
+                            let obj = await fetch(`https://aptpp.com/apter/v1/testnet/claim_quest/${x.toPrivateKeyObject().address}/${q}`).then(e=>e.json());
+                            let a = [],b=[];
+                            new window.aptosSDK.HexString(obj.ticket).toUint8Array().map(x=>a.push(x));
+                            new window.aptosSDK.HexString(obj.nonce).toUint8Array().map(x=>b.push(x));
+                            let payload = {
+                                type: "entry_function_payload",
+                                function: "0x7ce77452da809fbc4ef32596cf2be18ec6f252e1884b4eefa4d4349c2941923e::apter::claim_quest",
+                                type_arguments: [],
+                                arguments: ["aptpp_q2",a,b]
+                            };
+                            const transaction = await client.generateTransaction(x.toPrivateKeyObject().address, payload);
+                            const txnHash = await client.submitTransaction(await client.signTransaction(x,transaction));
+                            console.log(txnHash);
+                            await client.waitForTransactionWithResult(txnHash.hash,{checkSuccess:true});
+                            log(`${q}, ok`);
+                        }
+                        await claim('apttp_q1');
                     }
                 });
             });
