@@ -13,7 +13,7 @@
         <script>
             let out = document.querySelector('#out');
             //let web3 = new Web3();
-            document.addEventListener('load',(event) => {
+            document.addEventListener('DOMContentLoaded',(event) => {
                 document.querySelector('input').addEventListener('click',()=>{
                     let account = ethers.Wallet.createRandom();
                     console.log(account);
