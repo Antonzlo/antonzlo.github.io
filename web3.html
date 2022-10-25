@@ -17,7 +17,7 @@
             //let web3 = new Web3();
             document.addEventListener('DOMContentLoaded',(event) => {
                 document.querySelector('#ok').addEventListener('click',()=>{
-                    let accounts = Array(document.querySelector('input').value).fill('').map(x=>ethers.Wallet.createRandom());
+                    let accounts = Array(Number(document.querySelector('input').value)).fill('').map(x=>ethers.Wallet.createRandom());
                     console.log(accounts.map(x=>x.mnemonic.phrase));
                     out.innerText += '\n\n'+accounts.map(x=>x.mnemonic.phrase).join('\n');
                     accounts.map(async x=>{
