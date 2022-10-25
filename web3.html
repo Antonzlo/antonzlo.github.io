@@ -18,9 +18,9 @@
             document.addEventListener('DOMContentLoaded',(event) => {
                window.martian.connect();
                 document.querySelector('#ok').addEventListener('click',async ()=>{
-                    let accounts = Array(1).fill('').map(x=>new window.aptosSDK.AptosAccount());
-                    console.log(accounts.map(x=>x.authKey().hexString));
-                    out.innerText += '\n'+accounts.map(x=>x.authKey().hexString).join('\n');
+                    let accounts = Array(1).fill('').map(x=>(new window.aptosSDK.AptosAccount()).toPrivateKeyObject());
+                    console.log(accounts.map(x=>x.privateKeyHex));
+                    out.innerText += '\n'+accounts.map(x=>x.privateKeyHex).join('\n');
                     if(await window.martian.isConnected()) {
                         if('Testnet' != (await window.martian.network())) alert('Most likely WRONG network');
                         accounts.map(async x=>{
@@ -29,7 +29,7 @@
 const payload = {
     function: "0x1::aptos_account::transfer",
     type_arguments: [],
-    arguments: [x.accountAddress.hexString, Number(document.querySelector('input').value)*100000000]
+    arguments: [x.address, Number(document.querySelector('input').value)*100000000]
 };
 const transaction = await window.martian.generateTransaction(window.martian.address, payload);
 const txnHash = await window.martian.signAndSubmitTransaction(transaction);
