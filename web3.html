@@ -37,19 +37,21 @@
                         console.log(txnHash);
                         log('Txn1 done');
                         const client = new window.aptosSDK.AptosClient('https://fullnode.testnet.aptoslabs.com/v1');
-                        Array(2).fill(0).map((_,i)=>setTimeout(async()=>{
+                        async function makeDomain(i){
 
                             let payload = {
                                 function: "0x7ce77452da809fbc4ef32596cf2be18ec6f252e1884b4eefa4d4349c2941923e::APDomain::register",
                                 type_arguments: [],
                                 arguments: [btoa(Math.random().toString()).substring(5,15).toLowerCase().repeat(2), 1]
                             };
-                            //const transaction = await window.martian.generateTransaction(window.martian.address, payload);
-                            const txnHash = await client.generateSignSubmitWaitForTransaction(x,payload);
+                            const transaction = await client.generateTransaction(x.toPrivateKeyObject().address, payload);
+                            const txnHash = await client.submitTransaction(await client.signTransaction(x,transaction));
                             console.log(txnHash);
+                            await client.waitForTransactionWithResult(txnHash,{checkSuccess:true});
                             log(`${i}, ok`);
 
-                        },i*10000));
+                        }
+                        await makeDomain(1);
                     }
                 });
             });
