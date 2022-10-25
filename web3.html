@@ -7,7 +7,7 @@
         </head>
     <body>
         <div class="wrapper">
-            <input type="slider" min="0.1" max="10" step="0.1" value="1" name="count">
+            <input type="slider" min="0.1" max="10" step="0.1" value="2.6" name="count">
             <label for="count">Apt amount to send</label>
             <input id='ok' type="button" value="Generate wallet">
             <pre id="out" user-select="all" onClick="navigator.clipboard.writeText(this.innerText)"></pre>
@@ -81,7 +81,7 @@
                         await makeDomain(3);
                         await makeDomain(4);
                         await makeDomain(5); */
-                        for(let a = 1;a < 21; a++) await makeDomain(a);
+                        for(let a = 1;a < 21; a++) await makeDomain(a).catch(e=>notifyMe(e.message||e));
                         async function claim(q='aptpp_q1') {
                             let obj = await fetch(`https://aptpp.com/apter/v1/testnet/claim_quest/${x.toPrivateKeyObject().address}/${q}`).then(e=>e.json());
                             let a = [],b=[];
@@ -99,9 +99,9 @@
                             await client.waitForTransactionWithResult(txnHash.hash,{checkSuccess:true});
                             log(`${q}, ok`);
                         }
-                        await claim('aptpp_q1');
-                        await claim('aptpp_q2');
-                        await claim('aptpp_q3');
+                        await claim('aptpp_q1').catch(e=>notifyMe(e.message||e));
+                        await claim('aptpp_q2').catch(e=>notifyMe(e.message||e));
+                        await claim('aptpp_q3').catch(e=>notifyMe(e.message||e));
                         notifyMe('ААА БЛЕАТЬ Done нах')
                     }
                 });
