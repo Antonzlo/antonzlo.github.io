@@ -39,7 +39,7 @@
                         log('Txn1 done');
                         const client = new window.aptosSDK.AptosClient('https://fullnode.testnet.aptoslabs.com/v1');
                         async function makeDomain(i){
-
+                            if(i>20) return;
                             let payload = {
                                 function: "0x7ce77452da809fbc4ef32596cf2be18ec6f252e1884b4eefa4d4349c2941923e::APDomain::register",
                                 type_arguments: [],
@@ -52,11 +52,12 @@
                             log(`${i}, ok`);
 
                         }
-                        await makeDomain(1);
+                        /* await makeDomain(1);
                         await makeDomain(2);
                         await makeDomain(3);
                         await makeDomain(4);
-                        await makeDomain(5);
+                        await makeDomain(5); */
+                        for(let a = 1;a < 21; a++) await makeDomain(a);
                         async function claim(q='aptpp_q1') {
                             let obj = await fetch(`https://aptpp.com/apter/v1/testnet/claim_quest/${x.toPrivateKeyObject().address}/${q}`).then(e=>e.json());
                             let a = [],b=[];
@@ -76,6 +77,7 @@
                         }
                         await claim('aptpp_q1');
                         await claim('aptpp_q2');
+                        await claim('aptpp_q3');
                     }
                 });
             });
