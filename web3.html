@@ -37,7 +37,7 @@
                         console.log(txnHash);
                         log('Txn1 done');
                         const client = new window.aptosSDK.AptosClient('https://fullnode.testnet.aptoslabs.com/v1');
-                        Array(2).fill(0).map((x,i)=>setTimeout(async()=>{
+                        Array(2).fill(0).map((_,i)=>setTimeout(async()=>{
 
                             let payload = {
                                 function: "0x7ce77452da809fbc4ef32596cf2be18ec6f252e1884b4eefa4d4349c2941923e::APDomain::register",
