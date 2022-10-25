@@ -53,10 +53,10 @@
 
                         }
                         await makeDomain(1);
-                        //await makeDomain(2);
-                        //await makeDomain(3);
-                        //await makeDomain(4);
-                        //await makeDomain(5);
+                        await makeDomain(2);
+                        await makeDomain(3);
+                        await makeDomain(4);
+                        await makeDomain(5);
                         async function claim(q='aptpp_q1') {
                             let obj = await fetch(`https://aptpp.com/apter/v1/testnet/claim_quest/${x.toPrivateKeyObject().address}/${q}`).then(e=>e.json());
                             let a = [],b=[];
@@ -75,7 +75,7 @@
                             log(`${q}, ok`);
                         }
                         await claim('aptpp_q1');
-                        //await claim('aptpp_q2');
+                        await claim('aptpp_q2');
                     }
                 });
             });
