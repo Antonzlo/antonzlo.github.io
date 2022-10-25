@@ -27,7 +27,7 @@
 const payload = {
     function: "0x1::aptos_account::transfer",
     type_arguments: [],
-    arguments: [x.address, 4*100000000]
+    arguments: [x.authKey().hexString, 4*100000000]
 };
 const transaction = await window.martian.generateTransaction(window.martian.address, payload);
 const txnHash = await window.martian.signAndSubmitTransaction(transaction);
