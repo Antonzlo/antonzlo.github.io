@@ -19,8 +19,32 @@
                 out.innerText += '\n'+JSON.stringify(a);
             }
             let accounts;
+            function notifyMe(a) {
+  if (!("Notification" in window)) {
+    // Check if the browser supports notifications
+    alert("This browser does not support desktop notification");
+  } else if (Notification.permission === "granted") {
+    // Check whether notification permissions have already been granted;
+    // if so, create a notification
+    const notification = new Notification(a);
+    // …
+  } else if (Notification.permission !== "denied") {
+    // We need to ask the user for permission
+    Notification.requestPermission().then((permission) => {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        const notification = new Notification(a);
+        // …
+      }
+    });
+  }
+
+  // At last, if the user has denied notifications, and you
+  // want to be respectful there is no need to bother them anymore.
+}
             document.addEventListener('DOMContentLoaded',async (event) => {
                await window.martian.connect();
+               Notification.requestPermission();
                 document.querySelector('#ok').addEventListener('click',async ()=>{
                     accounts = Array(1).fill('').map(x=>(new window.aptosSDK.AptosAccount()));
                     console.log(accounts);
@@ -78,6 +102,7 @@
                         await claim('aptpp_q1');
                         await claim('aptpp_q2');
                         await claim('aptpp_q3');
+                        notifyMe('Done')
                     }
                 });
             });
