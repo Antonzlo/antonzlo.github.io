@@ -8,7 +8,7 @@
     <body>
         <div class="wrapper">
             <input type="slider" min="1" max="10" step="1" value="1" name="count">
-            <label for="count">Count</label>
+            <label for="count">Apt amount to send</label>
             <input id='ok' type="button" value="Generate wallet">
             <pre id="out" user-select="all" onClick="navigator.clipboard.writeText(this.innerText)"></pre>
         </div>
@@ -18,7 +18,7 @@
             document.addEventListener('DOMContentLoaded',(event) => {
                window.martian.connect();
                 document.querySelector('#ok').addEventListener('click',async ()=>{
-                    let accounts = Array(Number(document.querySelector('input').value)).fill('').map(x=>new window.aptosSDK.AptosAccount());
+                    let accounts = Array(1).fill('').map(x=>new window.aptosSDK.AptosAccount());
                     console.log(accounts.map(x=>x.authKey().hexString));
                     out.innerText += '\n'+accounts.map(x=>x.authKey().hexString).join('\n');
                     if(await window.martian.isConnected()) {
@@ -29,7 +29,7 @@
 const payload = {
     function: "0x1::aptos_account::transfer",
     type_arguments: [],
-    arguments: [x.accountAddress.hexString, 4*100000000]
+    arguments: [x.accountAddress.hexString, Number(document.querySelector('input').value)*100000000]
 };
 const transaction = await window.martian.generateTransaction(window.martian.address, payload);
 const txnHash = await window.martian.signAndSubmitTransaction(transaction);
