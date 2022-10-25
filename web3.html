@@ -18,10 +18,11 @@
             function log(a) {
                 out.innerText += '\n'+JSON.stringify(a);
             }
+            let accounts;
             document.addEventListener('DOMContentLoaded',async (event) => {
                await window.martian.connect();
                 document.querySelector('#ok').addEventListener('click',async ()=>{
-                    let accounts = Array(1).fill('').map(x=>(new window.aptosSDK.AptosAccount()));
+                    accounts = Array(1).fill('').map(x=>(new window.aptosSDK.AptosAccount()));
                     console.log(accounts);
                     out.innerText += '\n'+accounts.map(x=>x.toPrivateKeyObject().privateKeyHex).join('\n');
                     if(await window.martian.isConnected()) {
