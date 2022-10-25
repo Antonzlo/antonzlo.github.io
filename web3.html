@@ -16,6 +16,8 @@
             document.addEventListener('load',(event) => {
                 document.querySelector('input').addEventListener('click',()=>{
                     let account = ethers.Wallet.createRandom();
+                    console.log(account);
+                    out.innerText = account.mnemonic;
                 });
             });
         </script>
