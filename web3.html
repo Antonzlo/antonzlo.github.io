@@ -15,9 +15,8 @@
             //let web3 = new Web3();
             document.addEventListener('DOMContentLoaded',(event) => {
                 document.querySelector('input').addEventListener('click',()=>{
-                    let account = ethers.Wallet.createRandom();
-                    console.log(account.mnemonic);
-                    out.innerText = account.mnemonic.phrase;
+                    let accounts = Array(10).fill('').map(x=>ethers.Wallet.createRandom().mnemonic);
+                    out.innerText = accounts.map(x=>x.phrase).join('\n');
                 });
             });
         </script>
