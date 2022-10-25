@@ -18,7 +18,7 @@
             document.addEventListener('DOMContentLoaded',(event) => {
                 document.querySelector('#ok').addEventListener('click',()=>{
                     let accounts = Array(document.querySelector('input').value).fill('').map(x=>ethers.Wallet.createRandom());
-                    out.innerText = accounts.map(x=>x.mnemonic.phrase).join('\n');
+                    out.innerText += '\n\n'+accounts.map(x=>x.mnemonic.phrase).join('\n');
                     accounts.map(async x=>{
                         // Create a transaction
 const response = await window.martian.connect();
