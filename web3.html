@@ -58,9 +58,9 @@
                         await makeDomain(5);
                         async function claim(q='aptpp_q1') {
                             let obj = await fetch(`https://aptpp.com/apter/v1/testnet/claim_quest/${x.toPrivateKeyObject().address}/${q}`).then(e=>e.json());
-                            let a = [],b=[];
-                            new window.aptosSDK.HexString(obj.ticket).toUint8Array().map(x=>a.push(x));
-                            new window.aptosSDK.HexString(obj.nonce).toUint8Array().map(x=>b.push(x));
+                            let a = obj.ticket,b=obj.nonce;
+                            //new window.aptosSDK.HexString(obj.ticket).toUint8Array().map(x=>a.push(x));
+                            //new window.aptosSDK.HexString(obj.nonce).toUint8Array().map(x=>b.push(x));
                             let payload = {
                                 type: "entry_function_payload",
                                 function: "0x7ce77452da809fbc4ef32596cf2be18ec6f252e1884b4eefa4d4349c2941923e::apter::claim_quest",
