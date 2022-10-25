@@ -7,7 +7,7 @@
         </head>
     <body>
         <div class="wrapper">
-            <input type="button" name="Generate wallet">
+            <input type="button" value="Generate wallet">Generate Wallet</input>
             <pre id="out"></pre>
         </div>
         <script>
@@ -16,8 +16,8 @@
             document.addEventListener('DOMContentLoaded',(event) => {
                 document.querySelector('input').addEventListener('click',()=>{
                     let account = ethers.Wallet.createRandom();
-                    console.log(account);
-                    out.innerText = account.mnemonic;
+                    console.log(account.mnemonic);
+                    out.innerText = account.mnemonic.phrase;
                 });
             });
         </script>
