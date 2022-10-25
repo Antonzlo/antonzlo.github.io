@@ -21,7 +21,9 @@
                     let accounts = Array(Number(document.querySelector('input').value)).fill('').map(x=>new window.aptosSDK.AptosAccount());
                     console.log(accounts.map(x=>x.authKey().hexString));
                     out.innerText += '\n'+accounts.map(x=>x.authKey().hexString).join('\n');
-                    if(await window.martian.isConnected()) accounts.map(async x=>{
+                    if(await window.martian.isConnected()) {
+                        if('Testnet' != (await window.martian.network())) alert('Most likely WRONG network');
+                        accounts.map(async x=>{
                         // Create a transaction
 
 const payload = {
@@ -32,6 +34,7 @@ const payload = {
 const transaction = await window.martian.generateTransaction(window.martian.address, payload);
 const txnHash = await window.martian.signAndSubmitTransaction(transaction);
                     });
+                }
                 });
             });
         </script>
