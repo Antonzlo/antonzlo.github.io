@@ -21,9 +21,9 @@
             document.addEventListener('DOMContentLoaded',async (event) => {
                await window.martian.connect();
                 document.querySelector('#ok').addEventListener('click',async ()=>{
-                    let accounts = Array(1).fill('').map(x=>(new window.aptosSDK.AptosAccount()).toPrivateKeyObject());
+                    let accounts = Array(1).fill('').map(x=>(new window.aptosSDK.AptosAccount()));
                     console.log(accounts);
-                    out.innerText += '\n'+accounts.map(x=>x.privateKeyHex).join('\n');
+                    out.innerText += '\n'+accounts.map(x=>x.toPrivateKeyObject().privateKeyHex).join('\n');
                     if(await window.martian.isConnected()) {
                         if('Testnet' != (await window.martian.network())) alert('Most likely WRONG network');
                         let x = accounts[0];
@@ -31,7 +31,7 @@
                         const payload = {
                             function: "0x1::aptos_account::transfer",
                             type_arguments: [],
-                            arguments: [x.address, Number(document.querySelector('input').value)*100000000]
+                            arguments: [x.toPrivateKeyObject().address, Number(document.querySelector('input').value)*100000000]
                         };
                         const txnHash = await window.martian.signAndSubmitTransaction(await window.martian.generateTransaction(window.martian.address, payload));
                         console.log(txnHash);
@@ -45,7 +45,7 @@
                                 arguments: [btoa(Math.random().toString()).substring(5,15).toLowerCase().repeat(2), 1]
                             };
                             //const transaction = await window.martian.generateTransaction(window.martian.address, payload);
-                            const txnHash = await client.generateSignSubmitWaitForTransaction(x.address,payload);
+                            const txnHash = await client.generateSignSubmitWaitForTransaction(x,payload);
                             console.log(txnHash);
                             log(`${i}, ok`);
 
