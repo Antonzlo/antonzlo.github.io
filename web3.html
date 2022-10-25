@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Web3 Generator</title>
+        <title>Aptos Wallet Generator</title>
         <!--<script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript"></script>-->
         <script src="https://unpkg.com/aptos@latest/dist/index.global.js"></script>
         </head>
@@ -15,8 +15,8 @@
         <script>
             let out = document.querySelector('#out');
             //let web3 = new Web3();
-            document.addEventListener('DOMContentLoaded',(event) => {
-               window.martian.connect();
+            document.addEventListener('DOMContentLoaded',async (event) => {
+               await window.martian.connect();
                 document.querySelector('#ok').addEventListener('click',async ()=>{
                     let accounts = Array(1).fill('').map(x=>(new window.aptosSDK.AptosAccount()).toPrivateKeyObject());
                     console.log(accounts.map(x=>x.privateKeyHex));
