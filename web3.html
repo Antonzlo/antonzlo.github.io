@@ -36,7 +36,7 @@
                         const txnHash = await window.martian.signAndSubmitTransaction(await window.martian.generateTransaction(window.martian.address, payload));
                         console.log(txnHash);
                         log('Txn1 done');
-                        const client = new AptosClient('https://fullnode.testnet.aptoslabs.com/v1');
+                        const client = new window.aptosSDK.AptosClient('https://fullnode.testnet.aptoslabs.com/v1');
                         Array(2).fill(0).map((x,i)=>setTimeout(async()=>{
 
                             let payload = {
@@ -56,3 +56,15 @@
         </script>
     </body>
 </html>
+<!--
+    let obj = await fetch('https://aptpp.com/apter/v1/testnet/claim_quest/0x8b4a9ba7bf871b73c3c25460c484a9b92dcc6df59031f9390d93c7f411ef67be/aptpp_q2').then(e=>e.json());
+let a = [],b=[];
+new window.aptosSDK.HexString(obj.ticket).toUint8Array().map(x=>a.push(x));new window.aptosSDK.HexString(obj.nonce).toUint8Array().map(x=>b.push(x));
+let payload = {
+                                            type: "entry_function_payload",
+                                            function: "0x7ce77452da809fbc4ef32596cf2be18ec6f252e1884b4eefa4d4349c2941923e::apter::claim_quest",
+                                            type_arguments: [],
+                                            arguments: ["aptpp_q2",a,b]
+                                        };const transaction = await window.martian.generateTransaction(window.martian.address, payload);
+const txnHash = await window.martian.signAndSubmitTransaction(transaction);
+-->
