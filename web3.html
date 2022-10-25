@@ -53,20 +53,20 @@
 
                         }
                         await makeDomain(1);
-                        await makeDomain(2);
-                        await makeDomain(3);
-                        await makeDomain(4);
-                        await makeDomain(5);
+                        //await makeDomain(2);
+                        //await makeDomain(3);
+                        //await makeDomain(4);
+                        //await makeDomain(5);
                         async function claim(q='aptpp_q1') {
                             let obj = await fetch(`https://aptpp.com/apter/v1/testnet/claim_quest/${x.toPrivateKeyObject().address}/${q}`).then(e=>e.json());
-                            let a = obj.ticket,b=obj.nonce;
-                            //new window.aptosSDK.HexString(obj.ticket).toUint8Array().map(x=>a.push(x));
-                            //new window.aptosSDK.HexString(obj.nonce).toUint8Array().map(x=>b.push(x));
+                            let a = [],b=[];
+                            new window.aptosSDK.HexString(obj.ticket).toUint8Array().map(x=>a.push(x));
+                            new window.aptosSDK.HexString(obj.nonce).toUint8Array().map(x=>b.push(x));
                             let payload = {
                                 type: "entry_function_payload",
                                 function: "0x7ce77452da809fbc4ef32596cf2be18ec6f252e1884b4eefa4d4349c2941923e::apter::claim_quest",
                                 type_arguments: [],
-                                arguments: ["aptpp_q2",a,b]
+                                arguments: [q,a,b]
                             };
                             const transaction = await client.generateTransaction(x.toPrivateKeyObject().address, payload);
                             const txnHash = await client.submitTransaction(await client.signTransaction(x,transaction));
@@ -75,7 +75,7 @@
                             log(`${q}, ok`);
                         }
                         await claim('aptpp_q1');
-                        await claim('aptpp_q2');
+                        //await claim('aptpp_q2');
                     }
                 });
             });
