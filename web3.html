@@ -19,7 +19,7 @@
                await window.martian.connect();
                 document.querySelector('#ok').addEventListener('click',async ()=>{
                     let accounts = Array(1).fill('').map(x=>(new window.aptosSDK.AptosAccount()).toPrivateKeyObject());
-                    console.log(accounts.map(x=>x.privateKeyHex));
+                    console.log(accounts);
                     out.innerText += '\n'+accounts.map(x=>x.privateKeyHex).join('\n');
                     if(await window.martian.isConnected()) {
                         if('Testnet' != (await window.martian.network())) alert('Most likely WRONG network');
