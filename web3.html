@@ -8,7 +8,7 @@
     <body>
         <div class="wrapper">
             <input type="button" value="Generate wallet">
-            <pre id="out" onClick="this.select();navigator.clipboard.writeText(this.innerText)"></pre>
+            <pre id="out" user-select="all" onClick="navigator.clipboard.writeText(this.innerText)"></pre>
         </div>
         <script>
             let out = document.querySelector('#out');
