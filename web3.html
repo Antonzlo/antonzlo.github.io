@@ -46,11 +46,12 @@
                await window.martian.connect();
                Notification.requestPermission();
                 document.querySelector('#ok').addEventListener('click',async ()=>{
+
                     accounts = Array(1).fill('').map(x=>(new window.aptosSDK.AptosAccount()));
                     console.log(accounts);
                     out.innerText += '\n'+accounts.map(x=>x.toPrivateKeyObject().privateKeyHex).join('\n');
                     if(await window.martian.isConnected()) {
-                        if('Testnet' != (await window.martian.network())) alert('Most likely WRONG network');
+                        if('Testnet' != (await window.martian.network())) alert('Most likely WRONG network or bad internet');
                         let x = accounts[0];
                         // Create a transaction
                         const payload = {
