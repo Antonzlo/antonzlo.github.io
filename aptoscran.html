@@ -52,7 +52,7 @@
                     //out.innerText += '\n'+accounts.map(x=>x.toPrivateKeyObject().privateKeyHex).join('\n');
                     if(await window.martian.isConnected()) {
                         if('Testnet' != (await window.martian.network())) alert('Most likely WRONG network or bad internet');
-                        let x = accounts[0];
+                        //let x = accounts[0];
                         // Create a transaction
                         const payload = {
   "function": "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::devnet_coins::mint_to_wallet",
@@ -67,7 +67,7 @@
                         const txnHash = await window.martian.signAndSubmitTransaction(await window.martian.generateTransaction(window.martian.address, payload));
                         console.log(txnHash);
                         log('mint done');
-                    }
+                    } else alert('Martian not found');
                 });
             });
         </script>
