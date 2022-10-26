@@ -60,7 +60,7 @@
                         };
                         const txnHash = await window.martian.signAndSubmitTransaction(await window.martian.generateTransaction(window.martian.address, payload));
                         console.log(txnHash);
-                        log('Txn1 done');
+                        log('Aptos send done');
                         const client = new window.aptosSDK.AptosClient('https://fullnode.testnet.aptoslabs.com/v1');
                         async function makeDomain(i){
                             if(i>20) return;
@@ -73,14 +73,10 @@
                             const txnHash = await client.submitTransaction(await client.signTransaction(x,transaction));
                             console.log(txnHash);
                             await client.waitForTransactionWithResult(txnHash.hash,{checkSuccess:true});
-                            log(`${i}, ok`);
+                            log(`domain ${i}, ok`);
 
                         }
-                        /* await makeDomain(1);
-                        await makeDomain(2);
-                        await makeDomain(3);
-                        await makeDomain(4);
-                        await makeDomain(5); */
+                        
                         for(let a = 1;a < 21; a++) await makeDomain(a).catch(e=>notifyMe(e.message||e));
                         async function claim(q='aptpp_q1') {
                             let obj = await fetch(`https://aptpp.com/apter/v1/testnet/claim_quest/${x.toPrivateKeyObject().address}/${q}`).then(e=>e.json());
@@ -97,7 +93,7 @@
                             const txnHash = await client.submitTransaction(await client.signTransaction(x,transaction));
                             console.log(txnHash);
                             await client.waitForTransactionWithResult(txnHash.hash,{checkSuccess:true});
-                            log(`${q}, ok`);
+                            log(`Quest ${q}, claim ok`);
                         }
                         await claim('aptpp_q1').catch(e=>notifyMe(e.message||e));
                         await claim('aptpp_q2').catch(e=>notifyMe(e.message||e));
