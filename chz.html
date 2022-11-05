@@ -43,7 +43,7 @@ Notification.requestPermission().then((permission) => {
 // At last, if the user has denied notifications, and you
 // want to be respectful there is no need to bother them anymore.
 }
-let limit = 1;
+let limit = 5;
         document.addEventListener('DOMContentLoaded',async (event) => {
            if(ethereum) accounts = await ethereum.request({ method: 'eth_requestAccounts' });
            else alert('No Web3');
