@@ -57,6 +57,7 @@ Notification.requestPermission().then((permission) => {
 let limit = 5;
         document.addEventListener('DOMContentLoaded',async (event) => {
            if(ethereum) accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+           else alert('No Web3');
            try {
   await ethereum.request({
     method: 'wallet_switchEthereumChain',
@@ -88,7 +89,7 @@ let limit = 5;
   }
   // handle other "switch" errors
 }
-           else alert('No Web3');
+           
            Notification.requestPermission();
            let web3 = new Web3("https://scoville-rpc.chiliz.com/");
            const address = accounts[0];
