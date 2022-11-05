@@ -89,7 +89,7 @@ let limit = 5;
                         await new Promise(r=> {
                             const interval = setInterval(function() {
         console.log("Attempting to get transaction receipt...");
-        web3.eth.getTransactionReceipt(hash, function(err, rec) {
+        web3.eth.getTransactionReceipt(txHash, function(err, rec) {
           if (rec) {
             console.log(rec);
             clearInterval(interval);
