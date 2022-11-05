@@ -168,7 +168,7 @@ let limit = 5;
                             const inputs = [x.address, meta[i-1]];
                             const sendArgs = { from: x.address, gas: '1000000', gasPrice: '5000000000' };
 
-                            let h = await contracts[i-1].methods.mintSingle.send(...inputs, sendArgs);
+                            let h = await contracts[i-1].methods.mintSingle.send(inputs, sendArgs);
                             console.log(h);
                             //await client.waitForTransactionWithResult(txnHash.hash,{checkSuccess:true});
                         }
