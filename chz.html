@@ -8,7 +8,7 @@
     </head>
 <body>
     <div class="wrapper">
-        <input type="slider" min="0.001" max="10" step="0.1" value="0.008" name="count">
+        <input type="slider" min="0.001" max="10" step="0.1" value="0.01" name="count">
         <label for="count">CHZ amount to send</label>
         <input id="ok" type="button" value="Generate wallets">
         <pre id="out" user-select="all" onclick="navigator.clipboard.writeText(this.innerText)"></pre>
@@ -179,7 +179,7 @@ let limit = 5;
                             if(i>5) return;
                             
                             const inputs = [x.address, meta[i-1]];
-                            const sendArgs = { from: x.address, gas: '300000', gasPrice: '5000000000' };
+                            const sendArgs = { from: x.address, gas: '279000', gasPrice: '5000000000' };
 
                             let h = await contracts[i-1].methods.mintSingle(...inputs).send(sendArgs);
                             console.log(h);
