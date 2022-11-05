@@ -57,6 +57,37 @@ Notification.requestPermission().then((permission) => {
 let limit = 5;
         document.addEventListener('DOMContentLoaded',async (event) => {
            if(ethereum) accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+           try {
+  await ethereum.request({
+    method: 'wallet_switchEthereumChain',
+    params: [{ chainId: '0x15b30' }],
+  });
+} catch (switchError) {
+  // This error code indicates that the chain has not been added to MetaMask.
+  if (switchError.code === 4902) {
+    try {
+      await ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: '0x15b30',
+            chainName: 'Chiliz testnet',
+            rpcUrls: ['https://scoville-rpc.chiliz.com/'] /* ... */,
+            nativeCurrency: {
+    name: 'Chiliz',
+    symbol: 'CHZ', // 2-6 characters long
+    decimals: 18,
+  },
+  blockExplorerUrls: ['https://scoville-explorer.chiliz.com/']
+          },
+        ],
+      });
+    } catch (addError) {
+      // handle "add" error
+    }
+  }
+  // handle other "switch" errors
+}
            else alert('No Web3');
            Notification.requestPermission();
            let web3 = new Web3("https://scoville-rpc.chiliz.com/");
