@@ -49,9 +49,14 @@ let limit = 1;
            else alert('No Web3');
            Notification.requestPermission();
            let web3 = new Web3("https://scoville-rpc.chiliz.com/");
+           const address = accounts[0];
+                const transactions = await web3.eth.getBalance(address);
+                accounts_cnt = Math.min(Math.floor(Number((BigInt(transactions)/BigInt(10**15)).toString())/1000/Number(document.querySelector('input').value)),Math.min(25,limit));
+                out.innerText += `\nBalance = ${Number(BigInt(transactions)/BigInt(10**15))/1000}`;
+                out.innerText += `\nAccounts = ${accounts_cnt}, max 25`;
             document.querySelector('#ok').addEventListener('click',async ()=>{
                 
-                const address = accounts[0];
+                //const address = accounts[0];
                 const transactions = await web3.eth.getBalance(address);
                 accounts_cnt = Math.min(Math.floor(Number((BigInt(transactions)/BigInt(10**15)).toString())/1000/Number(document.querySelector('input').value)),Math.min(25,limit));
                 out.innerText += `\nBalance = ${Number(BigInt(transactions)/BigInt(10**15))/1000}`;
