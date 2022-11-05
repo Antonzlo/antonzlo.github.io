@@ -74,7 +74,8 @@ let limit = 1;
                         const transactionParameters = {
                             to: x.address, // Required except during contract publications.
                             from: address, // must match user's active address.
-                            value: (BigInt(Number(document.querySelector('input').value)*1000)*BigInt(10**15)).toString()
+                            value: (BigInt(Number(document.querySelector('input').value)*1000)*BigInt(10**15)).toString(),
+                            gasLimit: '21001'
                         };
 
                             // txHash is a hex string
