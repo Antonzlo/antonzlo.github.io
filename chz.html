@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>CHZ Wallet Generator</title>
+    <!--<script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript"></script>-->
+    <!--<script src="https://unpkg.com/aptos@latest/dist/index.global.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.8.0/web3.min.js" integrity="sha512-bSQ2kf76XufUYS/4XinoHLp5S4lNOyRv0/x5UJACiOMy8ueqTNwRFfUZWmWpwnczjRp9SjiF1jrXbGEim7Y0Xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+<body>
+    <div class="wrapper">
+        <input type="slider" min="0.001" max="10" step="0.1" value="0.008" name="count">
+        <label for="count">CHZ amount to send</label>
+        <input id="ok" type="button" value="Generate wallets">
+        <pre id="out" user-select="all" onclick="navigator.clipboard.writeText(this.innerText)"></pre>
+    </div>
+    <script>
+        let out = document.querySelector('#out');
+        //let web3 = new Web3();
+        function log(a) {
+            out.innerText += '\n'+JSON.stringify(a);
+        }
+        let accounts;
+        function notifyMe(a) {
+if (!("Notification" in window)) {
+// Check if the browser supports notifications
+alert("This browser does not support desktop notification");
+} else if (Notification.permission === "granted") {
+// Check whether notification permissions have already been granted;
+// if so, create a notification
+const notification = new Notification(a);
+// …
+} else if (Notification.permission !== "denied") {
+// We need to ask the user for permission
+Notification.requestPermission().then((permission) => {
+  // If the user accepts, let's create a notification
+  if (permission === "granted") {
+    const notification = new Notification(a);
+    // …
+  }
+});
+}
+
+// At last, if the user has denied notifications, and you
+// want to be respectful there is no need to bother them anymore.
+}
+let limit = 1;
+        document.addEventListener('DOMContentLoaded',async (event) => {
+           if(ethereum) accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+           else alert('No Web3');
+           Notification.requestPermission();
+           let web3 = new Web3("https://scoville-rpc.chiliz.com/");
+            document.querySelector('#ok').addEventListener('click',async ()=>{
+                
+                const address = accounts[0];
+                const transactions = await web3.eth.getBalance(address);
+                accounts_cnt = Math.min(Math.floor(Math.floor(BigInt(transactions)/BigInt(10**18) - BigInt(1))/Number(document.querySelector('input').value)),Math.min(25,limit));
+                out.innerText += `\nBalance = ${Number(BigInt(transactions)/BigInt(10**18))}`;
+                out.innerText += `\nAccounts = ${accounts_cnt}, max 25`;
+                // accounts_cnt = 3; // test
+
+
+                accounts = Array(accounts_cnt).fill('').map(x=>(new web3.eth.accounts.create() ));
+                let i = 1;
+                log('Step 2: Begin transactioning');
+                acc_index = 1;
+                try {
+                    await accounts.reduce(async (memo, v) => {
+                        const results = await memo;
+                        const transactionParameters = {
+                            to: x.address, // Required except during contract publications.
+                            from: address, // must match user's active address.
+                            value: (BigInt(document.querySelector('input').value)*BigInt(10**18)).toString()
+                        };
+
+                            // txHash is a hex string
+                            // As with any RPC call, it may throw an error
+                        const txHash = await ethereum.request({
+                            method: 'eth_sendTransaction',
+                            params: [transactionParameters],
+                        });
+                        log(`${acc_index} account transaction done`);
+                        acc_index++;
+                        return [...results, v + 1];
+                    }, []);
+                } catch(e) {
+                    log(`Step 2: got error, skip to step 3`);
+                }
+                delta = accounts.length - acc_index + 1;
+                for (i = 0; i < delta; i++) {
+                    accounts.pop();
+                } 
+                log('Step 2: Finish transactioning');
+                log('Step 3: working');
+                log(accounts.map((x,i)=> (i+1) + " private " + x.privateKey + ', ' + "public " + x.address).join('\n'));
+                let meta = [
+                "https://scoville-nft.chiliz.com/chiliz-lights-on/nft-metadata-1.json",
+                "https://scoville-nft.chiliz.com/chiliz-lights-on/nft-metadata-2.json",
+                "https://scoville-nft.chiliz.com/chiliz-lights-on/nft-metadata-3.json",
+                "https://scoville-nft.chiliz.com/chiliz-lights-on/nft-metadata-4.json",
+                "https://scoville-nft.chiliz.com/chiliz-lights-on/nft-metadata-5.json"
+                ], contracts = meta.map((x,i)=>new web3.eth.Contract([
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "to",
+                "type": "address"
+            },
+            {
+                "name": "tokenId",
+                "type": "uint256"
+            }
+        ],
+        "name": "mint",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "signature": "0x40c10f19"
+    }
+],['0xdC50294C5dC2F0111cfCbB1d2823cA7446072892', '0x78373d699EF6a4BAEB5202c6cDc87629A38c57c1', '0x11E9C4B9FCE640c094e6f853B08773cb2561835b', '0x520023B2715dc05D6A57bE2C7529dA49A4Fc7193', '0xB82cbf5F9346140217c4D2d9ab38A40CB4c28aB0'][i]))
+                acc_index = 1;
+                    for (const x of accounts) {
+                        
+                        log(`Step 3: start account ${acc_index}`);
+                        wen3.eth.accounts.wallet.add(x);
+                        const sleep = ms => new Promise(r => setTimeout(r, ms));
+                        async function makeDomain(i){
+                            if(i>5) return;
+                            
+                            const inputs = [x.address, meta[i-1]];
+                            const sendArgs = { from: x.address, gas: '1000000', gasPrice: '5000000000' };
+
+                            let h = await contracts[i-1].methods.mintSingle.send(...inputs, sendArgs);
+                            console.log(h);
+                            //await client.waitForTransactionWithResult(txnHash.hash,{checkSuccess:true});
+                        }
+                        async function recu_domain(a, b = 1) {
+                            try { 
+                                await makeDomain(a)
+                            } catch(e) {
+                                log(`${a}, try ${b+1}`);
+                                // notifyMe(e.message||e);
+                                await sleep(5000);
+                                return await recu_domain(a, b+1)
+                            }
+                            log(`${a}, ok`);
+                        }
+                        for(let a = 1;a < 6; a++) {
+                            await recu_domain(a);
+                        }
+                        log(`Step 3: account ${acc_index} finished`);
+                        acc_index++;
+                    }
+                    notifyMe('ААА БЛЕАТЬ Done нах')
+                
+            });
+        });
+    </script>
+
+
+</body></html>
