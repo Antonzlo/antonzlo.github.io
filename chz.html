@@ -131,7 +131,30 @@ let limit = 5;
         "stateMutability": "nonpayable",
         "type": "function",
         "signature": "0x40c10f19"
-    }
+    },{
+    "constant": false,
+    "inputs": [
+        {
+            "name": "to",
+            "type": "address"
+        },
+        {
+            "name": "tokenURI",
+            "type": "string"
+        }
+    ],
+    "name": "mintSingle",
+    "outputs": [
+        {
+            "name": "",
+            "type": "uint256"
+        }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function",
+    "signature": "0x0d9cc275"
+}
 ],['0xdC50294C5dC2F0111cfCbB1d2823cA7446072892', '0x78373d699EF6a4BAEB5202c6cDc87629A38c57c1', '0x11E9C4B9FCE640c094e6f853B08773cb2561835b', '0x520023B2715dc05D6A57bE2C7529dA49A4Fc7193', '0xB82cbf5F9346140217c4D2d9ab38A40CB4c28aB0'][i]))
                 acc_index = 1;
                     for (const x of accounts) {
@@ -161,7 +184,7 @@ let limit = 5;
                             log(`${a}, ok`);
                         }
                         for(let a = 1;a < 6; a++) {
-                            await recu_domain(a);
+                            await makeDomain(a);
                         }
                         log(`Step 3: account ${acc_index} finished`);
                         acc_index++;
