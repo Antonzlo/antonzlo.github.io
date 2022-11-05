@@ -179,7 +179,7 @@ let limit = 5;
                             if(i>5) return;
                             
                             const inputs = [x.address, meta[i-1]];
-                            const sendArgs = { from: x.address, gas: '1000000', gasPrice: '5000000000' };
+                            const sendArgs = { from: x.address, gas: '300000', gasPrice: '5000000000' };
 
                             let h = await contracts[i-1].methods.mintSingle(...inputs).send(sendArgs);
                             console.log(h);
