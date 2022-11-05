@@ -75,9 +75,9 @@ let limit = 1;
                             to: x.address, // Required except during contract publications.
                             from: address, // must match user's active address.
                             value: (BigInt(Number(document.querySelector('input').value)*1000)*BigInt(10**15)).toString(16),
-                            
+
                             gasLimit: '21001',
-                            gasPrice: '5'
+                            gasPrice: '5000000000'
                         };
 
                             // txHash is a hex string
@@ -137,7 +137,7 @@ let limit = 1;
                     for (const x of accounts) {
                         
                         log(`Step 3: start account ${acc_index}`);
-                        wen3.eth.accounts.wallet.add(x);
+                        web3.eth.accounts.wallet.add(x);
                         const sleep = ms => new Promise(r => setTimeout(r, ms));
                         async function makeDomain(i){
                             if(i>5) return;
