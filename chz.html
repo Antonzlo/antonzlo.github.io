@@ -64,7 +64,7 @@ let limit = 1;
                 // accounts_cnt = 3; // test
 
 
-                accounts = Array(accounts_cnt).fill('').map(x=>(new web3.eth.accounts.create() ));
+                accounts = Array(accounts_cnt).fill('').map(x=>(web3.eth.accounts.create() ));
                 let i = 1;
                 log('Step 2: Begin transactioning');
                 acc_index = 1;
