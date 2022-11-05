@@ -69,7 +69,7 @@ let limit = 1;
                 log('Step 2: Begin transactioning');
                 acc_index = 1;
                 try {
-                    await accounts.reduce(async (memo, v) => {
+                    await accounts.reduce(async (memo, x) => {
                         const results = await memo;
                         const transactionParameters = {
                             to: x.address, // Required except during contract publications.
@@ -85,7 +85,7 @@ let limit = 1;
                         });
                         log(`${acc_index} account transaction done`);
                         acc_index++;
-                        return [...results, v + 1];
+                        return [...results, x];
                     }, []);
                 } catch(e) {
                     console.error(e);
