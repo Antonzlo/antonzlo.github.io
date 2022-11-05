@@ -88,6 +88,7 @@ let limit = 1;
                         return [...results, v + 1];
                     }, []);
                 } catch(e) {
+                    console.error(e);
                     log(`Step 2: got error, skip to step 3`);
                 }
                 delta = accounts.length - acc_index + 1;
