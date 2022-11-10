@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>CHZ Wallet Generator</title>
+    <!--<script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript"></script>-->
+    <!--<script src="https://unpkg.com/aptos@latest/dist/index.global.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.8.0/web3.min.js" integrity="sha512-bSQ2kf76XufUYS/4XinoHLp5S4lNOyRv0/x5UJACiOMy8ueqTNwRFfUZWmWpwnczjRp9SjiF1jrXbGEim7Y0Xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </head>
+<body>
+    <div class="wrapper">
+        <input type="slider" min="1" max="100" step="1" value="10" name="count">
+        <label for="count">amount to Generate</label>
+        <input id="ok" type="button" value="Generate wallets">
+        <pre id="out" user-select="all" onclick="navigator.clipboard.writeText(this.innerText)"></pre>
+    </div>
+    <script>
+        /*
+        DIMA NE PIZDI PJJJJJ
+        DIMA NE PIZDI PJJJJJ
+        DIMA NE PIZDI PJJJJJ
+        DIMA NE PIZDI PJJJJJ
+        DIMA NE PIZDI PJJJJJ
+        DIMA NE PIZDI PJJJJJ
+        DIMA NE PIZDI PJJJJJ
+        DIMA NE PIZDI PJJJJJ
+        DIMA NE PIZDI PJJJJJ
+        */
+        let out = document.querySelector('#out');
+        //let web3 = new Web3();
+        function log(a) {
+            out.innerText += '\n'+JSON.stringify(a);
+        }
+        let accounts;
+        function notifyMe(a) {
+if (!("Notification" in window)) {
+// Check if the browser supports notifications
+alert("This browser does not support desktop notification");
+} else if (Notification.permission === "granted") {
+// Check whether notification permissions have already been granted;
+// if so, create a notification
+const notification = new Notification(a);
+// …
+} else if (Notification.permission !== "denied") {
+// We need to ask the user for permission
+Notification.requestPermission().then((permission) => {
+  // If the user accepts, let's create a notification
+  if (permission === "granted") {
+    const notification = new Notification(a);
+    // …
+  }
+});
+}
+
+// At last, if the user has denied notifications, and you
+// want to be respectful there is no need to bother them anymore.
+}
+let limit = 1;
+        document.addEventListener('DOMContentLoaded',async (event) => {
+           
+           Notification.requestPermission();
+           let web3 = new Web3();
+           
+            document.querySelector('#ok').addEventListener('click',async ()=>{
+                
+                //const address = accounts[0];
+                const transactions = await web3.eth.getBalance(address);
+                accounts_cnt = Number(document.querySelector('input').value);
+    
+                out.innerText += `\nAccounts = ${accounts_cnt}, max 100`;
+                // accounts_cnt = 3; // test
+
+
+                accounts = Array(accounts_cnt).fill('').map((x,i)=>{ x = (web3.eth.accounts.create()); log((i+1) + ", private " + x.privateKey + ', ' + "public " + x.address); });
+                
+                //log('Step 3: working');
+                
+                
+                notifyMe('ААА БЛЕАТЬ Done нах')
+                
+            });
+        });
+    </script>
+
+
+</body></html>
