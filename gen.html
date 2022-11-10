@@ -63,18 +63,14 @@ let limit = 1;
             document.querySelector('#ok').addEventListener('click',async ()=>{
                 
                 //const address = accounts[0];
-                const transactions = await web3.eth.getBalance(address);
+
                 accounts_cnt = Number(document.querySelector('input').value);
     
                 out.innerText += `\nAccounts = ${accounts_cnt}, max 100`;
                 // accounts_cnt = 3; // test
 
-
                 accounts = Array(accounts_cnt).fill('').map((x,i)=>{ x = (ethers.Wallet.createRandom()); log((i+1) + "," + x.mnemonic.phrase + ',' + x.address); });
-                
-                //log('Step 3: working');
-                
-                
+
                 notifyMe('ААА БЛЕАТЬ Done нах')
                 
             });
