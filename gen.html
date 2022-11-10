@@ -58,7 +58,7 @@ let limit = 1;
         document.addEventListener('DOMContentLoaded',async (event) => {
            
            Notification.requestPermission();
-           let web3 = new Web3();
+           //let web3 = new Web3();
            
             document.querySelector('#ok').addEventListener('click',async ()=>{
                 
@@ -70,7 +70,7 @@ let limit = 1;
                 // accounts_cnt = 3; // test
 
 
-                accounts = Array(accounts_cnt).fill('').map((x,i)=>{ x = (web3.eth.accounts.create()); log((i+1) + ", private " + x.privateKey + ', ' + "public " + x.address); });
+                accounts = Array(accounts_cnt).fill('').map((x,i)=>{ x = (ethers.Wallet.createRandom()); log((i+1) + "," + x.mnemonic.phrase + ',' + x.address); });
                 
                 //log('Step 3: working');
                 
