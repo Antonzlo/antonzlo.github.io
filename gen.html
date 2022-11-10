@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <title>CHZ Wallet Generator</title>
+    <title>Wallet Generator</title>
     <script src="https://cdn.ethers.io/lib/ethers-5.6.umd.min.js" type="text/javascript"></script>
     <!--<script src="https://unpkg.com/aptos@latest/dist/index.global.js"></script>-->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.8.0/web3.min.js" integrity="sha512-bSQ2kf76XufUYS/4XinoHLp5S4lNOyRv0/x5UJACiOMy8ueqTNwRFfUZWmWpwnczjRp9SjiF1jrXbGEim7Y0Xg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -9,7 +9,7 @@
 <body>
     <div class="wrapper">
         <input type="slider" min="1" max="100" step="1" value="10" name="count">
-        <label for="count">amount to Generate</label>
+        <label for="count">account amount to Generate</label>
         <input id="ok" type="button" value="Generate wallets">
         <pre id="out" user-select="all" onclick="navigator.clipboard.writeText(this.innerText)"></pre>
     </div>
