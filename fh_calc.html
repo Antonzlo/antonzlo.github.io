@@ -64,7 +64,7 @@
     </div>
 
     <div class="row" style="padding-left: 50px">
-      <div class="col" style="margin-top: 10px"><span>Вовлеченность: х</span><output for="customRange3" id="customRange3Output">1.25</output></div>
+      <div class="col" style="margin-top: 10px"><span>Вовлеченность: х</span><output for="customRange3" id="customRange3Output">1.0</output></div>
     </div>
 
     <!--<div class="row" style="padding-left: 50px">-->
@@ -102,32 +102,30 @@
       let secondSelect = document.querySelectorAll("select")[1];
       let inputRange = document.querySelectorAll('input[type="range"]')[0];
       let number = document.querySelectorAll('input[type="number"]')[0];
+      function calculate() {
+        let coof = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value);
+          let result = coof * Number(number.value);
+          let str = document.getElementById("str");
+          //round to 2 digits after dot
+          str.innerHTML = `Coof: x${coof.toFixed(2)} = ${result.toFixed(2)}`;
+          document.getElementById("customRange3Output").innerHTML = coof.toFixed(2);
+      }
         resultButton.addEventListener("click", function () {
-          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
-          let str = document.getElementById("str");
-          str.innerHTML = result;
-        });
+            calculate();
+            });
         firstSelect.addEventListener("change", function () {
-          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
-          let str = document.getElementById("str");
-          str.innerHTML = result;
+            calculate();
         });
         secondSelect.addEventListener("change", function () {
-          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
-          let str = document.getElementById("str");
-          str.innerHTML = result;
+            calculate();
         });
-        inputRange.addEventListener("input", function () {
-          document.querySelector("#customRange3Output").value = inputRange.value;
-          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
-          let str = document.getElementById("str");
-          str.innerHTML = result;
+        inputRange.addEventListener("change", function () {
+            calculate();
         });
-        number.addEventListener("input", function () {
-          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
-          let str = document.getElementById("str");
-          str.innerHTML = result;
+        number.addEventListener("change", function () {
+            calculate();
         });
+
       });
     </script>
   </body>
