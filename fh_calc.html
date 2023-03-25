@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.w3.org/1999/html">
+  <head>
+    <!-- Кодировка веб-страницы -->
+    <meta charset="utf-8" />
+    <!-- Настройка viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calculator</title>
+
+    <!-- Bootstrap CSS (Cloudflare CDN) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"
+      integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
+    <!-- jQuery (Cloudflare CDN) -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+    <!-- Bootstrap Bundle JS (Cloudflare CDN) -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/js/bootstrap.min.js"
+      integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"></script>
+  </head>
+  <body>
+    <!-- Контент страницы -->
+    <div class="row" style="padding-left: 50px">
+      <div class="col" style="margin-top: 10px">
+        <select class="btn btn-secondary">
+          <option value="0.8">Срок упущен</option>
+          <option selected value="1">Вовремя</option>
+          <option value="1.2">Быстрее</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row" style="padding-left: 50px">
+      <div class="col" style="margin-top: 10px">
+        <div></div>
+
+        <select class="btn btn-secondary">
+          <option selected value="1">Соответствует ТЗ</option>
+          <option value="1.1">Ответственный подход к задаче</option>
+          <option value="1.2">Получена благодарность от заказчика</option>
+        </select>
+
+        <div></div>
+      </div>
+    </div>
+    <div></div>
+    <div class="row" style="padding-left: 50px">
+      <div class="col" style="margin-top: 10px">
+        <span>1</span>
+        <input type="range" class="form-range" min="1" max="1.5" step="0.05" id="customRange3" />
+        <span>1.5</span>
+      </div>
+    </div>
+
+    <div class="row" style="padding-left: 50px">
+      <div class="col" style="margin-top: 10px"><span>Вовлеченность: х</span><output for="customRange3" id="customRange3Output">1.25</output></div>
+    </div>
+
+    <!--<div class="row" style="padding-left: 50px">-->
+    <!--    <div class="col" style="margin-top: 10px">-->
+    <!--        <input type="button" value="Посчитать результат"-->
+    <!--        onclick="window.location.href='/calculator/result'">-->
+    <!--    </div>-->
+    <!--</div>-->
+    <div class="col-sm" style="padding-left: 50px">
+      <div style="margin-top: 20px">
+        <div class="form-group">
+          <label for="placeholder">Количество кусей</label>
+          <input type="number" class="form-control" id="placeholder" placeholder="Введите куси" />
+          <small id="placeholderHelp" class="form-text text-muted">Вводите количество кусей без учета коэффициентов</small>
+          <div id="str"></div>
+        </div>
+
+        <!--    <div class="form-check">-->
+        <!--        <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+        <!--        <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
+        <!--    </div>-->
+        <!--    <button type="submit" class="btn btn-primary" id="result-button">-->
+        <!--        Посчитать результат</button>-->
+
+        <input type="button" value="Посчитать результат" color="blue" id="result-button" />
+      </div>
+    </div>
+
+    <script>
+      
+      document.addEventListener("DOMContentLoaded", function () {
+        let resultButton = document.getElementById("result-button");
+      let firstSelect = document.querySelector("select");
+      let secondSelect = document.querySelectorAll("select")[1];
+      let inputRange = document.querySelectorAll('input[type="range"]')[0];
+      let number = document.querySelectorAll('input[type="number"]')[0];
+        resultButton.addEventListener("click", function () {
+          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
+          let str = document.getElementById("str");
+          str.innerHTML = result;
+        });
+        firstSelect.addEventListener("change", function () {
+          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
+          let str = document.getElementById("str");
+          str.innerHTML = result;
+        });
+        secondSelect.addEventListener("change", function () {
+          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
+          let str = document.getElementById("str");
+          str.innerHTML = result;
+        });
+        inputRange.addEventListener("input", function () {
+          document.querySelector("#customRange3Output").value = inputRange.value;
+          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
+          let str = document.getElementById("str");
+          str.innerHTML = result;
+        });
+        number.addEventListener("input", function () {
+          let result = Number(firstSelect.value) * Number(secondSelect.value) * Number(inputRange.value) * Number(number.value);
+          let str = document.getElementById("str");
+          str.innerHTML = result;
+        });
+      });
+    </script>
+  </body>
+</html>
