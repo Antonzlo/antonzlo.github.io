@@ -75,7 +75,7 @@
         }).then((offer) => {
             console.log('Offer: ', offer);
             let qr = new QRCode(document.getElementById('qrcode'), {
-                text: JSON.stringify(offer),
+                text: 'https://zlobinanton.ovh/control/?offer='+JSON.stringify(offer),
                 width: 256,
                 height: 256
             });
