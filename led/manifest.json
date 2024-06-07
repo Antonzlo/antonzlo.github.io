@@ -1,0 +1,16 @@
+{
+    "name": "WebRTC LED Sign",
+    "short_name": "LED Sign",
+    "start_url": "/led/index.html?fullscreen=true",
+    "scope": "/led/",
+    "display": "fullscreen",
+    "background_color": "#ffffff",
+    "description": "Control LED signs over WebRTC using LAN",
+    "icons": [
+        {
+            "src": "favicon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}

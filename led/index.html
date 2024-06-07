@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P2P</title>
+    <link rel="manifest" href="/manifest.json">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+    </script>
+    <script src="qrcode.min.js"></script>
+</head>
+<body>
+    <div id="qrcode"></div>
+    <script>
+        // try to negotiate a connection locally without a signaling server
+        const p2p = new RTCPeerConnection({
+
+        });
+        p2p.onicecandidate = (event) => {
+            if(event.candidate){
+                console.log('New ICE candidate: ', JSON.stringify(event.candidate));
+            }
+            else console.log(event);
+        }
+        p2p.oniceconnectionstatechange = (event) => {
+            console.log('ICE connection state change: ', p2p.iceConnectionState);
+        }
+        p2p.onicegatheringstatechange = (event) => {
+            console.log('ICE gathering state change: ', p2p.iceGatheringState);
+        }
+        p2p.onnegotiationneeded = (event) => {
+            console.log('Negotiation needed: ', event);
+        }
+        p2p.onsignalingstatechange = (event) => {
+            console.log('Signaling state change: ', p2p.signalingState);
+        }
+        p2p.ontrack = (event) => {
+            console.log('Track: ', event);
+        }
+        p2p.ondatachannel = (event) => {
+            console.log('Data channel: ', event);
+        }
+        p2p.onconnectionstatechange = (event) => {
+            console.log('Connection state change: ', p2p.connectionState);
+        }
+        p2p.onicecandidateerror = (event) => {
+            console.log('ICE candidate error: ', event);
+        }
+        // initiate the connection
+        p2p.createOffer({
+            offerToReceiveAudio: false,
+            offerToReceiveVideo: false  
+        }).then((offer) => {
+            console.log('Offer: ', offer);
+            let qr = new QRCode(document.getElementById('qrcode'), {
+                text: JSON.stringify(offer),
+                width: 128,
+                height: 128
+            });
+            //document.write(JSON.stringify(offer));
+            p2p.setLocalDescription(offer);
+        }).catch((error) => {
+            console.error('Error creating offer: ', error);
+        });
+        // fullscreen the QR code
+        document.getElementById('qrcode').style.width = '100%';
+        document.getElementById('qrcode').style.height = '100%';
+        // fullscreen the window
+        document.body.style.width = '100%';
+        document.body.style.height = '100%';
+        // request fullscreen
+        document.getElementById('qrcode').onclick = () => {
+            document.body.requestFullscreen();
+        }
+        
+        
+    </script>
+</body>
+</html>
