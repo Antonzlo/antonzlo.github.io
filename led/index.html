@@ -80,11 +80,11 @@
             console.error('Error creating offer: ', error);
         });
         // fullscreen the QR code
-        document.getElementById('qrcode').style.width = '100%';
+        /* document.getElementById('qrcode').style.width = '100%';
         document.getElementById('qrcode').style.height = '100%';
         // fullscreen the window
         document.body.style.width = '100%';
-        document.body.style.height = '100%';
+        document.body.style.height = '100%'; */
         // request fullscreen
         document.getElementById('qrcode').onclick = () => {
             document.body.requestFullscreen();
