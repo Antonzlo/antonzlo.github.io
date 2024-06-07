@@ -5,7 +5,7 @@ self.addEventListener('install', event => {
                 '/led/',
                 '/led/index.html',
                 '/led/qrcode.min.js',
-                '/favicon-512.png',
+                '/favicon.svg',
             ]);
         })
     );

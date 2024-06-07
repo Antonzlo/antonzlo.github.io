@@ -9,7 +9,7 @@
     "description": "Control LED signs over WebRTC using LAN",
     "icons": [
         {
-            "src": "/favicon-512.svg",
+            "src": "/favicon.svg",
             "sizes": "512x512",
             "type": "image/svg+xml"
         }
