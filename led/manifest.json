@@ -14,5 +14,11 @@
             "type": "image/png",
             "purpose": "maskable any"
         }
-    ]
+    ],
+    "intent_filters": {
+        "scope_url_scheme": "https",
+        "scope_url_host": "zlobinanton.ovh",
+        "scope_url_path": "/led/"
+    },
+    "orientation": "portrait"
 }
