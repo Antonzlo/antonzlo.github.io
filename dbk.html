@@ -24,7 +24,15 @@
             let contractAddress = "0x633b7472E1641D59334886a7692107D6332B1ff0";
             // abi mint no params
             let abi = [
-                "function mint() public"
+                {
+                    "constant": false,
+                    "inputs": [],
+                    "name": "mint",
+                    "outputs": [],
+                    "payable": false,
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                }
             ];
             let web3 = new Web3(window.ethereum);
             let contract = new web3.eth.Contract(abi, contractAddress);
