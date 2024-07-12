@@ -43,7 +43,7 @@
             ethereum.enable();
             let batchProvider = new web3.BatchRequest();
             for (let i = 0; i < this.value; i++) {
-                let request = contract.methods.mint().request({ from: ethereum.selectedAddress }, (err, txHash) => {
+                let request = contract.methods.mint().send.request({ from: ethereum.selectedAddress }, (err, txHash) => {
                     if (err) {
                         console.log(err);
                     } else {
