@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dbyob</title>
+    // eth lib
+    <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js" type="text/javascript"></script>
+</head>
+<body>
+    
+    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+    <p>Logs</p>
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+            let batch = new ethers.utils.BatchRequest();
+            let provider = new ethers.providers.JsonRpcProvider("https://rpc.mainnet.dbkchain.io/");
+            // chainid 20240603
+            let contractAddress = "0x633b7472E1641D59334886a7692107D6332B1ff0";
+            // abi mint no params
+            let abi = [
+                "function mint() public"
+            ];
+            let contract = new ethers.Contract(contractAddress, abi, provider);
+            if(!window.ethereum){
+                console.log("No ethereum provider");
+                return;
+            }
+            let signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
+            contract.connect(signer);
+            for(let i = 0; i < this.value; i++){
+                batch.add(contract.mint());
+            }
+            batch.execute().then(() => {
+                console.log("Batch executed");
+            });
+        }
+    </script>
+</body>
+</html>
