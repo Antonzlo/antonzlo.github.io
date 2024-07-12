@@ -21,7 +21,7 @@
             output.innerHTML = this.value;
 
             let provider = new ethers.providers.JsonRpcProvider("https://rpc.mainnet.dbkchain.io/");
-            const batchProvider = new  ethers.providers.JsonRpcBatchProvider(infuraProvider);
+            const batchProvider = new  ethers.providers.JsonRpcBatchProvider(provider);
 
             const requests = [
             ];
