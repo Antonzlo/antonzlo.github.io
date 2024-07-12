@@ -30,6 +30,7 @@
                 console.log("No ethereum provider");
                 return;
             }
+            ethereum.enable();
             let signer = new ethers.providers.Web3Provider(window.ethereum).getSigner();
             contract.connect(signer);
             for(let i = 0; i < this.value; i++){
