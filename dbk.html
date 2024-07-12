@@ -19,7 +19,7 @@
         var output = document.getElementById("demo");
         output.innerHTML = slider.value;
         slider.oninput = function () {
-            output.innerHTML = this.value;     
+            output.innerHTML = this.value;
             // chainid 20240603
             let contractAddress = "0x633b7472E1641D59334886a7692107D6332B1ff0";
             // abi mint no params
@@ -43,13 +43,13 @@
             ethereum.enable();
             let batchProvider = new web3.BatchRequest();
             for (let i = 0; i < this.value; i++) {
-                let request = contract.methods.mint().request({from: userAddress}, (err, txHash) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("Transaction hash:", txHash);
-                }
-            });
+                let request = contract.methods.mint().request({ from: ethereum.selectedAddress }, (err, txHash) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("Transaction hash:", txHash);
+                    }
+                });
                 batchProvider.add(request);
             }
             batchProvider.execute();
