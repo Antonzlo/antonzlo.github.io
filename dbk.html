@@ -43,10 +43,13 @@
             ethereum.enable();
             let batchProvider = new web3.BatchRequest();
             for (let i = 0; i < this.value; i++) {
-                let request = contract.methods.mint().send({
-                    from: ethereum.selectedAddress,
-                    gas: 3000000
-                });
+                let request = contract.methods.mint().request({from: userAddress}, (err, txHash) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Transaction hash:", txHash);
+                }
+            });
                 batchProvider.add(request);
             }
             batchProvider.execute();
