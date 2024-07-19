@@ -25,6 +25,7 @@
                     var result = document.getElementById("result");
                     let data = JSON.stringify(datas);
                     let out = `Name: ${data} | @${data.username}<br>ID: ${data.id}<br>Description: ${data.description}`;
+                    result.innerHTML = out;
                 })
                 .catch(error => {
                     var result = document.getElementById("result");
