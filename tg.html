@@ -23,7 +23,7 @@
                 .then(response => response.json())
                 .then(datas => {
                     var result = document.getElementById("result");
-                    let data = JSON.stringify(datas);
+                    let data = JSON.parse(datas).result;
                     let out = `Name: ${data} | @${data.username}<br>ID: ${data.id}<br>Description: ${data.description}`;
                     result.innerHTML = out;
                 })
