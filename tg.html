@@ -21,9 +21,9 @@
 
             fetch(url)
                 .then(response => response.json())
-                .then(data => {
+                .then(datas => {
                     var result = document.getElementById("result");
-                    let data = JSON.stringify(data);
+                    let data = JSON.stringify(datas);
                     let out = `Name: ${data} | @${data.username}<br>ID: ${data.id}<br>Description: ${data.description}`;
                 })
                 .catch(error => {
