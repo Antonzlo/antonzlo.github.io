@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Tools</title>
+</head>
+<body>
+    <form>
+        <label for="token">Telegram Bot Token:</label>
+        <input type="text" id="token" name="token" required>
+        <button type="button" onclick="checkBot()">Check Bot</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function checkBot() {
+            var token = document.getElementById("token").value;
+            var url = "https://api.telegram.org/bot" + token + "/getMe";
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    var result = document.getElementById("result");
+                    let data = JSON.stringify(data);
+                    let out = `Name: ${data} | @${data.username}<br>ID: ${data.id}<br>Description: ${data.description}`;
+                })
+                .catch(error => {
+                    var result = document.getElementById("result");
+                    result.innerHTML = "Error: " + error.message;
+                });
+        }
+    </script>
+</body>
+</html>
