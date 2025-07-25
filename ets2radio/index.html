@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1e3a8a">
+    <title>ETS2 Radio Editor</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="/favicon-192.png">
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-4">
+<div class="container mx-auto" id="app">
+    <h1 class="text-2xl font-bold mb-4">ETS2 Radio Stream Editor</h1>
+    <input type="file" id="fileInput" accept=".sii" class="mb-4">
+    <div class="mb-4">
+        <button id="addBtn" class="px-2 py-1 bg-blue-500 text-white rounded mr-2">Add Station</button>
+        <button id="exportBtn" class="px-2 py-1 bg-green-500 text-white rounded">Export</button>
+    </div>
+    <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border">
+        <thead class="bg-gray-200">
+        <tr>
+            <th class="border px-2 py-1">#</th>
+            <th class="border px-2 py-1">Drag</th>
+            <th class="border px-2 py-1">Name</th>
+            <th class="border px-2 py-1">Genre</th>
+            <th class="border px-2 py-1">Country</th>
+            <th class="border px-2 py-1">Bitrate</th>
+            <th class="border px-2 py-1">URL</th>
+            <th class="border px-2 py-1">Fav</th>
+            <th class="border px-2 py-1">Delete</th>
+        </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+    </div>
+</div>
+<script>
+const tbody = document.getElementById('tbody');
+let streams = [];
+function save() {
+    localStorage.setItem('ets2radio', JSON.stringify(streams));
+}
+function loadSaved(){
+    const data = localStorage.getItem('ets2radio');
+    if(data){
+        try{ streams = JSON.parse(data); render(); }catch(e){ console.error(e); }
+    }
+}
+function parseFile(text){
+    const list = [];
+    const regex = /stream_data\[\d+\]:\s*"([^"]*)"/g;
+    let m;
+    while((m = regex.exec(text))){
+        const parts = m[1].split('|');
+        list.push({url:parts[0]||'', name:parts[1]||'', genre:parts[2]||'', country:parts[3]||'', bitrate:parts[4]||'', fav:parts[5]||'0'});
+    }
+    return list;
+}
+function render(){
+    tbody.innerHTML = '';
+    streams.forEach((s,i)=>{
+        const tr = document.createElement('tr');
+        tr.setAttribute('draggable','true');
+        tr.innerHTML = `
+        <td class="border px-2 py-1">${i+1}</td>
+        <td class="border px-2 py-1 cursor-move drag-handle">☰</td>
+        <td class="border px-2 py-1"><input class="w-full" value="${s.name}" data-idx="${i}" data-field="name"></td>
+        <td class="border px-2 py-1"><input class="w-full" value="${s.genre}" data-idx="${i}" data-field="genre"></td>
+        <td class="border px-2 py-1"><input class="w-full" value="${s.country}" data-idx="${i}" data-field="country"></td>
+        <td class="border px-2 py-1"><input class="w-full" value="${s.bitrate}" data-idx="${i}" data-field="bitrate"></td>
+        <td class="border px-2 py-1"><input class="w-full" value="${s.url}" data-idx="${i}" data-field="url"></td>
+        <td class="border px-2 py-1 text-center"><input type="checkbox" ${s.fav==1||s.fav==='1'?'checked':''} data-idx="${i}" data-field="fav"></td>
+        <td class="border px-2 py-1 text-center">
+            <button class="text-sm bg-red-400 text-white px-1" data-act="del" data-idx="${i}">✖</button>
+        </td>`;
+        tbody.appendChild(tr);
+    });
+}
+function updateField(idx,field,value){
+    streams[idx][field]=value;
+    save();
+}
+function addStation(){
+    streams.push({url:'',name:'',genre:'',country:'',bitrate:'128',fav:'0'});
+    render(); save();
+}
+function removeStation(i){
+    streams.splice(i,1); render(); save();
+}
+let dragIndex=null;
+function exportFile(){
+    const lines=[];
+    lines.push('SiiNunit');
+    lines.push('{');
+    lines.push('live_stream_def : _nameless.ets2radio {');
+    lines.push(' stream_data: '+streams.length);
+    streams.forEach((s,i)=>{
+        const fav = s.fav==1||s.fav==='1'?1:0;
+        lines.push(` stream_data[${i}]: "${s.url}|${s.name}|${s.genre}|${s.country}|${s.bitrate}|${fav}"`);
+    });
+    lines.push('}');
+    lines.push('}');
+    const blob = new Blob([lines.join('\n')],{type:'text/plain'});
+    const url = URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;a.download='live_streams.sii';a.click();
+    URL.revokeObjectURL(url);
+}
+// event listeners
+fileInput.addEventListener('change', (e)=>{
+    const file=e.target.files[0];
+    if(!file) return;
+    const reader=new FileReader();
+    reader.onload=ev=>{
+        streams=parseFile(ev.target.result); render(); save();
+    };
+    reader.readAsText(file);
+});
+addBtn.addEventListener('click', addStation);
+exportBtn.addEventListener('click', exportFile);
+
+tbody.addEventListener('input', (e)=>{
+    const idx=e.target.getAttribute('data-idx');
+    const field=e.target.getAttribute('data-field');
+    if(idx!==null && field){
+        if(e.target.type==='checkbox') updateField(Number(idx),field,e.target.checked?1:0);
+        else updateField(Number(idx),field,e.target.value);
+    }
+});
+
+tbody.addEventListener('click', (e)=>{
+    const act=e.target.getAttribute('data-act');
+    const idx=e.target.getAttribute('data-idx');
+    if(act && idx!==null){
+        const i=Number(idx);
+        if(act==='del') removeStation(i);
+    }
+});
+
+tbody.addEventListener('dragstart', e => {
+    const tr = e.target.closest('tr');
+    dragIndex = tr ? [...tbody.children].indexOf(tr) : null;
+});
+
+tbody.addEventListener('dragover', e => {
+    e.preventDefault();
+    const tr = e.target.closest('tr');
+    if(tr) tr.classList.add('bg-gray-100');
+});
+
+tbody.addEventListener('dragleave', e => {
+    const tr = e.target.closest('tr');
+    if(tr) tr.classList.remove('bg-gray-100');
+});
+
+tbody.addEventListener('drop', e => {
+    e.preventDefault();
+    const tr = e.target.closest('tr');
+    if(tr){
+        tr.classList.remove('bg-gray-100');
+        const dropIndex = [...tbody.children].indexOf(tr);
+        if(dragIndex!==null && dropIndex!==dragIndex){
+            const [item] = streams.splice(dragIndex,1);
+            streams.splice(dropIndex,0,item);
+            render();
+            save();
+        }
+    }
+    dragIndex=null;
+});
+
+loadSaved();
+</script>
+</body>
+</html>

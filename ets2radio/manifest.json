@@ -1,0 +1,17 @@
+{
+    "name": "ETS2 Radio Editor",
+    "short_name": "ETS2 Radio",
+    "start_url": "/ets2radio/index.html",
+    "scope": "/ets2radio/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1e3a8a",
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "sizes": "610x610",
+            "type": "image/png",
+            "purpose": "maskable any"
+        }
+    ]
+}
