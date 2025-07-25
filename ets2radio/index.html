@@ -135,7 +135,7 @@ exportBtn.addEventListener('click', exportFile);
 tbody.addEventListener('input', (e)=>{
     const idx=e.target.getAttribute('data-idx');
     const field=e.target.getAttribute('data-field');
-    if(idx!==null && field){
+    if(idx !== null && !isNaN(Number(idx)) && field){
         if(e.target.type==='checkbox') updateField(Number(idx),field,e.target.checked?1:0);
         else updateField(Number(idx),field,e.target.value);
     }
