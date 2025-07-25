@@ -50,7 +50,13 @@ function save() {
 function loadSaved(){
     const data = localStorage.getItem('ets2radio');
     if(data){
-        try{ streams = JSON.parse(data); render(); }catch(e){ console.error(e); }
+        try{ 
+            streams = JSON.parse(data); 
+            render(); 
+        } catch(e) { 
+            console.error(e); 
+            alert("Error: Your saved data is corrupted and cannot be loaded. Please reset or re-import your data."); 
+        }
     }
 }
 function parseFile(text){
