@@ -44,6 +44,35 @@
 <script>
 const tbody = document.getElementById('tbody');
 let streams = [];
+
+// Utility functions for UTF-8 encoding/decoding
+function decodeUtf8Hex(str) {
+    // Convert \xHH sequences to proper UTF-8 characters
+    return str.replace(/(?:\\x[0-9a-fA-F]{2})+/g, function(match) {
+        // Extract all hex values
+        const hexMatches = match.match(/\\x([0-9a-fA-F]{2})/g);
+        if (!hexMatches) return match;
+        
+        // Convert to byte array
+        const bytes = hexMatches.map(hex => parseInt(hex.slice(2), 16));
+        
+        // Convert bytes to UTF-8 string
+        try {
+            return new TextDecoder('utf-8').decode(new Uint8Array(bytes));
+        } catch (e) {
+            // If decoding fails, return original
+            return match;
+        }
+    });
+}
+
+function encodeUtf8Hex(str) {
+    // Convert non-ASCII characters back to \xHH sequences
+    return str.replace(/[\u0080-\uFFFF]/g, function(match) {
+        const bytes = new TextEncoder().encode(match);
+        return Array.from(bytes).map(b => '\\x' + b.toString(16).padStart(2, '0')).join('');
+    });
+}
 function save() {
     localStorage.setItem('ets2radio', JSON.stringify(streams));
 }
@@ -65,7 +94,21 @@ function parseFile(text){
     let m;
     while((m = regex.exec(text))){
         const parts = m[1].split('|');
-        list.push({url:parts[0]||'', name:parts[1]||'', genre:parts[2]||'', country:parts[3]||'', bitrate:parts[4]||'', fav:parts[5]||'0'});
+        const name = parts[1] || '';
+        const genre = parts[2] || '';
+        const country = parts[3] || '';
+        
+        list.push({
+            url: parts[0] || '', 
+            name: decodeUtf8Hex(name), 
+            nameOriginal: name, // Store original encoded version
+            genre: decodeUtf8Hex(genre), 
+            genreOriginal: genre, // Store original encoded version
+            country: decodeUtf8Hex(country), 
+            countryOriginal: country, // Store original encoded version
+            bitrate: parts[4] || '', 
+            fav: parts[5] || '0'
+        });
     }
     return list;
 }
@@ -91,10 +134,24 @@ function render(){
 }
 function updateField(idx,field,value){
     streams[idx][field]=value;
+    // Also update the original encoded version for export
+    if(field === 'name') streams[idx].nameOriginal = encodeUtf8Hex(value);
+    if(field === 'genre') streams[idx].genreOriginal = encodeUtf8Hex(value);
+    if(field === 'country') streams[idx].countryOriginal = encodeUtf8Hex(value);
     save();
 }
 function addStation(){
-    streams.push({url:'',name:'',genre:'',country:'',bitrate:'128',fav:'0'});
+    streams.push({
+        url:'',
+        name:'',
+        nameOriginal:'',
+        genre:'',
+        genreOriginal:'',
+        country:'',
+        countryOriginal:'',
+        bitrate:'128',
+        fav:'0'
+    });
     render(); save();
 }
 function removeStation(i){
@@ -109,7 +166,11 @@ function exportFile(){
     lines.push(' stream_data: '+streams.length);
     streams.forEach((s,i)=>{
         const fav = s.fav==1||s.fav==='1'?1:0;
-        lines.push(` stream_data[${i}]: "${s.url}|${s.name}|${s.genre}|${s.country}|${s.bitrate}|${fav}"`);
+        // Use original encoded values for export to preserve format
+        const nameForExport = s.nameOriginal || encodeUtf8Hex(s.name || '');
+        const genreForExport = s.genreOriginal || encodeUtf8Hex(s.genre || '');
+        const countryForExport = s.countryOriginal || encodeUtf8Hex(s.country || '');
+        lines.push(` stream_data[${i}]: "${s.url}|${nameForExport}|${genreForExport}|${countryForExport}|${s.bitrate}|${fav}"`);
     });
     lines.push('}');
     lines.push('}');
