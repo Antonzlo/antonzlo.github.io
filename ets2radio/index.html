@@ -144,7 +144,7 @@ tbody.addEventListener('input', (e)=>{
 tbody.addEventListener('click', (e)=>{
     const act=e.target.getAttribute('data-act');
     const idx=e.target.getAttribute('data-idx');
-    if(act && idx!==null){
+    if(act !== null && idx !== null){
         const i=Number(idx);
         if(act==='del') removeStation(i);
     }
