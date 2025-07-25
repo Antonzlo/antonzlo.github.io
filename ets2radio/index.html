@@ -13,40 +13,109 @@
         }
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ets-blue': '#1e3a8a',
+                        'ets-light': '#3b82f6'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for the table container */
+        #tableContainer::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        #tableContainer::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        #tableContainer::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        #tableContainer::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* Loading animation for test buttons */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .spinning {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Better mobile table handling */
+        @media (max-width: 768px) {
+            .table-responsive {
+                font-size: 14px;
+            }
+            .table-responsive input {
+                min-width: 80px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 p-4">
-<div class="container mx-auto" id="app">
-    <h1 class="text-2xl font-bold mb-4">ETS2 Radio Stream Editor</h1>
-    <input type="file" id="fileInput" accept=".sii" class="mb-4">
-    <div class="mb-4">
-        <button id="addBtn" class="px-2 py-1 bg-blue-500 text-white rounded mr-2">Add Station</button>
-        <button id="exportBtn" class="px-2 py-1 bg-green-500 text-white rounded">Export</button>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen p-4">
+<div class="container mx-auto max-w-7xl" id="app">
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+        <h1 class="text-3xl font-bold text-ets-blue mb-6 text-center">ETS2 Radio Stream Editor</h1>
+        
+        <div class="flex flex-wrap gap-4 mb-6">
+            <div class="flex-1 min-w-64">
+                <label for="fileInput" class="block text-sm font-medium text-gray-700 mb-2">Import .sii file:</label>
+                <input type="file" id="fileInput" accept=".sii" 
+                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-ets-blue file:text-white hover:file:bg-blue-700 transition-colors">
+            </div>
+            <div class="flex gap-2 items-end">
+                <button id="addBtn" class="px-4 py-2 bg-ets-blue text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 font-medium">
+                    <span class="text-lg">+</span> Add Station
+                </button>
+                <button id="exportBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2 font-medium">
+                    <span>📥</span> Export
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border">
-        <thead class="bg-gray-200">
-        <tr>
-            <th class="border px-2 py-1">#</th>
-            <th class="border px-2 py-1">Drag</th>
-            <th class="border px-2 py-1">Name</th>
-            <th class="border px-2 py-1">Genre</th>
-            <th class="border px-2 py-1">Country</th>
-            <th class="border px-2 py-1">Bitrate</th>
-            <th class="border px-2 py-1">URL</th>
-            <th class="border px-2 py-1">Fav</th>
-            <th class="border px-2 py-1">Delete</th>
-        </tr>
-        </thead>
-        <tbody id="tbody"></tbody>
-    </table>
+
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="overflow-x-auto max-h-96 overflow-y-auto table-responsive" id="tableContainer">
+            <table class="min-w-full">
+                <thead class="bg-ets-blue text-white sticky top-0">
+                <tr>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">#</th>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">Drag</th>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">Name</th>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">Genre</th>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">Country</th>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">Bitrate</th>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">URL</th>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">Test</th>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">Fav</th>
+                    <th class="px-3 py-3 text-left text-xs font-medium uppercase tracking-wider">Delete</th>
+                </tr>
+                </thead>
+                <tbody id="tbody" class="bg-white divide-y divide-gray-200"></tbody>
+            </table>
+        </div>
     </div>
 </div>
 <script>
 const tbody = document.getElementById('tbody');
+const tableContainer = document.getElementById('tableContainer');
 let streams = [];
+let currentAudio = null; // For testing streams
 
 // Utility functions for UTF-8 encoding/decoding
 function decodeUtf8Hex(str) {
+    if (!str) return '';
     // Convert \xHH sequences to proper UTF-8 characters
     return str.replace(/(?:\\x[0-9a-fA-F]{2})+/g, function(match) {
         // Extract all hex values
@@ -67,15 +136,130 @@ function decodeUtf8Hex(str) {
 }
 
 function encodeUtf8Hex(str) {
+    if (!str) return '';
     // Convert non-ASCII characters back to \xHH sequences
     return str.replace(/[\u0080-\uFFFF]/g, function(match) {
         const bytes = new TextEncoder().encode(match);
         return Array.from(bytes).map(b => '\\x' + b.toString(16).padStart(2, '0')).join('');
     });
 }
+
+// Validation functions
+function validateUrl(url) {
+    if (!url) return false;
+    try {
+        new URL(url);
+        return url.startsWith('http://') || url.startsWith('https://');
+    } catch {
+        return false;
+    }
+}
+
+function validateCountryCode(code) {
+    return code && code.length <= 3 && /^[a-zA-Z]*$/.test(code);
+}
+
+function validateBitrate(bitrate) {
+    return bitrate && /^\d+$/.test(bitrate) && parseInt(bitrate) > 0;
+}
+
+function validateField(field, value) {
+    switch(field) {
+        case 'url': return validateUrl(value);
+        case 'name': return value && value.trim().length > 0;
+        case 'genre': return value && value.trim().length > 0;
+        case 'country': return validateCountryCode(value);
+        case 'bitrate': return validateBitrate(value);
+        default: return true;
+    }
+}
+
+function getFieldError(field, value) {
+    switch(field) {
+        case 'url': return !validateUrl(value) ? 'Invalid URL format' : '';
+        case 'name': return !value || !value.trim() ? 'Name is required' : '';
+        case 'genre': return !value || !value.trim() ? 'Genre is required' : '';
+        case 'country': return !validateCountryCode(value) ? 'Max 3 letters, letters only' : '';
+        case 'bitrate': return !validateBitrate(value) ? 'Must be a positive number' : '';
+        default: return '';
+    }
+}
+
+// Audio stream testing
+async function testStream(url) {
+    if (currentAudio) {
+        currentAudio.pause();
+        currentAudio = null;
+    }
+    
+    if (!validateUrl(url)) {
+        alert('Please enter a valid URL first');
+        return { success: false };
+    }
+    
+    return new Promise((resolve) => {
+        const audio = new Audio();
+        const timeout = setTimeout(() => {
+            audio.src = '';
+            resolve({ success: false, error: 'Timeout - stream took too long to respond' });
+        }, 10000);
+        
+        audio.addEventListener('loadstart', () => {
+            clearTimeout(timeout);
+        });
+        
+        audio.addEventListener('canplay', () => {
+            clearTimeout(timeout);
+            currentAudio = audio;
+            audio.play().catch(e => {
+                resolve({ success: false, error: 'Could not play stream: ' + e.message });
+            });
+            resolve({ success: true, audio });
+        });
+        
+        audio.addEventListener('error', (e) => {
+            clearTimeout(timeout);
+            resolve({ success: false, error: 'Failed to load stream' });
+        });
+        
+        audio.src = url;
+        audio.load();
+    });
+}
+
+// Auto-detect bitrate from stream headers
+async function detectBitrate(url) {
+    if (!validateUrl(url)) return null;
+    
+    try {
+        const response = await fetch(url, { 
+            method: 'HEAD',
+            mode: 'cors'
+        });
+        
+        const contentType = response.headers.get('content-type') || '';
+        const icyBr = response.headers.get('icy-br');
+        
+        if (icyBr) {
+            return icyBr;
+        }
+        
+        // Try to guess from content type
+        if (contentType.includes('128')) return '128';
+        if (contentType.includes('320')) return '320';
+        if (contentType.includes('256')) return '256';
+        if (contentType.includes('192')) return '192';
+        
+        return null;
+    } catch (e) {
+        console.warn('Could not detect bitrate:', e);
+        return null;
+    }
+}
 function save() {
     localStorage.setItem('ets2radio', JSON.stringify(streams));
 }
+
 function loadSaved(){
     const data = localStorage.getItem('ets2radio');
     if(data){
@@ -88,76 +272,129 @@ function loadSaved(){
         }
     }
 }
+
 function parseFile(text){
     const list = [];
     const regex = /stream_data\[\d+\]:\s*"([^"]*)"/g;
     let m;
     while((m = regex.exec(text))){
         const parts = m[1].split('|');
-        const name = parts[1] || '';
-        const genre = parts[2] || '';
-        const country = parts[3] || '';
         
         list.push({
             url: parts[0] || '', 
-            name: decodeUtf8Hex(name), 
-            nameOriginal: name, // Store original encoded version
-            genre: decodeUtf8Hex(genre), 
-            genreOriginal: genre, // Store original encoded version
-            country: decodeUtf8Hex(country), 
-            countryOriginal: country, // Store original encoded version
+            name: decodeUtf8Hex(parts[1] || ''), 
+            genre: decodeUtf8Hex(parts[2] || ''), 
+            country: decodeUtf8Hex(parts[3] || ''), 
             bitrate: parts[4] || '', 
             fav: parts[5] || '0'
         });
     }
     return list;
 }
+
 function render(){
     tbody.innerHTML = '';
     streams.forEach((s,i)=>{
         const tr = document.createElement('tr');
         tr.setAttribute('draggable','true');
+        tr.className = 'hover:bg-gray-50 transition-colors';
+        
+        const isValidUrl = validateField('url', s.url);
+        const isValidName = validateField('name', s.name);
+        const isValidGenre = validateField('genre', s.genre);
+        const isValidCountry = validateField('country', s.country);
+        const isValidBitrate = validateField('bitrate', s.bitrate);
+        
         tr.innerHTML = `
-        <td class="border px-2 py-1">${i+1}</td>
-        <td class="border px-2 py-1 cursor-move drag-handle">☰</td>
-        <td class="border px-2 py-1"><input class="w-full" value="${s.name}" data-idx="${i}" data-field="name"></td>
-        <td class="border px-2 py-1"><input class="w-full" value="${s.genre}" data-idx="${i}" data-field="genre"></td>
-        <td class="border px-2 py-1"><input class="w-full" value="${s.country}" data-idx="${i}" data-field="country"></td>
-        <td class="border px-2 py-1"><input class="w-full" value="${s.bitrate}" data-idx="${i}" data-field="bitrate"></td>
-        <td class="border px-2 py-1"><input class="w-full" value="${s.url}" data-idx="${i}" data-field="url"></td>
-        <td class="border px-2 py-1 text-center"><input type="checkbox" ${s.fav==1||s.fav==='1'?'checked':''} data-idx="${i}" data-field="fav"></td>
-        <td class="border px-2 py-1 text-center">
-            <button class="text-sm bg-red-400 text-white px-1" data-act="del" data-idx="${i}">✖</button>
+        <td class="px-3 py-3 text-sm text-gray-900">${i+1}</td>
+        <td class="px-3 py-3 text-center cursor-move drag-handle text-gray-400 hover:text-gray-600">☰</td>
+        <td class="px-3 py-3">
+            <input class="w-full px-2 py-1 border rounded ${isValidName ? 'border-gray-300' : 'border-red-300 bg-red-50'}" 
+                   value="${s.name || ''}" data-idx="${i}" data-field="name" 
+                   title="${getFieldError('name', s.name)}">
+        </td>
+        <td class="px-3 py-3">
+            <input class="w-full px-2 py-1 border rounded ${isValidGenre ? 'border-gray-300' : 'border-red-300 bg-red-50'}" 
+                   value="${s.genre || ''}" data-idx="${i}" data-field="genre"
+                   title="${getFieldError('genre', s.genre)}">
+        </td>
+        <td class="px-3 py-3">
+            <input class="w-full px-2 py-1 border rounded ${isValidCountry ? 'border-gray-300' : 'border-red-300 bg-red-50'}" 
+                   value="${s.country || ''}" data-idx="${i}" data-field="country" maxlength="3"
+                   title="${getFieldError('country', s.country)}">
+        </td>
+        <td class="px-3 py-3">
+            <div class="flex gap-1">
+                <input class="w-16 px-2 py-1 border rounded ${isValidBitrate ? 'border-gray-300' : 'border-red-300 bg-red-50'}" 
+                       value="${s.bitrate || ''}" data-idx="${i}" data-field="bitrate"
+                       title="${getFieldError('bitrate', s.bitrate)}">
+                <button class="text-xs px-1 py-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors" 
+                        data-act="detect-bitrate" data-idx="${i}" title="Auto-detect bitrate">🔍</button>
+            </div>
+        </td>
+        <td class="px-3 py-3">
+            <input class="w-full px-2 py-1 border rounded ${isValidUrl ? 'border-gray-300' : 'border-red-300 bg-red-50'}" 
+                   value="${s.url || ''}" data-idx="${i}" data-field="url"
+                   title="${getFieldError('url', s.url)}">
+        </td>
+        <td class="px-3 py-3 text-center">
+            <button class="px-2 py-1 text-sm bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors ${!isValidUrl ? 'opacity-50 cursor-not-allowed' : ''}" 
+                    data-act="test" data-idx="${i}" ${!isValidUrl ? 'disabled' : ''}>🎵</button>
+        </td>
+        <td class="px-3 py-3 text-center">
+            <input type="checkbox" class="w-4 h-4 text-ets-blue rounded" ${s.fav==1||s.fav==='1'?'checked':''} data-idx="${i}" data-field="fav">
+        </td>
+        <td class="px-3 py-3 text-center">
+            <button class="px-2 py-1 text-sm bg-red-100 text-red-700 rounded hover:bg-red-200 transition-colors" data-act="del" data-idx="${i}">✖</button>
         </td>`;
         tbody.appendChild(tr);
     });
 }
 function updateField(idx,field,value){
     streams[idx][field]=value;
-    // Also update the original encoded version for export
-    if(field === 'name') streams[idx].nameOriginal = encodeUtf8Hex(value);
-    if(field === 'genre') streams[idx].genreOriginal = encodeUtf8Hex(value);
-    if(field === 'country') streams[idx].countryOriginal = encodeUtf8Hex(value);
     save();
+    
+    // Re-render to ensure all validation states are updated
+    render();
 }
+
 function addStation(){
     streams.push({
         url:'',
         name:'',
-        nameOriginal:'',
         genre:'',
-        genreOriginal:'',
         country:'',
-        countryOriginal:'',
         bitrate:'128',
         fav:'0'
     });
-    render(); save();
+    render(); 
+    save();
+    
+    // Scroll to the bottom to show the new station
+    setTimeout(() => {
+        tableContainer.scrollTo({
+            top: tableContainer.scrollHeight,
+            behavior: 'smooth'
+        });
+        
+        // Focus on the name field of the new station
+        const lastRow = tbody.lastElementChild;
+        if (lastRow) {
+            const nameInput = lastRow.querySelector('[data-field="name"]');
+            if (nameInput) nameInput.focus();
+        }
+    }, 100);
 }
+
 function removeStation(i){
-    streams.splice(i,1); render(); save();
+    if (confirm('Are you sure you want to delete this station?')) {
+        streams.splice(i,1); 
+        render(); 
+        save();
+    }
 }
 let dragIndex=null;
+
 function exportFile(){
     const lines=[];
     lines.push('SiiNunit');
@@ -166,10 +403,10 @@ function exportFile(){
     lines.push(' stream_data: '+streams.length);
     streams.forEach((s,i)=>{
         const fav = s.fav==1||s.fav==='1'?1:0;
-        // Use original encoded values for export to preserve format
-        const nameForExport = s.nameOriginal || encodeUtf8Hex(s.name || '');
-        const genreForExport = s.genreOriginal || encodeUtf8Hex(s.genre || '');
-        const countryForExport = s.countryOriginal || encodeUtf8Hex(s.country || '');
+        // Encode UTF-8 characters for export
+        const nameForExport = encodeUtf8Hex(s.name || '');
+        const genreForExport = encodeUtf8Hex(s.genre || '');
+        const countryForExport = encodeUtf8Hex(s.country || '');
         lines.push(` stream_data[${i}]: "${s.url}|${nameForExport}|${genreForExport}|${countryForExport}|${s.bitrate}|${fav}"`);
     });
     lines.push('}');
@@ -186,10 +423,13 @@ fileInput.addEventListener('change', (e)=>{
     if(!file) return;
     const reader=new FileReader();
     reader.onload=ev=>{
-        streams=parseFile(ev.target.result); render(); save();
+        streams=parseFile(ev.target.result); 
+        render(); 
+        save();
     };
     reader.readAsText(file);
 });
+
 addBtn.addEventListener('click', addStation);
 exportBtn.addEventListener('click', exportFile);
 
@@ -197,41 +437,118 @@ tbody.addEventListener('input', (e)=>{
     const idx=e.target.getAttribute('data-idx');
     const field=e.target.getAttribute('data-field');
     if(idx !== null && !isNaN(Number(idx)) && field){
-        if(e.target.type==='checkbox') updateField(Number(idx),field,e.target.checked?1:0);
-        else updateField(Number(idx),field,e.target.value);
+        if(e.target.type==='checkbox') {
+            updateField(Number(idx),field,e.target.checked?1:0);
+        } else {
+            updateField(Number(idx),field,e.target.value);
+        }
     }
 });
 
-tbody.addEventListener('click', (e)=>{
+tbody.addEventListener('click', async (e)=>{
     const act=e.target.getAttribute('data-act');
     const idx=e.target.getAttribute('data-idx');
     if(act !== null && idx !== null){
         const i=Number(idx);
-        if(act==='del') removeStation(i);
+        
+        if(act==='del') {
+            removeStation(i);
+        } else if(act==='test') {
+            const url = streams[i].url;
+            const button = e.target;
+            
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+                button.textContent = '🎵';
+                button.title = 'Test stream';
+                return;
+            }
+            
+            button.textContent = '⏳';
+            button.title = 'Loading...';
+            button.disabled = true;
+            
+            const result = await testStream(url);
+            
+            if (result.success) {
+                button.textContent = '⏹️';
+                button.title = 'Stop stream';
+                button.disabled = false;
+                
+                result.audio.addEventListener('ended', () => {
+                    button.textContent = '🎵';
+                    button.title = 'Test stream';
+                    currentAudio = null;
+                });
+                
+                result.audio.addEventListener('error', () => {
+                    button.textContent = '🎵';
+                    button.title = 'Test stream';
+                    currentAudio = null;
+                    alert('Stream playback failed');
+                });
+            } else {
+                button.textContent = '🎵';
+                button.title = 'Test stream';
+                button.disabled = false;
+                alert(result.error || 'Could not test stream');
+            }
+        } else if(act==='detect-bitrate') {
+            const url = streams[i].url;
+            const button = e.target;
+            
+            button.textContent = '⏳';
+            button.disabled = true;
+            
+            const bitrate = await detectBitrate(url);
+            
+            if (bitrate) {
+                streams[i].bitrate = bitrate;
+                updateField(i, 'bitrate', bitrate);
+                render(); // Re-render to show the detected bitrate
+                alert(`Detected bitrate: ${bitrate} kbps`);
+            } else {
+                alert('Could not detect bitrate from stream headers');
+            }
+            
+            button.textContent = '🔍';
+            button.disabled = false;
+        }
     }
 });
 
 tbody.addEventListener('dragstart', e => {
     const tr = e.target.closest('tr');
     dragIndex = tr ? [...tbody.children].indexOf(tr) : null;
+    if (tr) {
+        tr.classList.add('opacity-50');
+    }
+});
+
+tbody.addEventListener('dragend', e => {
+    const tr = e.target.closest('tr');
+    if (tr) {
+        tr.classList.remove('opacity-50');
+    }
 });
 
 tbody.addEventListener('dragover', e => {
     e.preventDefault();
     const tr = e.target.closest('tr');
-    if(tr) tr.classList.add('bg-gray-100');
+    if(tr) tr.classList.add('bg-blue-50', 'border-blue-300');
 });
 
 tbody.addEventListener('dragleave', e => {
     const tr = e.target.closest('tr');
-    if(tr) tr.classList.remove('bg-gray-100');
+    if(tr) tr.classList.remove('bg-blue-50', 'border-blue-300');
 });
 
 tbody.addEventListener('drop', e => {
     e.preventDefault();
     const tr = e.target.closest('tr');
     if(tr){
-        tr.classList.remove('bg-gray-100');
+        tr.classList.remove('bg-blue-50', 'border-blue-300');
         const dropIndex = [...tbody.children].indexOf(tr);
         if(dragIndex!==null && dropIndex!==dragIndex){
             const [item] = streams.splice(dragIndex,1);
@@ -241,6 +558,13 @@ tbody.addEventListener('drop', e => {
         }
     }
     dragIndex=null;
+});
+
+// Stop any playing audio when leaving the page
+window.addEventListener('beforeunload', () => {
+    if (currentAudio) {
+        currentAudio.pause();
+    }
 });
 
 loadSaved();
