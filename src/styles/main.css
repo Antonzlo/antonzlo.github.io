@@ -133,6 +133,7 @@ a:hover {
   justify-content: center;
   display: flex;
   align-content: center;
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 800px) {
