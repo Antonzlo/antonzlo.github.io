@@ -1,5 +1,19 @@
 {
+	"name": "antonzlo-portfolio",
+	"version": "1.0.0",
+	"description": "Personal portfolio website",
+	"scripts": {
+		"build": "webpack --mode production",
+		"dev": "webpack --mode development --watch",
+		"lint": "biome check ."
+	},
 	"devDependencies": {
-		"@biomejs/biome": "2.3.10"
+		"@biomejs/biome": "2.3.10",
+		"css-loader": "^6.8.1",
+		"html-webpack-plugin": "^5.6.0",
+		"mini-css-extract-plugin": "^2.9.4",
+		"style-loader": "^3.3.3",
+		"webpack": "^5.89.0",
+		"webpack-cli": "^5.1.4"
 	}
 }
