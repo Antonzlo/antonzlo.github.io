@@ -1,564 +1,471 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Zlobin Anton | Just my portfolio site with bio and some links</title>
-  <meta property="og:title" content="Zlobin Anton">
-  <meta property="og:locale" content="en">
-  <meta name="description" content="Just my portfolio site with bio and some links">
-  <meta property="og:description" content="Just my portfolio site with bio and some links">
-  <link rel="canonical" href="https://zlobinanton.ovh/">
-  <meta property="og:url" content="https://zlobinanton.ovh/">
-  <meta property="og:site_name" content="Zlobin Anton">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary">
-  <meta property="twitter:title" content="Zlobin Anton">
-  <script type="application/ld+json">{
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Zlobin Anton | Just my portfolio site with bio and some links</title><meta property="og:title" content="Zlobin Anton"><meta property="og:locale" content="en"><meta name="description" content="Just my portfolio site with bio and some links"><meta property="og:description" content="Just my portfolio site with bio and some links"><link rel="canonical" href="https://zlobinanton.ovh/"><meta property="og:url" content="https://zlobinanton.ovh/"><meta property="og:site_name" content="Zlobin Anton"><meta property="og:type" content="website"><meta name="twitter:card" content="summary"><meta property="twitter:title" content="Zlobin Anton"><script type="application/ld+json">{
         "@context": "https://schema.org",
         "@type": "WebSite",
         "description": "Just my portfolio site with bio and some links",
         "headline": "Zlobin Anton",
         "name": "Zlobin Anton",
         "url": "https://zlobinanton.ovh/"
-      }</script>
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
-  <link rel="preconnect" href="https://www.googletagmanager.com">
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2"
-    as="font" type="font/woff2" crossorigin>
-  <link rel="prefetch" href="/assets/minima-social-icons.svg">
-  <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
-  <meta name="color-scheme" content="light dark">
-  <link rel="icon" href="favicon.svg">
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
-  <meta name="msapplication-TileImage" content="/favicon-144.png">
-  <meta name="msapplication-config" content="/browserconfig.xml">
-  <style>
-    /* CSS Variables */
-    :root {
-      --color-text: #111;
-      --color-background: #fdfdfd;
-      --color-border: #e8e8e8;
-      --color-link: #1e57a0;
-      --color-link-visited: #1756a9;
-      --color-link-hover: #2196f3;
-      --color-icon: #828282;
-      --color-header-title: #424242;
-      --color-footer-text: #828282;
-
-      --spacing-base: 30px;
-      --spacing-small: 15px;
-      --spacing-xs: 5px;
-
-      --width-wrapper: 800px;
-      --width-social: 600px;
-
-      --transition: 0.2s all;
-    }
-
-    /* Reset some basic elements */
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    hr,
-    dl,
-    dd,
-    ol,
-    ul {
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Basic styling */
-    body {
-      font: 400 16px/1.5 system-ui, sans-serif;
-      color: var(--color-text);
-      background-color: var(--color-background);
-      -webkit-font-feature-settings: "kern" 1;
-      -moz-font-feature-settings: "kern" 1;
-      -o-font-feature-settings: "kern" 1;
-      font-feature-settings: "kern" 1;
-      font-kerning: normal;
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-    }
-
-    /* Headings */
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      font-weight: 400;
-      margin-bottom: var(--spacing-small);
-    }
-
-    /* Paragraph spacing */
-    p,
-    blockquote,
-    pre,
-    ul,
-    ol,
-    dl,
-    figure,
-    .highlight {
-      margin-bottom: var(--spacing-small);
-    }
-
-    /* Main element */
-    main {
-      display: block;
-      /* Default value of `display` of `main` element is 'inline' in IE 11. */
-    }
-
-    /* Lists */
-    ul,
-    ol {
-      margin-left: 30px;
-    }
-
-    li>ul,
-    li>ol {
-      margin-bottom: 0;
-    }
-
-    /* Links */
-    a {
-      color: var(--color-link);
-      text-decoration: none;
-      transition: var(--transition);
-    }
-
-    a:visited {
-      color: var(--color-link-visited);
-    }
-
-    a:hover {
-      color: var(--color-link-hover);
-      text-decoration: underline;
-      transition: var(--transition);
-    }
-
-    .social-media-list a:hover {
-      text-decoration: none;
-    }
-
-    .social-media-list a:hover .username {
-      text-decoration: underline;
-    }
-
-    /* Wrapper / Container */
-    .wrapper {
-      max-width: calc(var(--width-wrapper) - (var(--spacing-base) * 2));
-      margin-right: auto;
-      margin-left: auto;
-      padding-right: var(--spacing-base);
-      padding-left: var(--spacing-base);
-    }
-
-    .wrapper--full {
-      padding: 0;
-      max-width: 100%;
-      justify-content: center;
-      display: flex;
-      align-content: center;
-    }
-
-    @media screen and (max-width: 800px) {
-      .wrapper {
-        max-width: calc(var(--width-wrapper) - var(--spacing-base));
-        padding-right: 15px;
-        padding-left: 15px;
-      }
-    }
-
-    /* Clearfix */
-    .footer-col-wrapper:after,
-    .wrapper:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    /* Icons */
-    .svg-icon {
-      width: 16px;
-      height: 16px;
-      display: inline-block;
-      fill: var(--color-icon);
-      padding-right: 5px;
-      vertical-align: text-top;
-    }
-
-    .social-media-list li+li {
-      padding-top: var(--spacing-xs);
-    }
-
-    /* Site header */
-    .site-header {
-      border-bottom: 1px solid var(--color-border);
-      min-height: 55.95px;
-      position: relative;
-    }
-
-    .site-title {
-      font-size: 26px;
-      font-weight: 300;
-      line-height: 54px;
-      letter-spacing: -1px;
-      margin-bottom: 0;
-      float: left;
-    }
-
-    .site-title,
-    .site-title:visited {
-      color: var(--color-header-title);
-    }
-
-    .site-nav {
-      position: absolute;
-      top: 9px;
-      right: 15px;
-      background-color: var(--color-background);
-      border: 1px solid var(--color-border);
-      border-radius: 5px;
-      text-align: right;
-    }
-
-    .site-nav .nav-trigger {
-      display: none;
-    }
-
-    .site-nav .menu-icon {
-      display: none;
-    }
-
-    .site-nav .page-link {
-      color: var(--color-text);
-      line-height: 1.5;
-      display: block;
-      padding: var(--spacing-xs) 10px;
-    }
-
-    .site-nav .page-link:not(:last-child) {
-      margin-right: 20px;
-    }
-
-    .theme-toggle {
-      background: none;
-      border: none;
-      padding: 0;
-      cursor: pointer;
-    }
-
-    @media screen and (max-width: 800px) {
-      .site-nav label[for="nav-trigger"] {
-        display: block;
-        float: right;
-        width: 36px;
-        height: 36px;
-        z-index: 2;
-        cursor: pointer;
-      }
-
-      .site-nav .menu-icon {
-        display: block;
-        float: right;
-        width: 36px;
-        height: 26px;
-        line-height: 0;
-        padding-top: 10px;
-        text-align: center;
-      }
-
-      .site-nav .menu-icon>svg {
-        fill: var(--color-header-title);
-      }
-
-      .site-nav input~.trigger {
-        clear: both;
-        display: none;
-      }
-
-      .site-nav input:checked~.trigger {
-        display: block;
-        padding-bottom: var(--spacing-xs);
-      }
-
-      .site-nav .page-link:not(:last-child) {
-        margin-right: 0;
-      }
-    }
-
-    /* Site footer */
-    .site-footer {
-      border-top: 1px solid var(--color-border);
-      padding: var(--spacing-base) 0;
-    }
-
-    .footer-heading {
-      font-size: 18px;
-      margin-bottom: var(--spacing-small);
-    }
-
-    .contact-list,
-    .social-media-list {
-      list-style: none;
-      margin-left: 0;
-    }
-
-    .footer-col-wrapper {
-      font-size: 15px;
-      color: var(--color-footer-text);
-      margin-left: -15px;
-    }
-
-    .footer-col {
-      float: left;
-      margin-bottom: var(--spacing-small);
-      padding-left: 15px;
-    }
-
-    .footer-col-1 {
-      width: calc(35% - (30px / 2));
-    }
-
-    .footer-col-2 {
-      width: calc(20% - (30px / 2));
-    }
-
-    .footer-col-3 {
-      width: calc(45% - (30px / 2));
-    }
-
-    @media screen and (max-width: 800px) {
-
-      .footer-col-1,
-      .footer-col-2 {
-        width: calc(50% - (30px / 2));
-      }
-
-      .footer-col-3 {
-        width: calc(100% - (30px / 2));
-      }
-    }
-
-    @media screen and (max-width: 800px) {
-      .footer-col {
-        float: none;
-        width: calc(100% - (30px / 2));
-      }
-    }
-
-    /* Page content */
-    .page-content {
-      padding: var(--spacing-base) 0;
-      flex: 1;
-    }
-
-    @media screen and (min-width: 800px) {
-      .wrapper--full {
-        padding: 0;
-        max-width: 100%;
-        justify-content: center;
-        display: flex;
-        align-content: center;
-      }
-    }
-
-    /* Home sections */
-    .home {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .home--social {
-      display: grid;
-      grid-template-columns: 50% 50%;
-      grid-gap: 15px;
-      padding: 4%;
-      margin-right: 0.5em;
-      max-width: var(--width-social);
-    }
-
-    .home--content {
-      padding: 1.5em;
-    }
-
-    .u-url {
-      display: none;
-    }
-
-    /* Dark mode color scheme */
-    :root {
-      color-scheme: light dark;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --color-text: #e6e6e6;
-        --color-background: #0d0d0d;
-        --color-border: #333333;
-        --color-link: #8cb4ff;
-        --color-link-visited: #a0b9ff;
-        --color-link-hover: #b9d1ff;
-        --color-icon: #b3b3b3;
-        --color-header-title: #d0d0d0;
-        --color-footer-text: #b3b3b3;
-      }
-    }
-
-    html[data-theme="dark"] {
-      --color-text: #e6e6e6;
-      --color-background: #0d0d0d;
-      --color-border: #333333;
-      --color-link: #8cb4ff;
-      --color-link-visited: #a0b9ff;
-      --color-link-hover: #b9d1ff;
-      --color-icon: #b3b3b3;
-      --color-header-title: #d0d0d0;
-      --color-footer-text: #b3b3b3;
-    }
-
-    html[data-theme="light"] {
-      --color-text: #111;
-      --color-background: #fdfdfd;
-      --color-border: #e8e8e8;
-      --color-link: #1e57a0;
-      --color-link-visited: #1756a9;
-      --color-link-hover: #2196f3;
-      --color-icon: #828282;
-      --color-header-title: #424242;
-      --color-footer-text: #828282;
-    }
-
-    /* FontAwesome icons */
-    @font-face {
-      font-family: "FontAwesome";
-      font-display: swap;
-      font-weight: 400;
-      src: url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2) format("woff2");
-    }
-
-    .fa {
-      padding: 20px;
-      width: 50px;
-      text-align: center;
-      text-decoration: none;
-      border: solid;
-      border-radius: 10px;
-      border-spacing: 1px;
-      min-width: 6em;
-
-      display: inline-block;
-      font-family: FontAwesome, sans-serif;
-      font-size: 30px;
-      line-height: 1;
-      font-weight: normal;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    .fa:hover {
-      opacity: 0.7;
-    }
-
-    .multiline.fa-telegram:before {
-      margin-left: -20px;
-    }
-
-    /* Icon content */
-    .fa-facebook:before {
-      content: "\f09a";
-    }
-
-    .fa-vk:before {
-      content: "\f189";
-    }
-
-    .fa-instagram:before {
-      content: "\f16d";
-    }
-
-    .fa-telegram:before {
-      content: "\f2c6";
-    }
-
-    /* Social link text */
-    .sn {
-      margin-left: 10px;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    }
-  </style>
-</head>
-
-<body>
-  <header class="site-header">
-    <div class="wrapper"><a class="site-title" rel="author" href="/">Zlobin Anton</a>
-      <nav class="site-nav"><button id="theme-toggle" class="page-link theme-toggle" type="button"
-          aria-label="Toggle color theme">Theme</button></nav>
-    </div>
-  </header>
-  <main class="page-content" aria-label="Content">
-    <div class="wrapper wrapper--full">
-      <div class="home home--social"><a href="https://vk.com/zlobinanton" class="fa fa-vk"><span
-            class="sn">VKontakte</span></a> <a href="https://facebook.com/vk.zlobinanton" class="fa fa-facebook"><span
-            class="sn">Facebook</span></a> <a href="https://instagram.com/antonzlo_" class="fa fa-instagram"><span
-            class="sn">Instagram</span></a> <a href="https://t.me/antonzlo" class="fa fa-telegram"><span
-            class="sn">Telegram</span></a> <a href="https://t.me/antonzlo_channel"
-          class="fa fa-telegram multiline"><span class="sn">Telegram Channel</span></a></div>
-      <div class="home home--content">
-        <h2>Who am I?</h2><span>I am a backend developer from Imatra, Finland<br>I sometimes do Arduino/ESP stuff
-          also</span>
-        <h2>My projects</h2>
-        <ul id="projects-list">
-          <li class="project-link">https://arcona.site/</li>
-          <li class="project-link">https://t.me/arcona_metabolism_bot/</li>
-          <li class="project-link">https://itfails.news/</li>
-          <li class="project-link">https://auringontalo.fi/</li>
-          <li class="project-link">https://t.me/blinOK_cafe_bot/</li>
-        </ul>
-      </div>
-    </div>
-  </main>
-  <footer class="site-footer h-card">
-    <div class="u-url"></div>
-    <div class="wrapper">
-      <h2 class="footer-heading">Zlobin Anton</h2>
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          <li><a href="https://github.com/antonzlo"><svg class="svg-icon">
-                <use xlink:href="/assets/minima-social-icons.svg#github"></use>
-              </svg> <span class="username">antonzlo</span></a></li>
-          <li><a href="https://instagram.com/antonzlo_"><svg class="svg-icon">
-                <use xlink:href="/assets/minima-social-icons.svg#instagram"></use>
-              </svg> <span class="username">antonzlo_</span></a></li>
-          <li><a href="https://vk.com/zlobinanton"><svg class="svg-icon">
-                <use xlink:href="/assets/minima-social-icons.svg#vk"></use>
-              </svg> <span class="username">zlobinanton</span></a></li>
-          <li><a href="https://www.twitter.com/zlobinanton"><svg class="svg-icon">
-                <use xlink:href="/assets/minima-social-icons.svg#twitter"></use>
-              </svg> <span class="username">zlobinanton</span></a></li>
-        </ul>
-      </div>
-      <div class="footer-col footer-col-3">
-        <p>Just my portfolio site with bio and some links</p>
-      </div>
-    </div>
-  </footer>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VXX28RMKDT"></script>
-  <script>( () => { var t = { 271() { function t( ...t ) { globalThis.dataLayer.push( t ) } globalThis.dataLayer = globalThis.dataLayer || [], t( "js", new Date ), t( "config", "G-VXX28RMKDT" ) }, 286() { const t = ( () => { const t = "site-theme", e = document.documentElement, n = globalThis.matchMedia?.( "(prefers-color-scheme: dark)" ); function o() { const e = localStorage.getItem( t ); return "light" === e || "dark" === e ? e : n?.matches ? "dark" : "light" } function r( t ) { e.dataset.theme = "dark" === t ? "dark" : "light" } function a() { const e = "dark" === o() ? "light" : "dark"; localStorage.setItem( t, e ), r( e ) } return { init: function () { r( o() ); const e = document.getElementById( "theme-toggle" ); e && e.addEventListener( "click", a ), n && n.addEventListener( "change", e => { const n = localStorage.getItem( t ); "light" !== n && "dark" !== n && r( e.matches ? "dark" : "light" ) } ) }, toggle: a, getCurrentPref: o } } )(); "loading" === document.readyState ? document.addEventListener( "DOMContentLoaded", t.init ) : t.init() }, 314() { const t = function () { const t = document.getElementById( "projects-list" ); t && t.querySelectorAll( ".project-link" ).forEach( t => { const e = t.textContent.trim(); t.innerHTML = `<a href="${e}">${e}</a>` } ) }; "loading" === document.readyState ? document.addEventListener( "DOMContentLoaded", t ) : t() } }, e = {}; function n( o ) { var r = e[ o ]; if ( void 0 !== r ) return r.exports; var a = e[ o ] = { exports: {} }; return t[ o ]( a, a.exports, n ), a.exports } n.n = t => { var e = t && t.__esModule ? () => t.default : () => t; return n.d( e, { a: e } ), e }, n.d = ( t, e ) => { for ( var o in e ) n.o( e, o ) && !n.o( t, o ) && Object.defineProperty( t, o, { enumerable: !0, get: e[ o ] } ) }, n.o = ( t, e ) => Object.prototype.hasOwnProperty.call( t, e ), ( () => { "use strict"; n( 286 ), n( 314 ), n( 271 ) } )() } )();</script>
-</body>
-
-</html>
+      }</script><link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"><link rel="preconnect" href="https://www.googletagmanager.com"><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin><link rel="prefetch" href="/assets/minima-social-icons.svg"><meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)"><meta name="color-scheme" content="light dark"><link rel="icon" href="favicon.svg"><link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png"><meta name="msapplication-TileImage" content="/favicon-144.png"><meta name="msapplication-config" content="/browserconfig.xml"><style>/* CSS Variables */
+:root {
+  --color-text: #111;
+  --color-background: #fdfdfd;
+  --color-border: #e8e8e8;
+  --color-link: #1e57a0;
+  --color-link-visited: #1756a9;
+  --color-link-hover: #2196f3;
+  --color-icon: #828282;
+  --color-header-title: #424242;
+  --color-footer-text: #828282;
+
+  --spacing-base: 30px;
+  --spacing-small: 15px;
+  --spacing-xs: 5px;
+
+  --width-wrapper: 800px;
+  --width-social: 600px;
+
+  --transition: 0.2s all;
+}
+
+/* Reset some basic elements */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+hr,
+dl,
+dd,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/* Basic styling */
+body {
+  font: 400 16px/1.5 system-ui, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-feature-settings: "kern" 1;
+  -moz-font-feature-settings: "kern" 1;
+  -o-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+  margin-bottom: var(--spacing-small);
+}
+
+/* Paragraph spacing */
+p,
+blockquote,
+pre,
+ul,
+ol,
+dl,
+figure,
+.highlight {
+  margin-bottom: var(--spacing-small);
+}
+
+/* Main element */
+main {
+  display: block;
+  /* Default value of `display` of `main` element is 'inline' in IE 11. */
+}
+
+/* Lists */
+ul,
+ol {
+  margin-left: 30px;
+}
+
+li > ul,
+li > ol {
+  margin-bottom: 0;
+}
+
+/* Links */
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:visited {
+  color: var(--color-link-visited);
+}
+
+a:hover {
+  color: var(--color-link-hover);
+  text-decoration: underline;
+  transition: var(--transition);
+}
+
+.social-media-list a:hover {
+  text-decoration: none;
+}
+
+.social-media-list a:hover .username {
+  text-decoration: underline;
+}
+
+/* Wrapper / Container */
+.wrapper {
+  max-width: calc(var(--width-wrapper) - (var(--spacing-base) * 2));
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--spacing-base);
+  padding-left: var(--spacing-base);
+}
+
+.wrapper--full {
+  padding: 0;
+  max-width: 100%;
+  justify-content: center;
+  display: flex;
+  align-content: center;
+}
+
+@media screen and (max-width: 800px) {
+  .wrapper {
+    max-width: calc(var(--width-wrapper) - var(--spacing-base));
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}
+
+/* Clearfix */
+.footer-col-wrapper:after,
+.wrapper:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Icons */
+.svg-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  fill: var(--color-icon);
+  padding-right: 5px;
+  vertical-align: text-top;
+}
+
+.social-media-list li + li {
+  padding-top: var(--spacing-xs);
+}
+
+/* Site header */
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+  min-height: 55.95px;
+  position: relative;
+}
+
+.site-title {
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 54px;
+  letter-spacing: -1px;
+  margin-bottom: 0;
+  float: left;
+}
+
+.site-title,
+.site-title:visited {
+  color: var(--color-header-title);
+}
+
+.site-nav {
+  position: absolute;
+  top: 9px;
+  right: 15px;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  text-align: right;
+}
+
+.site-nav .nav-trigger {
+  display: none;
+}
+
+.site-nav .menu-icon {
+  display: none;
+}
+
+.site-nav .page-link {
+  color: var(--color-text);
+  line-height: 1.5;
+  display: block;
+  padding: var(--spacing-xs) 10px;
+}
+
+.site-nav .page-link:not(:last-child) {
+  margin-right: 20px;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .site-nav label[for="nav-trigger"] {
+    display: block;
+    float: right;
+    width: 36px;
+    height: 36px;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .site-nav .menu-icon {
+    display: block;
+    float: right;
+    width: 36px;
+    height: 26px;
+    line-height: 0;
+    padding-top: 10px;
+    text-align: center;
+  }
+
+  .site-nav .menu-icon > svg {
+    fill: var(--color-header-title);
+  }
+
+  .site-nav input ~ .trigger {
+    clear: both;
+    display: none;
+  }
+
+  .site-nav input:checked ~ .trigger {
+    display: block;
+    padding-bottom: var(--spacing-xs);
+  }
+
+  .site-nav .page-link:not(:last-child) {
+    margin-right: 0;
+  }
+}
+
+/* Site footer */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--spacing-base) 0;
+}
+
+.footer-heading {
+  font-size: 18px;
+  margin-bottom: var(--spacing-small);
+}
+
+.contact-list,
+.social-media-list {
+  list-style: none;
+  margin-left: 0;
+}
+
+.footer-col-wrapper {
+  font-size: 15px;
+  color: var(--color-footer-text);
+  margin-left: -15px;
+}
+
+.footer-col {
+  float: left;
+  margin-bottom: var(--spacing-small);
+  padding-left: 15px;
+}
+
+.footer-col-1 {
+  width: calc(35% - (30px / 2));
+}
+
+.footer-col-2 {
+  width: calc(20% - (30px / 2));
+}
+
+.footer-col-3 {
+  width: calc(45% - (30px / 2));
+}
+
+@media screen and (max-width: 800px) {
+  .footer-col-1,
+  .footer-col-2 {
+    width: calc(50% - (30px / 2));
+  }
+
+  .footer-col-3 {
+    width: calc(100% - (30px / 2));
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .footer-col {
+    float: none;
+    width: calc(100% - (30px / 2));
+  }
+}
+
+/* Page content */
+.page-content {
+  padding: var(--spacing-base) 0;
+  flex: 1;
+}
+
+@media screen and (min-width: 800px) {
+  .wrapper--full {
+    padding: 0;
+    max-width: 100%;
+    justify-content: center;
+    display: flex;
+    align-content: center;
+  }
+}
+
+/* Home sections */
+.home {
+  display: flex;
+  flex-direction: column;
+}
+
+.home--social {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-gap: 15px;
+  padding: 4%;
+  margin-right: 0.5em;
+  max-width: var(--width-social);
+}
+
+.home--content {
+  padding: 1.5em;
+}
+
+.u-url {
+  display: none;
+}
+
+/* Dark mode color scheme */
+:root {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text: #e6e6e6;
+    --color-background: #0d0d0d;
+    --color-border: #333333;
+    --color-link: #8cb4ff;
+    --color-link-visited: #a0b9ff;
+    --color-link-hover: #b9d1ff;
+    --color-icon: #b3b3b3;
+    --color-header-title: #d0d0d0;
+    --color-footer-text: #b3b3b3;
+  }
+}
+
+html[data-theme="dark"] {
+  --color-text: #e6e6e6;
+  --color-background: #0d0d0d;
+  --color-border: #333333;
+  --color-link: #8cb4ff;
+  --color-link-visited: #a0b9ff;
+  --color-link-hover: #b9d1ff;
+  --color-icon: #b3b3b3;
+  --color-header-title: #d0d0d0;
+  --color-footer-text: #b3b3b3;
+}
+
+html[data-theme="light"] {
+  --color-text: #111;
+  --color-background: #fdfdfd;
+  --color-border: #e8e8e8;
+  --color-link: #1e57a0;
+  --color-link-visited: #1756a9;
+  --color-link-hover: #2196f3;
+  --color-icon: #828282;
+  --color-header-title: #424242;
+  --color-footer-text: #828282;
+}
+
+/* FontAwesome icons */
+@font-face {
+  font-family: "FontAwesome";
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2) format("woff2");
+}
+
+.fa {
+  padding: 20px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  border: solid;
+  border-radius: 10px;
+  border-spacing: 1px;
+  min-width: 6em;
+
+  display: inline-block;
+  font-family: FontAwesome, sans-serif;
+  font-size: initial;
+  line-height: 1;
+  font-weight: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+.multiline.fa-telegram:before {
+  margin-left: -20px;
+}
+
+/* Icon content */
+.fa-facebook:before {
+  content: "\f09a";
+}
+
+.fa-vk:before {
+  content: "\f189";
+}
+
+.fa-instagram:before {
+  content: "\f16d";
+}
+
+.fa-telegram:before {
+  content: "\f2c6";
+}
+
+/* Social link text */
+.sn {
+  margin-left: 10px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+</style></head><body><header class="site-header"><div class="wrapper"><a class="site-title" rel="author" href="/">Zlobin Anton</a><nav class="site-nav"><button id="theme-toggle" class="page-link theme-toggle" type="button" aria-label="Toggle color theme">Theme</button></nav></div></header><main class="page-content" aria-label="Content"><div class="wrapper wrapper--full"><div class="home home--social"><a href="https://vk.com/zlobinanton" class="fa fa-vk"><span class="sn">VKontakte</span></a> <a href="https://facebook.com/vk.zlobinanton" class="fa fa-facebook"><span class="sn">Facebook</span></a> <a href="https://instagram.com/antonzlo_" class="fa fa-instagram"><span class="sn">Instagram</span></a> <a href="https://t.me/antonzlo" class="fa fa-telegram"><span class="sn">Telegram</span></a> <a href="https://t.me/antonzlo_channel" class="fa fa-telegram multiline"><span class="sn">Telegram Channel</span></a></div><div class="home home--content"><h2>Who am I?</h2><span>I am a backend developer from Imatra, Finland<br>I sometimes do Arduino/ESP stuff also</span><h2>My projects</h2><ul id="projects-list"><li class="project-link">https://arcona.site/</li><li class="project-link">https://t.me/arcona_metabolism_bot/</li><li class="project-link">https://itfails.news/</li><li class="project-link">https://auringontalo.fi/</li><li class="project-link">https://t.me/blinOK_cafe_bot/</li></ul></div></div></main><footer class="site-footer h-card"><div class="u-url"></div><div class="wrapper"><h2 class="footer-heading">Zlobin Anton</h2><div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/antonzlo"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">antonzlo</span></a></li><li><a href="https://instagram.com/antonzlo_"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#instagram"></use></svg> <span class="username">antonzlo_</span></a></li><li><a href="https://vk.com/zlobinanton"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#vk"></use></svg> <span class="username">zlobinanton</span></a></li><li><a href="https://www.twitter.com/zlobinanton"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">zlobinanton</span></a></li></ul></div><div class="footer-col footer-col-3"><p>Just my portfolio site with bio and some links</p></div></div></footer><script async src="https://www.googletagmanager.com/gtag/js?id=G-VXX28RMKDT"></script><script>(()=>{var t={271(){function t(...t){globalThis.dataLayer.push(t)}globalThis.dataLayer=globalThis.dataLayer||[],t("js",new Date),t("config","G-VXX28RMKDT")},286(){const t=(()=>{const t="site-theme",e=document.documentElement,n=globalThis.matchMedia?.("(prefers-color-scheme: dark)");function o(){const e=localStorage.getItem(t);return"light"===e||"dark"===e?e:n?.matches?"dark":"light"}function r(t){e.dataset.theme="dark"===t?"dark":"light"}function a(){const e="dark"===o()?"light":"dark";localStorage.setItem(t,e),r(e)}return{init:function(){r(o());const e=document.getElementById("theme-toggle");e&&e.addEventListener("click",a),n&&n.addEventListener("change",e=>{const n=localStorage.getItem(t);"light"!==n&&"dark"!==n&&r(e.matches?"dark":"light")})},toggle:a,getCurrentPref:o}})();"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t.init):t.init()},314(){const t=function(){const t=document.getElementById("projects-list");t&&t.querySelectorAll(".project-link").forEach(t=>{const e=t.textContent.trim();t.innerHTML=`<a href="${e}">${e}</a>`})};"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t):t()}},e={};function n(o){var r=e[o];if(void 0!==r)return r.exports;var a=e[o]={exports:{}};return t[o](a,a.exports,n),a.exports}n.n=t=>{var e=t&&t.__esModule?()=>t.default:()=>t;return n.d(e,{a:e}),e},n.d=(t,e)=>{for(var o in e)n.o(e,o)&&!n.o(t,o)&&Object.defineProperty(t,o,{enumerable:!0,get:e[o]})},n.o=(t,e)=>Object.prototype.hasOwnProperty.call(t,e),(()=>{"use strict";n(286),n(314),n(271)})()})();</script></body></html>
