@@ -3,44 +3,39 @@
     <head>
         <title>Aptos Minter</title>
         <script src="https://unpkg.com/aptos@latest/dist/index.global.js"></script>
-        </head>
+    </head>
     <body>
         <div class="wrapper">
-            <input type="slider" min="0.1" max="10000000" step="0.1" value="10" name="count">
+            <input id="count" type="range" min="0.1" max="10000000" step="0.1" value="10" name="count" />
             <label for="count">Coin amount to Mint (USDC)</label>
-            <input id='ok' type="button" value="Mint">
+            <input id="ok" type="button" value="Mint" />
             <pre id="out" user-select="all" onClick="navigator.clipboard.writeText(this.innerText)"></pre>
         </div>
         <script>
-            let out = document.querySelector('#out');
+            let out = document.querySelector("#out");
 
             function log(a) {
-                out.innerText += '\n'+JSON.stringify(a);
+                out.innerText += "\n" + JSON.stringify(a);
             }
-            
-            document.addEventListener('DOMContentLoaded',async (event) => {
-               await window.martian.connect();
 
-                document.querySelector('#ok').addEventListener('click',async ()=>{
+            document.addEventListener("DOMContentLoaded", async (event) => {
+                await window.martian.connect();
 
-                    if(await window.martian.isConnected()) {
-                        if('Testnet' != (await window.martian.network())) alert('Most likely WRONG network or bad internet');
+                document.querySelector("#ok").addEventListener("click", async () => {
+                    if (await window.martian.isConnected()) {
+                        if ("Testnet" != (await window.martian.network())) alert("Most likely WRONG network or bad internet");
                         //let x = accounts[0];
                         // Create a transaction
                         const payload = {
-  "function": "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::devnet_coins::mint_to_wallet",
-  "type_arguments": [
-    "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::devnet_coins::DevnetUSDC"
-  ],
-  "arguments": [
-    ( BigInt("100000000")* BigInt(document.querySelector('input').value) ).toString()
-  ],
-  "type": "entry_function_payload"
-};
+                            function: "0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::devnet_coins::mint_to_wallet",
+                            type_arguments: ["0x498d8926f16eb9ca90cab1b3a26aa6f97a080b3fcbe6e83ae150b7243a00fb68::devnet_coins::DevnetUSDC"],
+                            arguments: [(BigInt("100000000") * BigInt(document.querySelector("input").value)).toString()],
+                            type: "entry_function_payload",
+                        };
                         const txnHash = await window.martian.signAndSubmitTransaction(await window.martian.generateTransaction(window.martian.address, payload));
                         console.log(txnHash);
-                        log('mint done');
-                    } else alert('Martian not found');
+                        log("mint done");
+                    } else alert("Martian not found");
                 });
             });
         </script>
