@@ -32,6 +32,9 @@
 		}
 	},
 	"html": {
+		"assist": {
+			"enabled": true
+		},
 		"experimentalFullSupportEnabled": true,
 		"formatter": {
 			"enabled": true
