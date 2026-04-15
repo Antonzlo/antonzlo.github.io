@@ -561,7 +561,7 @@ tbody.addEventListener('drop', e => {
 });
 
 // Stop any playing audio when leaving the page
-window.addEventListener('beforeunload', () => {
+window.addEventListener('pagehide', () => {
     if (currentAudio) {
         currentAudio.pause();
     }
