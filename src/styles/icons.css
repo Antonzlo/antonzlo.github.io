@@ -13,10 +13,16 @@
   font-size: 1rem;
   line-height: 1;
   font-weight: normal;
+  white-space: normal;
 }
 
 .social-pill:hover {
   opacity: 0.7;
+}
+
+.social-pill:focus-visible {
+  outline: 2px solid var(--color-link-hover);
+  outline-offset: 2px;
 }
 
 .social-icon {

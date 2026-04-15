@@ -110,6 +110,12 @@ a:hover {
   transition: var(--transition);
 }
 
+a:focus-visible {
+  outline: 2px solid var(--color-link-hover);
+  outline-offset: 2px;
+  text-decoration: underline;
+}
+
 .social-media-list a:hover {
   text-decoration: none;
 }
@@ -345,11 +351,21 @@ a:hover {
 
 .home--social {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   grid-gap: 15px;
   padding: 4%;
   margin-right: 0.5em;
   max-width: var(--width-social);
+}
+
+@media screen and (max-width: 800px) {
+  .home--social {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 360px;
+    padding: 0;
+    margin-right: 0;
+  }
 }
 
 .home--content {
