@@ -1,12 +1,5 @@
-/* FontAwesome icons */
-@font-face {
-  font-family: "FontAwesome";
-  font-display: swap;
-  font-weight: 400;
-  src: url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2) format("woff2");
-}
-
-.fa {
+/* Social link visuals layered on top of Font Awesome classes */
+.social-pill {
   padding: 20px;
   width: 50px;
   text-align: center;
@@ -17,38 +10,21 @@
   min-width: 6em;
 
   display: inline-block;
-  font-family: FontAwesome, sans-serif;
-  font-size: initial;
+  font-size: 1rem;
   line-height: 1;
   font-weight: normal;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-.fa:hover {
+.social-pill:hover {
   opacity: 0.7;
 }
 
-.multiline.fa-telegram:before {
+.social-icon {
+  margin-right: 10px;
+}
+
+.multiline .social-icon {
   margin-left: -20px;
-}
-
-/* Icon content */
-.fa-facebook:before {
-  content: "\f09a";
-}
-
-.fa-vk:before {
-  content: "\f189";
-}
-
-.fa-instagram:before {
-  content: "\f16d";
-}
-
-.fa-telegram:before {
-  content: "\f2c6";
 }
 
 /* Social link text */

@@ -27,7 +27,9 @@
     </script>
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/brands.min.css" />
     <link rel="prefetch" href="/assets/minima-social-icons.svg" />
     <meta name="theme-color" content="#fdfdfd" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)" />
@@ -50,23 +52,33 @@
     <main class="page-content" aria-label="Content">
       <div class="wrapper wrapper--full">
         <div class="home home--social">
-          <a href="https://vk.com/zlobinanton" class="fa fa-vk"><span class="sn">VKontakte</span></a>
-          <a href="https://facebook.com/vk.zlobinanton" class="fa fa-facebook"><span class="sn">Facebook</span></a>
-          <a href="https://instagram.com/antonzlo_" class="fa fa-instagram"><span class="sn">Instagram</span></a>
-          <a href="https://t.me/antonzlo" class="fa fa-telegram"><span class="sn">Telegram</span></a>
-          <a href="https://t.me/antonzlo_channel" class="fa fa-telegram multiline"><span class="sn">Telegram Channel</span></a>
+          <a href="https://vk.com/zlobinanton" class="social-pill" aria-label="Open VKontakte profile">
+            <i class="fa-brands fa-vk social-icon" aria-hidden="true"></i><span class="sn">VKontakte</span>
+          </a>
+          <a href="https://facebook.com/vk.zlobinanton" class="social-pill" aria-label="Open Facebook profile">
+            <i class="fa-brands fa-facebook-f social-icon" aria-hidden="true"></i><span class="sn">Facebook</span>
+          </a>
+          <a href="https://instagram.com/antonzlo_" class="social-pill" aria-label="Open Instagram profile">
+            <i class="fa-brands fa-instagram social-icon" aria-hidden="true"></i><span class="sn">Instagram</span>
+          </a>
+          <a href="https://t.me/antonzlo" class="social-pill" aria-label="Open Telegram profile">
+            <i class="fa-brands fa-telegram social-icon" aria-hidden="true"></i><span class="sn">Telegram</span>
+          </a>
+          <a href="https://t.me/antonzlo_channel" class="social-pill multiline" aria-label="Open Telegram channel">
+            <i class="fa-brands fa-telegram social-icon" aria-hidden="true"></i><span class="sn">Telegram Channel</span>
+          </a>
         </div>
         <div class="home home--content">
           <h2>Who am I?</h2>
           <span>I am a backend developer from Imatra, Finland<br />I sometimes do Arduino/ESP stuff also</span>
           <h2>My projects</h2>
           <ul id="projects-list">
-            <li class="project-link">https://auringontalo.fi/</li>
-            <li class="project-link">https://chess.auringontalo.fi/</li>
-            <li class="project-link">https://itfails.news/</li>
-            <li class="project-link">https://t.me/blinOK_cafe_bot/</li>
-            <li class="project-link">https://arcona.site/</li>
-            <li class="project-link">https://t.me/arcona_metabolism_bot/</li>
+            <li class="project-link"><a href="https://auringontalo.fi/" aria-label="Open auringontalo.fi">auringontalo.fi</a></li>
+            <li class="project-link"><a href="https://chess.auringontalo.fi/" aria-label="Open chess.auringontalo.fi">chess.auringontalo.fi</a></li>
+            <li class="project-link"><a href="https://itfails.news/" aria-label="Open itfails.news">itfails.news</a></li>
+            <li class="project-link"><a href="https://t.me/blinOK_cafe_bot/" aria-label="Open Telegram bot blinOK_cafe_bot">t.me/blinOK_cafe_bot</a></li>
+            <li class="project-link"><a href="https://arcona.site/" aria-label="Open arcona.site">arcona.site</a></li>
+            <li class="project-link"><a href="https://t.me/arcona_metabolism_bot/" aria-label="Open Telegram bot arcona_metabolism_bot">t.me/arcona_metabolism_bot</a></li>
           </ul>
         </div>
       </div>
