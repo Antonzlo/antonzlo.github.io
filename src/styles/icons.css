@@ -8,12 +8,16 @@
   border-radius: 10px;
   border-spacing: 1px;
   min-width: 6em;
+  min-height: 72px;
 
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1rem;
   line-height: 1;
   font-weight: normal;
   white-space: normal;
+  gap: 10px;
 }
 
 .social-pill:hover {
@@ -26,11 +30,7 @@
 }
 
 .social-icon {
-  margin-right: 10px;
-}
-
-.multiline .social-icon {
-  margin-left: -20px;
+  margin-right: 0;
 }
 
 /* Social link text */

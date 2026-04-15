@@ -351,7 +351,7 @@ a:focus-visible {
 
 .home--social {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(2, minmax(170px, 1fr));
   grid-gap: 15px;
   padding: 4%;
   margin-right: 0.5em;
