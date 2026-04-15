@@ -357,26 +357,54 @@ a:focus-visible {
 }
 
 .home--social {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(170px, 1fr));
-  grid-gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
   padding: 4%;
   margin-right: 0.5em;
   max-width: var(--width-social);
+  justify-content: center;
+}
+
+.home--social .social-pill {
+  flex: 0 1 calc(50% - 8px);
+  max-width: 210px;
+}
+
+.home--social .social-pill:last-child:nth-child(odd) {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media screen and (max-width: 800px) {
   .home--social {
-    grid-template-columns: 1fr;
     width: 100%;
     max-width: 360px;
     padding: 0;
     margin-right: 0;
   }
+
+  .home--social .social-pill {
+    flex-basis: 100%;
+    max-width: none;
+  }
 }
 
 .home--content {
   padding: 1.5em;
+}
+
+#projects-list .project-meta {
+  color: var(--color-footer-text);
+  font-size: 0.92em;
+}
+
+@media screen and (max-width: 800px) {
+  #projects-list .project-meta {
+    display: block;
+    margin-left: 0;
+    margin-top: 2px;
+  }
 }
 
 .u-url {
@@ -467,4 +495,4 @@ html[data-theme="light"] {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-</style></head><body><header class="site-header"><div class="wrapper"><a class="site-title" rel="author" href="/">Zlobin Anton</a><nav class="site-nav"><button id="theme-toggle" class="page-link theme-toggle" type="button" aria-label="Toggle color theme">Theme</button></nav></div></header><main class="page-content" aria-label="Content"><div class="wrapper wrapper--full"><div class="home home--social"><a href="https://vk.com/zlobinanton" class="social-pill" aria-label="Open VKontakte profile"><i class="fa-brands fa-vk social-icon" aria-hidden="true"></i><span class="sn">VKontakte</span> </a><a href="https://facebook.com/vk.zlobinanton" class="social-pill" aria-label="Open Facebook profile"><i class="fa-brands fa-facebook-f social-icon" aria-hidden="true"></i><span class="sn">Facebook</span> </a><a href="https://instagram.com/antonzlo_" class="social-pill" aria-label="Open Instagram profile"><i class="fa-brands fa-instagram social-icon" aria-hidden="true"></i><span class="sn">Instagram</span> </a><a href="https://t.me/antonzlo" class="social-pill" aria-label="Open Telegram profile"><i class="fa-brands fa-telegram social-icon" aria-hidden="true"></i><span class="sn">Telegram</span> </a><a href="https://t.me/antonzlo_channel" class="social-pill multiline" aria-label="Open Telegram channel"><i class="fa-brands fa-telegram social-icon" aria-hidden="true"></i><span class="sn">Telegram Channel</span></a></div><div class="home home--content"><h2>Who am I?</h2><p>I am a backend developer from Imatra, Finland.</p><p>I sometimes do Arduino/ESP stuff also.</p><h2>My projects</h2><ul id="projects-list"><li class="project-link"><a href="https://auringontalo.fi/" aria-label="Open auringontalo.fi">auringontalo.fi</a></li><li class="project-link"><a href="https://chess.auringontalo.fi/" aria-label="Open chess.auringontalo.fi">chess.auringontalo.fi</a></li><li class="project-link"><a href="https://itfails.news/" aria-label="Open itfails.news">itfails.news</a></li><li class="project-link"><a href="https://t.me/blinOK_cafe_bot/" aria-label="Open Telegram bot blinOK_cafe_bot">t.me/blinOK_cafe_bot</a></li><li class="project-link"><a href="https://arcona.site/" aria-label="Open arcona.site">arcona.site</a></li><li class="project-link"><a href="https://t.me/arcona_metabolism_bot/" aria-label="Open Telegram bot arcona_metabolism_bot">t.me/arcona_metabolism_bot</a></li></ul></div></div></main><footer class="site-footer h-card"><div class="u-url"></div><div class="wrapper"><h2 class="footer-heading">Zlobin Anton</h2><div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/antonzlo"><svg class="svg-icon"><use href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">antonzlo</span></a></li><li><a href="https://instagram.com/antonzlo_"><svg class="svg-icon"><use href="/assets/minima-social-icons.svg#instagram"></use></svg> <span class="username">antonzlo_</span></a></li><li><a href="https://vk.com/zlobinanton"><svg class="svg-icon"><use href="/assets/minima-social-icons.svg#vk"></use></svg> <span class="username">zlobinanton</span></a></li><li><a href="https://www.twitter.com/zlobinanton"><svg class="svg-icon"><use href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">zlobinanton</span></a></li></ul></div><div class="footer-col footer-col-3"><p>Just my portfolio site with bio and some links</p></div></div></footer><script async src="https://www.googletagmanager.com/gtag/js?id=G-VXX28RMKDT"></script><script>(()=>{var t={271(){function t(...t){globalThis.dataLayer.push(t)}globalThis.dataLayer=globalThis.dataLayer||[],t("js",new Date),t("config","G-VXX28RMKDT")},286(){const t=(()=>{const t="site-theme",e=document.documentElement,a=globalThis.matchMedia?.("(prefers-color-scheme: dark)");function r(){const e=localStorage.getItem(t);return"light"===e||"dark"===e?e:a?.matches?"dark":"light"}function n(t){e.dataset.theme="dark"===t?"dark":"light"}function o(){const e="dark"===r()?"light":"dark";localStorage.setItem(t,e),n(e)}return{init:function(){n(r());const e=document.getElementById("theme-toggle");e&&e.addEventListener("click",o),a&&a.addEventListener("change",e=>{const a=localStorage.getItem(t);"light"!==a&&"dark"!==a&&n(e.matches?"dark":"light")})},toggle:o,getCurrentPref:r}})();"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t.init):t.init()}},e={};function a(r){var n=e[r];if(void 0!==n)return n.exports;var o=e[r]={exports:{}};return t[r](o,o.exports,a),o.exports}a.n=t=>{var e=t&&t.__esModule?()=>t.default:()=>t;return a.d(e,{a:e}),e},a.d=(t,e)=>{for(var r in e)a.o(e,r)&&!a.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:e[r]})},a.o=(t,e)=>Object.prototype.hasOwnProperty.call(t,e),(()=>{"use strict";a(286),a(271)})()})();</script></body></html>
+</style></head><body><header class="site-header"><div class="wrapper"><a class="site-title" rel="author" href="/">Zlobin Anton</a><nav class="site-nav"><button id="theme-toggle" class="page-link theme-toggle" type="button" aria-label="Toggle color theme">Theme</button></nav></div></header><main class="page-content" aria-label="Content"><div class="wrapper wrapper--full"><div class="home home--social"><a href="https://vk.com/zlobinanton" class="social-pill" aria-label="Open VKontakte profile"><i class="fa-brands fa-vk social-icon" aria-hidden="true"></i><span class="sn">VKontakte</span> </a><a href="https://facebook.com/vk.zlobinanton" class="social-pill" aria-label="Open Facebook profile"><i class="fa-brands fa-facebook-f social-icon" aria-hidden="true"></i><span class="sn">Facebook</span> </a><a href="https://instagram.com/antonzlo_" class="social-pill" aria-label="Open Instagram profile"><i class="fa-brands fa-instagram social-icon" aria-hidden="true"></i><span class="sn">Instagram</span> </a><a href="https://t.me/antonzlo" class="social-pill" aria-label="Open Telegram profile"><i class="fa-brands fa-telegram social-icon" aria-hidden="true"></i><span class="sn">Telegram</span> </a><a href="https://t.me/antonzlo_channel" class="social-pill multiline" aria-label="Open Telegram channel"><i class="fa-brands fa-telegram social-icon" aria-hidden="true"></i><span class="sn">Telegram Channel</span></a></div><div class="home home--content"><h2>Who am I?</h2><p>I am a backend developer from Imatra, Finland.</p><p>I sometimes do Arduino/ESP stuff also.</p><h2>My projects</h2><ul id="projects-list"><li class="project-link"><a href="https://auringontalo.fi/" aria-label="Open auringontalo.fi">auringontalo.fi</a> <span class="project-meta">- main website</span></li><li class="project-link"><a href="https://chess.auringontalo.fi/" aria-label="Open chess.auringontalo.fi">chess.auringontalo.fi</a> <span class="project-meta">- chess app</span></li><li class="project-link"><a href="https://itfails.news/" aria-label="Open itfails.news">itfails.news</a> <span class="project-meta">- news project</span></li><li class="project-link"><a href="https://t.me/blinOK_cafe_bot/" aria-label="Open Telegram bot blinOK_cafe_bot">t.me/blinOK_cafe_bot</a> <span class="project-meta">- Telegram cafe bot</span></li><li class="project-link"><a href="https://arcona.site/" aria-label="Open arcona.site">arcona.site</a> <span class="project-meta">- landing page</span></li><li class="project-link"><a href="https://t.me/arcona_metabolism_bot/" aria-label="Open Telegram bot arcona_metabolism_bot">t.me/arcona_metabolism_bot</a> <span class="project-meta">- Telegram metabolism bot</span></li></ul></div></div></main><footer class="site-footer h-card"><div class="u-url"></div><div class="wrapper"><h2 class="footer-heading">Zlobin Anton</h2><div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/antonzlo"><svg class="svg-icon"><use href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">antonzlo</span></a></li><li><a href="https://instagram.com/antonzlo_"><svg class="svg-icon"><use href="/assets/minima-social-icons.svg#instagram"></use></svg> <span class="username">antonzlo_</span></a></li><li><a href="https://vk.com/zlobinanton"><svg class="svg-icon"><use href="/assets/minima-social-icons.svg#vk"></use></svg> <span class="username">zlobinanton</span></a></li><li><a href="https://www.twitter.com/zlobinanton"><svg class="svg-icon"><use href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">zlobinanton</span></a></li></ul></div><div class="footer-col footer-col-3"><p>Just my portfolio site with bio and some links</p></div></div></footer><script async src="https://www.googletagmanager.com/gtag/js?id=G-VXX28RMKDT"></script><script>(()=>{var t={271(){function t(...t){globalThis.dataLayer.push(t)}globalThis.dataLayer=globalThis.dataLayer||[],t("js",new Date),t("config","G-VXX28RMKDT")},286(){const t=(()=>{const t="site-theme",e=document.documentElement,a=globalThis.matchMedia?.("(prefers-color-scheme: dark)");function r(){const e=localStorage.getItem(t);return"light"===e||"dark"===e?e:a?.matches?"dark":"light"}function n(t){e.dataset.theme="dark"===t?"dark":"light"}function o(){const e="dark"===r()?"light":"dark";localStorage.setItem(t,e),n(e)}return{init:function(){n(r());const e=document.getElementById("theme-toggle");e&&e.addEventListener("click",o),a&&a.addEventListener("change",e=>{const a=localStorage.getItem(t);"light"!==a&&"dark"!==a&&n(e.matches?"dark":"light")})},toggle:o,getCurrentPref:r}})();"loading"===document.readyState?document.addEventListener("DOMContentLoaded",t.init):t.init()}},e={};function a(r){var n=e[r];if(void 0!==n)return n.exports;var o=e[r]={exports:{}};return t[r](o,o.exports,a),o.exports}a.n=t=>{var e=t&&t.__esModule?()=>t.default:()=>t;return a.d(e,{a:e}),e},a.d=(t,e)=>{for(var r in e)a.o(e,r)&&!a.o(t,r)&&Object.defineProperty(t,r,{enumerable:!0,get:e[r]})},a.o=(t,e)=>Object.prototype.hasOwnProperty.call(t,e),(()=>{"use strict";a(286),a(271)})()})();</script></body></html>
