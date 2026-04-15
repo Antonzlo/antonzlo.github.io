@@ -542,12 +542,12 @@
           <span>I am a backend developer from Imatra, Finland<br />I sometimes do Arduino/ESP stuff also</span>
           <h2>My projects</h2>
           <ul id="projects-list">
-            <li class="project-link">https://auringontalo.fi/</li>
-            <li class="project-link">https://chess.auringontalo.fi/</li>
-            <li class="project-link">https://itfails.news/</li>
-            <li class="project-link">https://t.me/blinOK_cafe_bot/</li>
-            <li class="project-link">https://arcona.site/</li>
-            <li class="project-link">https://t.me/arcona_metabolism_bot/</li>
+            <li class="project-link"><a href="https://auringontalo.fi/" aria-label="Open auringontalo.fi">auringontalo.fi</a></li>
+            <li class="project-link"><a href="https://chess.auringontalo.fi/" aria-label="Open chess.auringontalo.fi">chess.auringontalo.fi</a></li>
+            <li class="project-link"><a href="https://itfails.news/" aria-label="Open itfails.news">itfails.news</a></li>
+            <li class="project-link"><a href="https://t.me/blinOK_cafe_bot/" aria-label="Open Telegram bot blinOK_cafe_bot">t.me/blinOK_cafe_bot</a></li>
+            <li class="project-link"><a href="https://arcona.site/" aria-label="Open arcona.site">arcona.site</a></li>
+            <li class="project-link"><a href="https://t.me/arcona_metabolism_bot/" aria-label="Open Telegram bot arcona_metabolism_bot">t.me/arcona_metabolism_bot</a></li>
           </ul>
         </div>
       </div>
@@ -630,17 +630,6 @@
               })();
               "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", t.init) : t.init();
             },
-            314() {
-              const t = function () {
-                const t = document.getElementById("projects-list");
-                t &&
-                  t.querySelectorAll(".project-link").forEach((t) => {
-                    const e = t.textContent.trim();
-                    t.innerHTML = `<a href="${e}">${e}</a>`;
-                  });
-              };
-              "loading" === document.readyState ? document.addEventListener("DOMContentLoaded", t) : t();
-            },
           },
           e = {};
         function n(o) {
@@ -659,7 +648,7 @@
           (n.o = (t, e) => Object.prototype.hasOwnProperty.call(t, e)),
           (() => {
             "use strict";
-            (n(286), n(314), n(271));
+            (n(286), n(271));
           })());
       })();
     </script>
