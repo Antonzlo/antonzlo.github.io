@@ -357,7 +357,7 @@ a:focus-visible {
   gap: 15px;
   padding: 4%;
   margin-right: 0.5em;
-  max-width: var(--width-social);
+  width: 470px;
   justify-content: center;
   flex-shrink: 0;
 }

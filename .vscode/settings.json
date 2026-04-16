@@ -1,3 +1,6 @@
 {
 "isGitignoreExtActive": true,
+"chat.tools.terminal.autoApprove": {
+    "/mnt/c/Users/anton/AppData/Local/pnpm/pnpm": true
+},
 }
