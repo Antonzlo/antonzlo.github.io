@@ -1,13 +1,11 @@
 /* Social link visuals layered on top of Font Awesome classes */
 .social-pill {
   padding: 20px;
-  width: 50px;
   text-align: center;
   text-decoration: none;
   border: solid;
   border-radius: 10px;
   border-spacing: 1px;
-  min-width: 6em;
   min-height: 72px;
 
   display: inline-flex;

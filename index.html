@@ -360,19 +360,20 @@ a:focus-visible {
 
 .home--social {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 15px;
-  padding: 4%;
+  padding: 0;
   margin-right: 0.5em;
-  width: 450px;
-  max-width: 95%;
+  width: 500px;
+  max-width: 100%;
   justify-content: center;
   flex-shrink: 0;
 }
 
 .home--social .social-pill {
-  flex: 0 1 calc(50% - 8px);
-  max-width: 210px;
+  flex: 0 0 auto;
+  width: 180px;
 }
 
 .home--social .social-pill:last-child:nth-child(odd) {
@@ -380,7 +381,7 @@ a:focus-visible {
   margin-right: auto;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 300px) {
   .home--social {
     width: 100%;
     max-width: 360px;
@@ -461,13 +462,11 @@ html[data-theme="light"] {
 /* Social link visuals layered on top of Font Awesome classes */
 .social-pill {
   padding: 20px;
-  width: 50px;
   text-align: center;
   text-decoration: none;
   border: solid;
   border-radius: 10px;
   border-spacing: 1px;
-  min-width: 6em;
   min-height: 72px;
 
   display: inline-flex;
