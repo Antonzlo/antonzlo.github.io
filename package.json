@@ -7,12 +7,23 @@
 		"dev": "webpack --mode development --watch",
 		"lint": "biome check ."
 	},
+	"dependencies": {
+		"i18next": "^24.2.0",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"react-i18next": "^15.2.0"
+	},
 	"devDependencies": {
+		"@babel/core": "^7.26.0",
+		"@babel/preset-env": "^7.26.0",
+		"@babel/preset-react": "^7.26.3",
 		"@biomejs/biome": "2.3.10",
+		"babel-loader": "^9.2.1",
 		"css-loader": "^6.11.0",
 		"html-webpack-plugin": "^5.6.6",
 		"mini-css-extract-plugin": "^2.10.2",
 		"style-loader": "^3.3.4",
+		"terser-webpack-plugin": "^5.3.10",
 		"webpack": "^5.106.2",
 		"webpack-cli": "^5.1.4"
 	},

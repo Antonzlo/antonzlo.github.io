@@ -1,0 +1,73 @@
+{
+	"title": "Website order request",
+	"sections": {
+		"contact": "Your details",
+		"business": "About your business",
+		"scope": "What you need",
+		"domain": "Domain",
+		"hosting": "Hosting",
+		"extra": "Additional info"
+	},
+	"fields": {
+		"name": "Name or company name *",
+		"namePlaceholder": "Acme Ltd / John Smith",
+		"email": "Email *",
+		"phone": "Phone",
+		"orgtype": "Organization type",
+		"selectPlaceholder": "— select —",
+		"bank": "Do you have a business bank account?",
+		"sitetype": "Website type *",
+		"scale": "Approximate number of pages / products",
+		"notes": "Briefly describe what you do and what you expect from the website",
+		"notesPlaceholder": "For example: we sell Finnish ceramics, need a store with delivery across Finland..."
+	},
+	"orgTypes": {
+		"oy": "Oy (limited company)",
+		"ry": "Ry (non-profit association)",
+		"toiminimi": "Toiminimi (sole trader)",
+		"individual": "Private individual",
+		"other": "Other"
+	},
+	"bank": {
+		"yes": "Yes",
+		"no": "No",
+		"noNote": "Needed to accept online payments in the web store"
+	},
+	"siteTypes": {
+		"landing": { "label": "Landing page", "note": "One page: who you are, what you offer, contacts" },
+		"company": { "label": "Company website", "note": "4–6 pages: services, about us, contacts, etc." },
+		"shop": { "label": "Online store (WooCommerce)", "note": "WooCommerce: products, cart, online payment" },
+		"redesign": { "label": "Redesign of an existing website", "note": "" }
+	},
+	"scales": {
+		"lt10": "Up to 10",
+		"10-50": "10–50",
+		"50-200": "50–200",
+		"200plus": "200+"
+	},
+	"domains": {
+		"have": "Already have one",
+		"register": "No, please register it for me",
+		"self": "No, I'll buy it myself"
+	},
+	"hostings": {
+		"have": "Already have one",
+		"setup": "No, please set it up for me",
+		"setupNote": "WordPress installation, setup, first year of hosting",
+		"self": "No, I'll handle it myself"
+	},
+	"price": {
+		"from": "from {{amount}}",
+		"estimated": "Estimated cost",
+		"placeholder": "— €"
+	},
+	"submit": "Submit request",
+	"sending": "Sending…",
+	"success": "Request sent! We'll contact you shortly.",
+	"errors": {
+		"missingRequired": "Please fill in your name and email.",
+		"missingSiteType": "Please select a website type.",
+		"generic": "Submission error.",
+		"connection": "Connection error. Please try again."
+	}
+}

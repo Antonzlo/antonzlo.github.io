@@ -1,0 +1,73 @@
+{
+	"title": "Verkkosivupyyntö",
+	"sections": {
+		"contact": "Omat tietosi",
+		"business": "Yrityksestäsi",
+		"scope": "Mitä tarvitset",
+		"domain": "Verkkotunnus",
+		"hosting": "Palvelintila",
+		"extra": "Lisätiedot"
+	},
+	"fields": {
+		"name": "Nimi tai yrityksen nimi *",
+		"namePlaceholder": "Esimerkki Oy / Matti Meikäläinen",
+		"email": "Sähköposti *",
+		"phone": "Puhelin",
+		"orgtype": "Yritysmuoto",
+		"selectPlaceholder": "— valitse —",
+		"bank": "Onko sinulla yrityksen pankkitiliä?",
+		"sitetype": "Sivuston tyyppi *",
+		"scale": "Arvioitu sivujen / tuotteiden määrä",
+		"notes": "Kerro lyhyesti, mitä teet ja mitä odotat sivustolta",
+		"notesPlaceholder": "Esimerkiksi: myymme suomalaista keramiikkaa, tarvitsemme kaupan toimituksella ympäri Suomea..."
+	},
+	"orgTypes": {
+		"oy": "Oy (osakeyhtiö)",
+		"ry": "Ry (yhdistys)",
+		"toiminimi": "Toiminimi (yksityinen elinkeinonharjoittaja)",
+		"individual": "Yksityishenkilö",
+		"other": "Muu"
+	},
+	"bank": {
+		"yes": "Kyllä",
+		"no": "Ei",
+		"noNote": "Tarvitaan verkkokaupan maksujen vastaanottamiseen"
+	},
+	"siteTypes": {
+		"landing": { "label": "Laskeutumissivu", "note": "Yksi sivu: kuka olet, mitä tarjoat, yhteystiedot" },
+		"company": { "label": "Yrityksen verkkosivusto", "note": "4–6 sivua: palvelut, meistä, yhteystiedot jne." },
+		"shop": { "label": "Verkkokauppa (WooCommerce)", "note": "WooCommerce: tuotteet, ostoskori, verkkomaksu" },
+		"redesign": { "label": "Olemassa olevan sivuston uudistus", "note": "" }
+	},
+	"scales": {
+		"lt10": "Alle 10",
+		"10-50": "10–50",
+		"50-200": "50–200",
+		"200plus": "200+"
+	},
+	"domains": {
+		"have": "Minulla on jo",
+		"register": "Ei, rekisteröikää puolestani",
+		"self": "Ei, ostan itse"
+	},
+	"hostings": {
+		"have": "Minulla on jo",
+		"setup": "Ei, asentakaa puolestani",
+		"setupNote": "WordPressin asennus, käyttöönotto, ensimmäinen hostingvuosi",
+		"self": "Ei, hoidan itse"
+	},
+	"price": {
+		"from": "alkaen {{amount}}",
+		"estimated": "Arvioitu hinta",
+		"placeholder": "— €"
+	},
+	"submit": "Lähetä pyyntö",
+	"sending": "Lähetetään…",
+	"success": "Pyyntö lähetetty! Otamme sinuun yhteyttä pian.",
+	"errors": {
+		"missingRequired": "Täytä nimi ja sähköposti.",
+		"missingSiteType": "Valitse sivuston tyyppi.",
+		"generic": "Lähetysvirhe.",
+		"connection": "Yhteysvirhe. Yritä uudelleen."
+	}
+}
