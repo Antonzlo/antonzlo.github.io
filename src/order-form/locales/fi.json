@@ -47,12 +47,12 @@
 	},
 	"domains": {
 		"have": "Minulla on jo",
-		"register": "Ei, rekisteröikää puolestani",
+		"register": "Ei, tarvitaan rekisteröinti",
 		"self": "Ei, ostan itse"
 	},
 	"hostings": {
 		"have": "Minulla on jo",
-		"setup": "Ei, asentakaa puolestani",
+		"setup": "Ei, tarvitaan asennus",
 		"setupNote": "WordPressin asennus, käyttöönotto, ensimmäinen hostingvuosi",
 		"self": "Ei, hoidan itse"
 	},

@@ -47,12 +47,12 @@
 	},
 	"domains": {
 		"have": "Already have one",
-		"register": "No, please register it for me",
+		"register": "No, registration needed",
 		"self": "No, I'll buy it myself"
 	},
 	"hostings": {
 		"have": "Already have one",
-		"setup": "No, please set it up for me",
+		"setup": "No, setup needed",
 		"setupNote": "WordPress installation, setup, first year of hosting",
 		"self": "No, I'll handle it myself"
 	},
