@@ -1,1 +1,1 @@
-export const SUBMIT_ENDPOINT = "https://form.home.zlobinanton.ovh/api/submit";
+export const SUBMIT_ENDPOINT = "https://form.zlobinanton.ovh/api/submit";
