@@ -100,7 +100,10 @@ module.exports = {
               if (fs.existsSync(scriptPath)) {
                 const scriptContent = fs.readFileSync(scriptPath, "utf8");
                 fs.unlinkSync(scriptPath);
-                return `<script>${scriptContent}</script>`;
+                // data-cfasync="false" opts the script out of Cloudflare Rocket Loader,
+                // which would otherwise defer it and delay first paint (theme flash on
+                // index, blank page on order-form).
+                return `<script data-cfasync="false">${scriptContent}</script>`;
               }
               return match;
             });

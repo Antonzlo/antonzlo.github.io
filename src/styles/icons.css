@@ -27,8 +27,12 @@
   outline-offset: 2px;
 }
 
+/* Inline SVG icons inherit the link colour and scale with the pill's font-size */
 .social-icon {
-  margin-right: 0;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  fill: currentColor;
 }
 
 /* Social link text */
