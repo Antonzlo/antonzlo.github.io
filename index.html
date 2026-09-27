@@ -170,10 +170,16 @@ a:focus-visible {
 .svg-icon {
   width: 16px;
   height: 16px;
-  display: inline-block;
+  flex: none;
   fill: var(--color-icon);
-  padding-right: 5px;
-  vertical-align: text-top;
+}
+
+/* Centre the icon on the text optically. vertical-align cannot do this: the
+   glyphs have different heights, so the box top has to be pinned by hand. */
+.social-media-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .social-media-list li + li {
